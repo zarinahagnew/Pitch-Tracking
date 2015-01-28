@@ -1,9 +1,33 @@
-%% Seperates the good and bad trials for the pitch tracking experiment for HCs 
-%  (uses a different time window to the patients, set in set_params.m).
+%% Seperates the good and bad trials for the pitch tracking experiment for patients 
+% (This needs a different script for patients and HCs because it 
+% uses a different time window to the patients, set in set_params.m).
 % -------------------------------------------------------------------------
 % ZKA March 2014
-% this is an automated version which looks at each trial,
+% this is an automated version which looks at each trial, removes bad
+% trials and artefacts and saves the data as 'gooddata.mat' in each
+% subjects' folder
 % there is a option to play each trial which is commented out for now
+% 1. loads ALLDATA.m which is created when you run C_WriteDataout
+% 2. aligns all trials to voice onset (by deleting the frames before voice onset)
+% 3. removes trials where patients answered the percetual test incorrectly
+% 4. removes the first 200 frames and replace with NaNs (rough reaction
+% time)
+% 5. removes all data where the amp signal is below amp_thresh and replaces
+% with NaNs [pre/post/wholetrial]
+% 6. removes first N frames  ('framestoremove') after each break in voicing (artifact removal)
+% 7. converts Hz to cents 
+% 8. removes each trial where the stdev in pitch is greater than 2SDs above
+% mean [pre/post/wholetrial]
+% 9. removes trials where performance is outside a certain threshold of
+% motor performance (how close to the target were they?) [pre/post/wholetrial]
+% 10. calculates within trial stdevs for each subject
+% 11. calculates the number of gaps in each trial - saves as 'gaps.mat'
+% -------------------------------------------------------------------------
+%% things to note:
+% first need to run this with no stdev threshold, and then run
+% 'E_Outlier_thresholding.m' to determine what stdev thresholds to put into
+% set_params.m
+% 'amp_thresh' is the threshold below which data is discarded
 
 
 %% here we go
@@ -16,59 +40,78 @@ cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data/';
 
 set(0,'DefaultFigureWindowStyle','docked')
 load /Users/zagnew/Dropbox/cerebellum_expr_devel/Zed/meanpitches/subj_MP_allsubs
-subj_MP_allsubs_HC=subj_MP_allsubs(17:end);
 
-nHCs=0
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC01/expr2014.05.06.T12.36.43_mainrun/speak/';
-meanpitchtag(nHCs)=1;
-%  
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC02/expr2014.06.17.T12.53.53_mainrun/speak/';
-meanpitchtag(nHCs)=2;
+npats = 0;
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB01/expr2014.03.21.T10.46.03_mainrun/speak/';
+meanpitchtag(npats)=1; % keep this way so that this script works even if you're not running all 16 subjects
 
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB02/expr2014.03.21.T12.33.58_mainrun/speak/';
+meanpitchtag(npats)=2;
 
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC03/expr2014.06.17.T13.50.36_mainrun/speak/';
-meanpitchtag(nHCs)=3;
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB03/expr2014.03.21.T14.35.35_mainrun/speak/';
+meanpitchtag(npats)=3;
 
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC04/expr2014.06.17.T16.22.20_mainrun/speak/';
-meanpitchtag(nHCs)=4;
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB04/expr2014.03.21.T17.20.11_mainrun/speak/';
+meanpitchtag(npats)=4;
 
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC05/expr2014.06.18.T15.14.02_mainrun/speak/';
-meanpitchtag(nHCs)=5;
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB05/expr2014.03.21.T18.50.52_mainrun/speak/';
+meanpitchtag(npats)=5;
 
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC06/expr2014.06.18.T16.18.27_mainrun/speak/';
-meanpitchtag(nHCs)=6;
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB06/expr2014.03.22.T11.05.45_mainrun/speak/';
+meanpitchtag(npats)=6;
 
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC07/expr2014.07.25.T10.29.55_mainrun/speak/';
-meanpitchtag(nHCs)=7;
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB07/expr2014.03.22.T12.15.42_mainrun/speak/';
+meanpitchtag(npats)=7;
 
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC08/expr2014.08.14.T15.57.52_mainrun/speak/';
-meanpitchtag(nHCs)=8;
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB08/expr2014.03.22.T14.01.48_mainrun/speak/';
+meanpitchtag(npats)=8;
 
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC09/expr2014.09.21.T14.17.36_mainrun/speak/';
-meanpitchtag(nHCs)=9;
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB09/expr2014.03.22.T15.52.01_mainrun/speak/';
+meanpitchtag(npats)=9;
 
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC10/expr2014.09.21.T15.35.54_JL_mainrun/speak/';
-meanpitchtag(nHCs)=10;
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB10/expr2014.03.22.T16.37.44_mainrun/speak/';
+meanpitchtag(npats)=10;
 
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC11/expr2014.09.23.t15.27.32_sn_mainrun/speak/';
-meanpitchtag(nHCs)=11;
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB11/expr2014.03.22.T18.46.44_mainrun/speak/';
+meanpitchtag(npats)=11;
+
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB12/expr2014.03.23.T11.03.52_mainrun/speak/';
+meanpitchtag(npats)=12;
+
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB13/expr2014.03.23.T13.47.01_mainrun/speak/';
+meanpitchtag(npats)=13; 
+
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB14/expr2014.03.23.T15.21.00_mainrun/speak/';
+meanpitchtag(npats)=14;
+
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB15/expr2014.03.23.T16.32.53_mainrun/speak/';
+meanpitchtag(npats)=15;
+
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB16/expr2014.03.23.T18.16.58_mainrun/speak/';
+meanpitchtag(npats)=16;
 
 originalFolder = pwd;
 load /Users/zagnew/Dropbox/cerebellum_expr_devel/Zed/meanpitches/SubjectShiftsAllSubs
 
+
 % Subject Loop
-for isubj = 1:nHCs
+for isubj = 1:npats
 
     the_expr_dir = [cerebellar_data_rootdir (patient_info{isubj}.exprdir)];
     cd (the_expr_dir)      
@@ -106,8 +149,6 @@ for isubj = 1:nHCs
             end
         end
         
-        %blockx=blockcondname(each_block,:);
-
         %load singlesubdata         
         foldernumber=each_block-1;
         cd (the_expr_dir)
@@ -142,17 +183,17 @@ for isubj = 1:nHCs
                     data_1.goodampdata(each_block).wholetrial_amp(d,:)= amp_data{each_block}{d}(1:nframes_to_use);
                     data_1.goodstd.wholetrial_amp(d)=nanstd(amp_data{each_block}{d});
                     %pre step
-                    data_1.goodpitchdata(each_block).prestep_data(d,:)=shiftedpitch_data{1,each_block}{1, d}(T1_HC:T2_HC);
-                    data_1.goodstd.prestep(d)=nanstd(shiftedpitch_data{1,each_block}{1, d}(T1_HC:T2_HC));
+                    data_1.goodpitchdata(each_block).prestep_data(d,:)=shiftedpitch_data{1,each_block}{1, d}(T1_pat:T2_pat);
+                    data_1.goodstd.prestep(d)=nanstd(shiftedpitch_data{1,each_block}{1, d}(T1_pat:T2_pat));
                     % amp
-                    data_1.goodampdata(each_block).prestep_amp(d,:)=amp_data{each_block}{d}(1,T1_HC:T2_HC);
-                    data_1.goodstd.prestep_amp(d)=nanstd(amp_data{each_block}{d}(1,T1_HC:T2_HC));
+                    data_1.goodampdata(each_block).prestep_amp(d,:)=amp_data{each_block}{d}(1,T1_pat:T2_pat);
+                    data_1.goodstd.prestep_amp(d)=nanstd(amp_data{each_block}{d}(1,T1_pat:T2_pat));
                     %poststep
-                    data_1.goodstd.poststep(d)=nanstd(shiftedpitch_data{1,each_block}{1, d}(T3_HC:T4_HC));
-                    data_1.goodpitchdata(each_block).poststep_data(d,:)=shiftedpitch_data{1,each_block}{1, d}(T3_HC:T4_HC);
+                    data_1.goodstd.poststep(d)=nanstd(shiftedpitch_data{1,each_block}{1, d}(T3_pat:T4_pat));
+                    data_1.goodpitchdata(each_block).poststep_data(d,:)=shiftedpitch_data{1,each_block}{1, d}(T3_pat:T4_pat);
                     
-                    data_1.goodampdata(each_block).poststep_amp(d,:)=amp_data{each_block}{d}(1,T3_HC:T4_HC);
-                    data_1.goodstd.poststep_amp(d)=nanstd(amp_data{each_block}{d}(1,T3_HC:T4_HC));
+                    data_1.goodampdata(each_block).poststep_amp(d,:)=amp_data{each_block}{d}(1,T3_pat:T4_pat);
+                    data_1.goodstd.poststep_amp(d)=nanstd(amp_data{each_block}{d}(1,T3_pat:T4_pat));
                     
                 else
                     data_1.goodpitchdata(each_block).data(d,:)=nan(1,nframes_to_use);
@@ -169,23 +210,20 @@ for isubj = 1:nHCs
                     data_1.goodstd.poststep(d)=[NaN];
                     data_1.goodampdata(each_block).poststep_amp(d,:)=[NaN(1,201)];
                     data_1.goodstd.poststep_amp(d)=[NaN];
-                    
-                    
                 end
             end
         end
-        
-        
+              
         %% REMOVE FIRST 200 FRAMES (REACTION TIME)
         data_2=data_1; % make copy
-    for each_block=1:num_blocks;
+        for each_block=1:num_blocks;
             for d=1:trialsperblock
                 data_2.goodpitchdata(each_block).data(d,1:reactiontime_frames)=NaN;
             end
         end
         
         %% REMOVE BAD TRIALS ACCORDING TO WHERE THERE IS NO AMP SIGNAL
-        data_3=data_2;
+        data_3=data_2; % make copy
     for each_block=1:num_blocks;
             for d=1:trialsperblock
                 for s=1:nframes_to_use                                          %data point loop
@@ -195,8 +233,7 @@ for isubj = 1:nHCs
                 end
             end
     end
-    
-    %% REMOVE FIRST 10 FRAMES AFTER BREAK IN VOICING
+    %% REMOVE FIRST 50 (framestoremove) FRAMES AFTER BREAK IN VOICING
         % 1. create binary marker array and call it B
     for each_block=1:num_blocks;
             for d=1:trialsperblock
@@ -231,22 +268,21 @@ for isubj = 1:nHCs
         %% create pre and post windows at this point
         for each_block=1:num_blocks;
             for d=1:trialsperblock
-                data_4.prestep(each_block).data(d,:)=data_4.goodpitchdata(each_block).data(d, T1_HC:T2_HC);
-                data_4.poststep(each_block).data(d,:)=data_4.goodpitchdata(each_block).data(d, T3_HC:T4_HC);
+                data_4.prestep(each_block).data(d,:)=data_4.goodpitchdata(each_block).data(d, T1_pat:T2_pat);
+                data_4.poststep(each_block).data(d,:)=data_4.goodpitchdata(each_block).data(d, T3_pat:T4_pat);
             end
         end
         
         
 %% convert to cents
 data_5=data_4; % make copy
-
 for each_block=1:num_blocks;
             for d=1:trialsperblock
                 for iframe=1:nframes_to_use
                     if isnan(data_4.goodpitchdata(each_block).data(d,iframe))==1;
                        data_5.goodpitchdata(each_block).data(d,iframe)=NaN;
                     else
-                       data_5.goodpitchdata(each_block).data(d,iframe)=1200*log2(data_4.goodpitchdata(each_block).data(d,iframe)/subj_MP_allsubs_HC(meanpitchtag(isubj)).meanpitch);                    
+                       data_5.goodpitchdata(each_block).data(d,iframe)=1200*log2(data_4.goodpitchdata(each_block).data(d,iframe)/subj_MP_allsubs(meanpitchtag(isubj)).meanpitch);                    
                     end
                 end
                 
@@ -254,7 +290,7 @@ for each_block=1:num_blocks;
                     if isnan(data_4.prestep(each_block).data(d,iframe))==1;
                        data_5.prestep(each_block).data(d,iframe)=NaN;
                     else
-                       data_5.prestep(each_block).data(d,iframe)=1200*log2(data_4.prestep(each_block).data(d,iframe)/subj_MP_allsubs_HC(meanpitchtag(isubj)).meanpitch);
+                       data_5.prestep(each_block).data(d,iframe)=1200*log2(data_4.prestep(each_block).data(d,iframe)/subj_MP_allsubs(meanpitchtag(isubj)).meanpitch);
                     end
                 end                
                 
@@ -262,7 +298,7 @@ for each_block=1:num_blocks;
                     if isnan(data_4.poststep(each_block).data(d,iframe))==1
                        data_5.poststep(each_block).data(d,iframe)=NaN;
                     else
-                       data_5.poststep(each_block).data(d,iframe)=1200*log2(data_4.poststep(each_block).data(d,iframe)/subj_MP_allsubs_HC(meanpitchtag(isubj)).meanpitch);
+                       data_5.poststep(each_block).data(d,iframe)=1200*log2(data_4.poststep(each_block).data(d,iframe)/subj_MP_allsubs(meanpitchtag(isubj)).meanpitch);
                     end
                 end                
             end
@@ -274,15 +310,15 @@ end
         %pitch data
         for each_block=1:num_blocks;
             for d=1:trialsperblock
-                if nanstd(data_5.goodpitchdata(each_block).data(d,:))>stdev_cutoff_wholetrial_HCs
+                if nanstd(data_5.goodpitchdata(each_block).data(d,:))>stdev_cutoff_wholetrial_pats
                     data_6.goodpitchdata(each_block).data(d,:)=NaN(1,nframes_to_use);
                 end
                 
-                if nanstd(data_5.prestep(each_block).data(d,:))>stdev_cutoff_pre_HCs
+                if nanstd(data_5.prestep(each_block).data(d,:))>stdev_cutoff_pre_pats
                     data_6.prestep(each_block).data(d,:)=nan(1,201);
                 end
                 
-                if nanstd(data_5.poststep(each_block).data(d,:))>stdev_cutoff_post_HCs
+                if nanstd(data_5.poststep(each_block).data(d,:))>stdev_cutoff_post_pats
                     data_6.poststep(each_block).data(d,:)=nan(1,201);
                 end
             end
@@ -291,20 +327,19 @@ end
         % amp data
         for each_block=1:num_blocks;
             for d=1:trialsperblock
-                if nanstd(data_5.goodampdata(each_block).wholetrial_amp(d,:))>stdev_cutoff_wholetrial_amp_HCs
+                if nanstd(data_5.goodampdata(each_block).wholetrial_amp(d,:))>stdev_cutoff_wholetrial_amp_pats
                     data_6.goodampdata(each_block).wholetrial_amp(d,:)=NaN(1,nframes_to_use);
                 end
                 
-                if nanstd(data_5.goodampdata(each_block).prestep_amp(d,:))>stdev_cutoff_pre_amp_HCs
+                if nanstd(data_5.goodampdata(each_block).prestep_amp(d,:))>stdev_cutoff_pre_amp_pats
                     data_6.goodampdata(each_block).prestep_amp(d,:)=nan(1,201);
                 end
                 
-                if nanstd(data_5.goodampdata(each_block).poststep_amp(d,:))>stdev_cutoff_post_amp_HCs
+                if nanstd(data_5.goodampdata(each_block).poststep_amp(d,:))>stdev_cutoff_post_amp_pats
                     data_6.goodampdata(each_block).poststep_amp(d,:)=nan(1,201);
                 end
             end
         end
-        
     
 %% REMOVE ACCORDING TO MOTOR PERFORMANCE (cents)
         for each_block=1:num_blocks;
@@ -375,7 +410,6 @@ end
             
     
     
-    
         
         %% calculate WT devs for each subject
         for each_block=1:num_blocks;
@@ -398,7 +432,6 @@ end
         % write out into 'gooddata.mat'
         gooddata=data_7;
         
-        
         % eliminate trials with a break in voicing for spectral analysis
         for each_block=1:num_blocks
             for itrial=1:trialsperblock
@@ -413,7 +446,9 @@ end
                 end
             end
         end
-                
+        
+        
+        
         
         %% calculate gaps
         for each_block=1:num_blocks;
@@ -423,7 +458,7 @@ end
         end
     end
     
-    
+%     
 % %     %% plot all dis (comment out for speed)
 %         for each_block=1:num_blocks;
 %             for d=1:trialsperblock            
@@ -483,7 +518,7 @@ end
 %             subplot(5,2,8)            
 %             plot(data_1.goodpertresp(each_block).data{d}, 'r')
 %             hold
-%             moo1=NaN(1,T1_HC);
+%             moo1=NaN(1,T1_pat);
 %             moo=ones(1,200);
 %             moo=moo*150;
 %             moo3=NaN(1,550);           
@@ -521,11 +556,14 @@ end
         cd (the_expr_dir)
         save gaps gaps
     save gooddata gooddata
+    %save gooddata_spec gooddata_spec
 end
 
 close all
 
 cd ..
+
+
 
 
 

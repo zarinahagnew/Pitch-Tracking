@@ -1,12 +1,11 @@
-%% Measures within and acorss trial stdev
+%% Measures within and across trial stdev
 % stdev of pre and post step periods, and mean/stdev across trials
 % -------------------------------------------------------------------------
 % ZKA March 2014
-
 % note: change the subjects that are written out in set_params before running
 % this. All data is writtn eto DATA.mat but the good data is written to
 % DATA_TO_USE.mat
-
+% -------------------------------------------------------------------------
 % loads the sorted_data from C_sort_data
 % (1) Calculates within trial stdev for each subject, for pitch (default)
 % and amplitude signal and writes it to a single matrix DATA(subject). 
@@ -15,6 +14,8 @@
 % (3) Write out only the subjects to use and save to DATA_TO_USE
 % (4) Concatenates data from each subject into one line e.g. 'GroupData.WT_patC1_pre'
 % saves this all to save 'GroupData/GroupData.mat'
+% saves each subject data as 'TrialData.mat'
+% (5) calculates mean spectral power for each group
 
 close all
 clear all
@@ -523,30 +524,11 @@ cd(cerebellar_data_rootdir)
 
 %% (3) Write out only the subjects to use and save to DATA_TO_USE
 
-% 
-% % problem
-% isubj=1
-% itrial=1
-% conditionn=3
-% 
-% DATA(isubj).WTtrialmeanpitch_cond3_pre(itrial)          % this is the STDEV
-% DATA_TO_USE(isubj).WTtrialmeanpitch_cond3_pre(itrial)   % this is the STDEV
-% %is diff to 
-% nanmean(sorted_data(conditionn).prestep(itrial,:))  %this is the MEAN
-
 DATA_PATS=DATA(1:16);
 DATA_HCS=DATA(17:end);
-
 DATA_PATS_TO_USE=DATA(allincluded(1:numpats));
 DATA_HCS_TO_USE=DATA(allincluded(numpats+1:numHCs+numpats));
-
 DATA_TO_USE=DATA(allincluded);
-
-
-
-% 
-
-
 
 % DATA(1).mean_cond1_pre(1,:)
 % DATA_TO_USE(1).mean_cond1_pre(1,:)
@@ -1309,89 +1291,134 @@ meanspec_HCs(8,:)=nanmean(specdata_cond8_HC);
 meanspec_HCs(9,:)=nanmean(specdata_cond9_HC);
 meanspec_HCs(10,:)=nanmean(specdata_cond10_HC);
 
-figure;
-for cond=1:10
-    subplot(2,5,cond)
-    title(sprintf('Mean Spectrum - patients'));
+%% plot patients mean spectrum
+fig_spec=figure;
+% for cond=1:10
+%     subplot(2,5,cond)
+%     title(sprintf('Mean Spectrum - patients'));
+% 
+%     if cond<=5
+%     plot(meanspec_pats(cond,:), 'm','LineWidth',1.3);
+%     xlabel('Hz')    
+%     axis([0 20 0 5])    
+%     else
+%     plot(meanspec_pats(cond,:), 'k','LineWidth',1.3);        
+%     axis([0 20 0 5])    
+%     xlabel('Hz')
+%     end
+% end
 
-    if cond<=5
-    plot(meanspec_pats(cond,:), 'm','LineWidth',1.3);
-    xlabel('Hz')    
-    axis([0 20 0 5])    
-    else
-    plot(meanspec_pats(cond,:), 'k','LineWidth',1.3);        
-    axis([0 20 0 5])    
-    xlabel('Hz')
-    end
-end
+subplot(2,5,1)
+plot(meanspec_pats(1,:), 'm','LineWidth',1.3)
+hold on
+plot(meanspec_pats(6,:), 'k','LineWidth',1.3)
+axis([0 20 0 5])    
+
+subplot(2,5,2)
+plot(meanspec_pats(2,:), 'k','LineWidth',1.3)
+hold on
+plot(meanspec_pats(7,:), 'm','LineWidth',1.3)
+axis([0 20 0 5])    
+
+subplot(2,5,3)
+plot(meanspec_pats(3,:), 'k','LineWidth',1.3)
+hold on
+plot(meanspec_pats(8,:), 'm','LineWidth',1.3)
+axis([0 20 0 5])    
+
+subplot(2,5,4)
+plot(meanspec_pats(4,:), 'k','LineWidth',1.3)
+hold on
+plot(meanspec_pats(9,:), 'm','LineWidth',1.3)
+axis([0 20 0 5])    
+
+subplot(2,5,5)
+plot(meanspec_pats(5,:), 'k','LineWidth',1.3)
+hold on
+plot(meanspec_pats(10,:), 'm','LineWidth',1.3)
+axis([0 20 0 5])    
+
+% HCs
+
+subplot(2,5,6)
+plot(meanspec_HCs(1,:), 'k','LineWidth',1.3)
+hold on
+plot(meanspec_HCs(6,:), 'c','LineWidth',1.3)
+axis([0 20 0 5])    
+
+subplot(2,5,7)
+plot(meanspec_HCs(2,:), 'k','LineWidth',1.3)
+hold on
+plot(meanspec_HCs(7,:), 'c','LineWidth',1.3)
+axis([0 20 0 5])    
+
+subplot(2,5,8)
+plot(meanspec_HCs(3,:), 'k','LineWidth',1.3)
+hold on
+plot(meanspec_HCs(8,:), 'c','LineWidth',1.3)
+axis([0 20 0 5])    
+
+subplot(2,5,9)
+plot(meanspec_HCs(4,:), 'k','LineWidth',1.3)
+hold on
+plot(meanspec_HCs(9,:), 'c','LineWidth',1.3)
+axis([0 20 0 5])    
+
+subplot(2,5,10)
+plot(meanspec_HCs(5,:), 'k','LineWidth',1.3)
+hold on
+plot(meanspec_HCs(10,:), 'c','LineWidth',1.3)
+axis([0 20 0 5])    
+
+saveas(fig_spec,'All_Subs_mean_spectrum.jpg')
 
 
-figure;
+% plot high freq data
+highfreq_fig=figure;
 title(sprintf('Mean Spectrum - HCs'));
 
 for cond=1:10
     subplot(2,5,cond)
     if cond<=5
-    plot(meanspec_HCs(cond,:), 'C','LineWidth',1.3);
-    axis([0 20 0 5])
+    plot(meanspec_HCs(cond,200:end), 'C','LineWidth',1.3);
+    %axis([400 500 0 1])
     xlabel('Hz')
     else
-    plot(meanspec_HCs(cond,:), 'k','LineWidth',1.3);        
-    axis([0 20 0 5]) 
+    plot(meanspec_HCs(cond,200:end), 'k','LineWidth',1.3);        
+    %axis([400 500 0 1])
     xlabel('Hz')
     end
 end
-
+saveas(highfreq_fig,'All_Subs_mean_spectrum_highfreq.jpg')
 
 %% plot just 3-6hz
-figure;
+fig_lowfreq=figure;
 title(sprintf('Mean Spectrum - patients'));
 for cond=1:5
     subplot(2,5,cond)
-    plot(meanspec_pats(cond,2:6), 'm','LineWidth',1.3);
+    plot(meanspec_pats(cond,2:6), 'k','LineWidth',1.3);
     hold on
-    plot(meanspec_pats(cond+5,2:6), 'k','LineWidth',1.3);
+    plot(meanspec_pats(cond+5,2:6), 'm','LineWidth',1.3);
     axis([1 4 0 4])    
 end
 
 clear cond
 for cond=1:5
         subplot(2,5,cond+5)
-        plot(meanspec_HCs(cond,3:6), 'm','LineWidth',1.3);
+        plot(meanspec_HCs(cond,3:6), 'k','LineWidth',1.3);
         hold on
-        plot(meanspec_HCs(cond+5,3:6), 'k','LineWidth',1.3);
+        plot(meanspec_HCs(cond+5,3:6), 'c','LineWidth',1.3);
         axis([1 4 0 4])   
 end
-
-   
- john houde
-
-
-figure;
-title(sprintf('Mean Spectrum - HCs'));
-
-for cond=1:10
-    subplot(2,5,cond)
-    if cond<=5
-    plot(meanspec_HCs(cond,:), 'C','LineWidth',1.3);
-    axis([0 20 0 5])
-    xlabel('Hz')
-    else
-    plot(meanspec_HCs(cond,:), 'k','LineWidth',1.3);        
-    axis([0 20 0 5]) 
-    xlabel('Hz')
-    end
-end
-
-
-
+saveas(fig_lowfreq, 'All_Subs_mean_spectrum_lowfreq.jpg')
+  
 
 %% spectral data anova (3-6Hz)
 
-meanspec_pats_clear=[meanspec_pats(1,2:6) meanspec_pats(2,2:6) meanspec_pats(3,2:6) meanspec_pats(4,2:6) meanspec_pats(5,2:6)]
-meanspec_pats_noise=[meanspec_pats(6,2:6) meanspec_pats(7,2:6) meanspec_pats(8,2:6) meanspec_pats(9,2:6) meanspec_pats(10,2:6)]
-meanspec_HCs_clear=[meanspec_HCs(1,2:6) meanspec_HCs(2,2:6) meanspec_HCs(3,2:6) meanspec_HCs(4,2:6) meanspec_HCs(5,2:6)]
-meanspec_HCs_noise=[meanspec_HCs(6,2:6) meanspec_HCs(7,2:6) meanspec_HCs(8,2:6) meanspec_HCs(9,2:6) meanspec_HCs(10,2:6)]
+meanspec_pats_clear=[meanspec_pats(1,3:6) meanspec_pats(2,3:6) meanspec_pats(3,3:6) meanspec_pats(4,3:6) meanspec_pats(5,3:6)]
+meanspec_pats_noise=[meanspec_pats(6,3:6) meanspec_pats(7,3:6) meanspec_pats(8,3:6) meanspec_pats(9,3:6) meanspec_pats(10,3:6)]
+meanspec_HCs_clear=[meanspec_HCs(1,3:6) meanspec_HCs(2,3:6) meanspec_HCs(3,3:6) meanspec_HCs(4,3:6) meanspec_HCs(5,3:6)]
+meanspec_HCs_noise=[meanspec_HCs(6,3:6) meanspec_HCs(7,3:6) meanspec_HCs(8,3:6) meanspec_HCs(9,3:6) meanspec_HCs(10,3:6)]
 
 anovandata=[meanspec_pats_clear meanspec_pats_noise meanspec_HCs_clear meanspec_HCs_noise];
         
@@ -1438,47 +1465,41 @@ p = anovan(anovandata,{group1 group2},'model','interaction')
 
 
 
-
-
-
-figure
-for moo=1:16; 
-    subplot(4,4,moo);
-    plot(DATA(moo). meanspec_cond3, 'm');
-    axis([0 50 0 3])
-end
-
-figure
-DATA_HC=DATA(17:26)
-for moo=1:11
-subplot(4,3,moo);
-plot(DATA_HC(moo). meanspec_cond3, 'm');
-    axis([0 50 0 3])
-end
-
-
-% hihgpass filter
-
-figure
-subplot(2,1,1)
-plot(meanspec_pats(1,:))
-axis([0 10 0 3])
-
-% [z,p,k] 
 % 
-% [b,a]= butter(100,100/500,'high')
-% dataIn=meanspec_pats(1,:);
-% dataOut = filter(b,a,dataIn)
-% plot(dataOut)
 % 
+% 
+% figure
+% for moo=1:16; 
+%     subplot(4,4,moo);
+%     plot(DATA(moo). meanspec_cond3, 'm');
+%     axis([0 50 0 3])
+% end
+% 
+% figure
+% DATA_HC=DATA(17:27)
+% for moo=1:11
+% subplot(4,3,moo);
+% plot(DATA_HC(moo). meanspec_cond3, 'm');
+%     axis([0 50 0 3])
+% end
+% 
+% 
+% % highpass filter
+% 
+% figure
+% subplot(2,1,1)
+% plot(meanspec_pats(1,:))
+% axis([0 10 0 3])
+% 
+% % [z,p,k] 
+% % 
+% % [b,a]= butter(100,100/500,'high')
+% % dataIn=meanspec_pats(1,:);
+% % dataOut = filter(b,a,dataIn)
+% % plot(dataOut)
 
-
-sos = zp2sos(z,p,k)
-fvtool(sos,'Analysis','freq')
-
-
-
-
+% sos = zp2sos(z,p,k)
+% fvtool(sos,'Analysis','freq')
 
 
 

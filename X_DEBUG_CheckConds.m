@@ -1,43 +1,23 @@
-
-%% checks the conditions against the pert responses
+%% Checks the conditions against the pert responses
 % ZKA April 2014
-% conditions
-%     1 - Clear small up
-%     2 - Clear big up
-%     3 - Clear flat
-%     4 - Clear small down
-%     5 - Clear big down
-%     6 - Masked small up
-%     7 - Masked big up
-%     8 - Masked flat
-%     9 - Masked small down
-%     10 - Masked big downs
 
-% 
-% % cents to shift
-% sup=100 % small up
-% bup=300 % big up
-% nos=0   % no shift
-% sdw=-100 % small down
-% bdw=-300 % big down
-% cents2shift_types = [sup bup nos sdw bdw];
-% 
-% 
-
+% plots each trial against the target sound. 
+% needs good data so that is run after scripts B and C are done. 
 
 clear all
 close all
+set_params;
 
 npatients = 0;
 npatients = npatients + 1;
 patient_info{npatients}.exprdir = 'SUB01/expr2014.03.21.T10.46.03_mainrun/speak/';
-patientdir= '/Users/zarinahagnew/Cereb_data/data/SUB01/expr2014.03.21.T10.46.03_mainrun/speak/';
-homedir='/Users/zarinahagnew/Cereb_data/data/'
+patientdir= '/Users/zagnew/Cereb_data/data/SUB01/expr2014.03.21.T10.46.03_mainrun/speak/';
+homedir='/Users/zagnew/Cereb_data/data/'
 cd(patientdir)
 
 load (sprintf('%sshifted_blockalt.mat',patient_info{1}.exprdir))
 load (sprintf('%sexpr_config.mat',patient_info{1}.exprdir))
-load (sprintf('%sgoodpitchdata.mat',patient_info{1}.exprdir))
+load (sprintf('%sgooddata.mat',patient_info{1}.exprdir))
 
 
 %creates a variable called blockcondname each row of which is the
@@ -74,22 +54,26 @@ amp=get_vec_hist6('weighted_mean_abs_inbuffer2', 3)
 audio=get_vec_hist6('inbuffer2',3)
 
 
-a=figure
-for moo=1:10
-    c=subplot(2,5,moo)
-    annotation('textbox', [0 0.9 1 0.1], ...
-        'String', 'pert responses for each block', ...
-        'EdgeColor', 'none', ...
-        'HorizontalAlignment', 'center')
-    title(c,'All trials')
-    text(-10,10.2,'Clear     Noise')
-    
-    one=goodpitchdata(1).data(moo,:)
-    two=shifted_blockalt{moo, 1}
-    plot(one)
-    hold on
-    plot(two)
-    
+%% plot all dis
+for iblock=1:8
+    a=figure
+    for moo=1:10
+        c=subplot(2,5,moo)
+        annotation('textbox', [0 0.9 1 0.1], ...
+            'String', 'pert responses for each block', ...
+            'EdgeColor', 'none', ...
+            'HorizontalAlignment', 'center')
+        title(c,'All trials')
+        text(-10,10.2,'Clear     Noise')
+        
+        one=gooddata(1).goodpitchdata(iblock).data(moo,:)
+        two=shifted_blockalt{moo, iblock}
+        plot(one,'k','LineWidth',1.3)
+        hold on
+        plot(two,'b','LineWidth',1.1);
+        axis([0 2000 -400 400])
+        
+    end
 end
 
-blockcondname
+blockcondname;

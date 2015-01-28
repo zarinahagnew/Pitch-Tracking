@@ -1,4 +1,4 @@
-%% Sort trials by condition for one patient
+%% Sort trials by condition for each subject
 % -------------------------------------------------------------------------
 % ZKA March 2014
 % use unshifted_pertresp
@@ -48,28 +48,28 @@ npatients = npatients + 1;
 patient_info{npatients}.exprdir = 'SUB16/expr2014.03.23.T18.16.58_mainrun/speak/';
 
 % % list controls here
-npatients = npatients + 1;
-patient_info{npatients}.exprdir = 'HC01/expr2014.05.06.T12.36.43_mainrun/speak/';
-npatients = npatients + 1;
-patient_info{npatients}.exprdir = 'HC02/expr2014.06.17.T12.53.53_mainrun/speak/';
-npatients = npatients + 1;
-patient_info{npatients}.exprdir = 'HC03/expr2014.06.17.T13.50.36_mainrun/speak/';
-npatients = npatients + 1;
-patient_info{npatients}.exprdir = 'HC04/expr2014.06.17.T16.22.20_mainrun/speak/';
-npatients = npatients + 1;
-patient_info{npatients}.exprdir = 'HC05/expr2014.06.18.T15.14.02_mainrun/speak/';
-npatients = npatients + 1;
-patient_info{npatients}.exprdir = 'HC06/expr2014.06.18.T16.18.27_mainrun/speak/';
-npatients = npatients + 1;
-patient_info{npatients}.exprdir = 'HC07/expr2014.07.25.T10.29.55_mainrun/speak/'; % bad subject
-npatients = npatients + 1;
-patient_info{npatients}.exprdir = 'HC08/expr2014.08.14.T15.57.52_mainrun/speak/';
-npatients = npatients + 1;
-patient_info{npatients}.exprdir = 'HC09/expr2014.09.21.T14.17.36_mainrun/speak/';
-npatients = npatients + 1;
-patient_info{npatients}.exprdir = 'HC10/expr2014.09.21.T15.35.54_JL_mainrun/speak/';
-npatients = npatients + 1;
-patient_info{npatients}.exprdir = 'HC11/expr2014.09.23.t15.27.32_sn_mainrun/speak/';
+% npatients = npatients + 1;
+% patient_info{npatients}.exprdir = 'HC01/expr2014.05.06.T12.36.43_mainrun/speak/';
+% npatients = npatients + 1;
+% patient_info{npatients}.exprdir = 'HC02/expr2014.06.17.T12.53.53_mainrun/speak/';
+% npatients = npatients + 1;
+% patient_info{npatients}.exprdir = 'HC03/expr2014.06.17.T13.50.36_mainrun/speak/';
+% npatients = npatients + 1;
+% patient_info{npatients}.exprdir = 'HC04/expr2014.06.17.T16.22.20_mainrun/speak/';
+% npatients = npatients + 1;
+% patient_info{npatients}.exprdir = 'HC05/expr2014.06.18.T15.14.02_mainrun/speak/';
+% npatients = npatients + 1;
+% patient_info{npatients}.exprdir = 'HC06/expr2014.06.18.T16.18.27_mainrun/speak/';
+% npatients = npatients + 1;
+% patient_info{npatients}.exprdir = 'HC07/expr2014.07.25.T10.29.55_mainrun/speak/'; % bad subject
+% npatients = npatients + 1;
+% patient_info{npatients}.exprdir = 'HC08/expr2014.08.14.T15.57.52_mainrun/speak/';
+% npatients = npatients + 1;
+% patient_info{npatients}.exprdir = 'HC09/expr2014.09.21.T14.17.36_mainrun/speak/';
+% npatients = npatients + 1;
+% patient_info{npatients}.exprdir = 'HC10/expr2014.09.21.T15.35.54_JL_mainrun/speak/';
+% npatients = npatients + 1;
+% patient_info{npatients}.exprdir = 'HC11/expr2014.09.23.t15.27.32_sn_mainrun/speak/';
 
 for each_subject = 1:npatients
 %for each_subject = 23
@@ -190,7 +190,7 @@ for each_subject = 1:npatients
         end
         saveas(fig1, 'sorted_trials.jpg')
     
-    %pause
+    pause
     clc
     display('dont be fooled by thinking this is wrong before checking the Y axis..')
     save sorted_data sorted_data

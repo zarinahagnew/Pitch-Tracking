@@ -1,13 +1,15 @@
-%% Converts pert resp into diff format (largely useless stage)
+%% Converts pert resp into diff format (largely useless but essential stage)
 % -------------------------------------------------------------------------
 % ZKA March 2014
 
-% Shifts the pert response to match the pitch data to shift the block alt line, find the point at which voice onset increases from 0 and add this to the
+% used to shift the pert response to match the pitch data to shift the block alt line, find the point at which voice onset increases from 0 and add this to the
 % block alt line, then plot pitch2 inbuff with block alt.
 %'voiceframe' is a variable which tlls us how many frames we need to add to
 % each block.data to shift it.
+% BUT now it doesn't, it uses a fake voice onset array of '0's. So really
+% this script simply writes the block.data for each trial to 'shifted_blockalt'
+% and saves the shifted pert response and the voice onset/reaction time data
 
-% saves the shifted pert response and the voice onset/reaction time data
 clear all;
 close all;
 
@@ -77,9 +79,8 @@ z=0
 originalFolder = pwd;
 shifted_blockalt={}
 
-% Subject Loop
+% subject Loop
 for each_subject = 1:npatients
-
     z=z+1
     the_expr_dir = [cerebellar_data_rootdir (patient_info{each_subject}.exprdir)];
     cd (the_expr_dir)  
@@ -90,7 +91,6 @@ for each_subject = 1:npatients
         foldernumber=each_block-1;
         folder = sprintf('block%d', foldernumber);
         cd (folder);
-        figure  
         
         % import data using get_vec_hist6
         pitch=get_vec_hist6('pitch2',3); %two arguments are file name and then file type (float vec)
@@ -107,8 +107,8 @@ for each_subject = 1:npatients
         taxis = (0:(samples2get-1))/fs;
         frame_taxis = (0:(nframes_per_trial-1))/framef;
         
-               % look in the voice onset data and find the position where the
-        % value is not zero, record this frame number in voiceframe(w)
+%% find voice onset: look in the voice onset data and find the position 
+% where the value is not zero, record this frame number in voiceframe(w)
         for w=1:voiceonset.ntrials
             x = voiceonset.data(w, :);
             if sum(x)>1
@@ -134,33 +134,40 @@ for each_subject = 1:npatients
 %    
 %             
 %         end
-%         
-%         
         
-        
-        voiceframe_fake=ones(1,10);
-        
+
+        voiceframe_fake=ones(1,10);        % creates fake voice onset 
+        % becuase this was originally written to shift the pert_resp 
+        % by the voice onset, but in the end I decided to do it 
+        % another way so this ia fake voice onset of '0'. 
+        % URGH SORRY FUTURE ME. 
+        figure;
         for i=1:voiceonset.ntrials
-            trial=num2str(i);
-            blockalt1=block.data(i,:,2);
-            voiceframe_fake(i);
-            a=zeros(1,(voiceframe_fake(i)));
-            shifted_blockalt{i, each_block}=[a blockalt1];
-            voiceonsetdata_fake{i, each_block}=voiceframe_fake(i);
-            voiceonsetdata{i, each_block}=voiceframe(i);
-            
-%             % plot the shifted pert reponses out so you can check they look
-%             % right
-%             graph2=subplot(5,5,i);
+            blockalt1=block.data(i,:,2); % pert resp
+            shifted_blockalt{i, each_block}=blockalt1;                        
+
+% plot these out as you go            
+%             graph2=subplot(5,2,i);
 %             plot(block.data(i,:,2), '-g');
 %             hold;
 %             plot(shifted_blockalt{i, each_block}, '-r');
+
+            
+%             trial=num2str(i);
+%             blockalt1=block.data(i,:,2); % pert resp
+%             voiceframe_fake(i);
+%             a=zeros(1,(voiceframe_fake(i)));
+%             shifted_blockalt{i, each_block}=[a blockalt1];
+%             voiceonsetdata_fake{i, each_block}=voiceframe_fake(i);
+%             voiceonsetdata{i, each_block}=voiceframe(i);
+%             
+    
         end
         
         cd .. % into block parent ('speak') folder and save data there
         
         save shifted_blockalt shifted_blockalt
-        save voiceonsetdata voiceonsetdata
+        %save voiceonsetdata voiceonsetdata
         
     end
     

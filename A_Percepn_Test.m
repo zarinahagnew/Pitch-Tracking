@@ -1,5 +1,11 @@
-%% loads in perceptual test data and writes it to SUBs and saves that
+%% First step: Loads in perceptual test data and writes it to 
+% SUBs and saves that so that the good trials script (B) remove these
+% trials
 % ZKA oct 2014
+% -----------
+% needs an excell spreadsheet called 'Pats_goodtrials' which has 1s and 0s
+% for the correctly identified trials. Each subject has their own sheet in
+% this spreadsheet. This file includes both patients and healthy controls. 
 
 cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data/';
 cd(cerebellar_data_rootdir)

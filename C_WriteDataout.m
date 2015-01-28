@@ -1,4 +1,4 @@
-%% Seperates the good and bad trials for the pitch tracking experiment.
+%% Writes data oiut from vec_hist to arrays
 % -------------------------------------------------------------------------
 % ZKA March 2014
 % loads the vec hists from each subject and converts them to 
@@ -14,7 +14,6 @@ cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data/';
 npatients = 0;
 npatients = npatients + 1;
 patient_info{npatients}.exprdir = 'SUB01/expr2014.03.21.T10.46.03_mainrun/speak/';
-
 npatients = npatients + 1;
 patient_info{npatients}.exprdir = 'SUB02/expr2014.03.21.T12.33.58_mainrun/speak/';
 npatients = npatients + 1;

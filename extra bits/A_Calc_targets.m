@@ -1,3 +1,8 @@
+% Calculates pitch targets in Hz
+% ZKA Dec 2014
+% this is now redundant as I work in cents rather than Hz
+
+
 
 % create shifts
 shift(1)=1;

@@ -25,7 +25,6 @@ frame_taxis = (0:(nframes_per_trial-1))/framef;
 homedir='/Users/zagnew/Cereb_data/data/GroupData';
 cd(homedir);
 load /Users/zagnew/Cereb_data/data/GroupData/GroupData.mat
-%load /Users/zagnew/Cereb_data/data/GroupData.mat
 
 %% (1): Calculate the mean/average within trial stdevs for each condition for
 % patients and HCs
@@ -136,7 +135,6 @@ figx=figure;
 ymin=0;
 ymax=40;
 subplot(2,2,1)
-title(sprintf('WTstdev pitch across all conditions separately'));
 for moo=1:10
 bar(moo, GroupMeans.HC.pre_pitchWTstdev(moo))
 hold all
@@ -144,6 +142,8 @@ end
 axis([0 11 ymin ymax])
 xlabel('condition (1:10)')
 ylabel('WT stdev pitch')
+title(sprintf('HC pre-WTstdev pitch across all conditions separately'));
+
 
 subplot(2,2,2)
 for moo=1:10
@@ -153,6 +153,7 @@ end
 axis([0 11 ymin ymax])
 xlabel('condition (1:10)')
 ylabel('WT stdev pitch')
+title(sprintf('Pats pre -WTstdev pitch across all conditions separately'));
 
 subplot(2,2,3)
 for moo=1:10
@@ -162,6 +163,7 @@ end
 axis([0 11 ymin ymax])
 xlabel('condition (1:10)')
 ylabel('WT stdev pitch')
+title(sprintf('HC post-WTstdev pitch across all conditions separately'));
 
 subplot(2,2,4)
 for moo=1:10
@@ -171,6 +173,7 @@ end
 axis([0 11 ymin ymax])
 xlabel('condition (1:10)')
 ylabel('WT stdev pitch')
+title(sprintf('Pats post -WTstdev pitch across all conditions separately'));
 
 
 

@@ -420,3 +420,6 @@ axis([0 1400 0 400])
 
 
 
+plot(nanmean(dist_from_targ_cond1(1:16,:)))
+plot(nanmean(dist_from_targ_cond2(1:16,:)))
+

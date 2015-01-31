@@ -83,7 +83,7 @@ for ipat=1:16
     
 end
 group_cond2_pats=group_cond2_pats(1:16,:);
-group_cond2_pats_pre=group_cond2_pats_pre(1:16,:);
+group_cond2_pats_pre=group_cond2_pats_pre(1:16,:);  
 group_cond2_pats_to_use=group_cond2_pats(patients_included,:,:)
 group_cond2_pats_to_use_mean=nanmean(group_cond2_pats(patients_included,:,:));
 group_cond2_pats_to_use_pre=group_cond2_pats_pre(patients_included,:,:);

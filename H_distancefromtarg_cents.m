@@ -671,9 +671,6 @@ end
 % axis([0 1400 -350 350])
 
 
-
-
-
 %% works
 % distance between mean trial perf and target for patients and controls
 
@@ -980,3 +977,6 @@ clearconds=[zee(1,:) zee(2,:) zee(3,:) zee(4,:) zee(5,:)]
 noiseconds=[zee(6,:) zee(7,:) zee(8,:) zee(9,:) zee(10,:)]
 
 ttest2(clearconds, noiseconds)
+
+
+%% plot final figures

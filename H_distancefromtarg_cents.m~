@@ -1,8 +1,8 @@
 %% calculates distance between pitch tracking and pitch target
 % ZKA Jan 2015 
 
-clear all
-close all
+% clear all
+% close all
 set_params;
 
 set(0,'DefaultFigureWindowStyle','docked');
@@ -340,7 +340,7 @@ group1=[subjectgroup];
 group2=[condition];
 p = anovan(anovadata_prestep,{group1 group2},'model','interaction');
 
-%% caluclate distance between performance and target
+%% calculate distance between performance and target
 %create targets
 test=[zeros(1, stepframe) ones(1, 1360-stepframe)]
 smallup=test*100;
@@ -363,27 +363,60 @@ dist_from_targ_cond9(isubj,:)=calc_distance(smalldown, DATA(isubj).mean_cond9_wh
 dist_from_targ_cond10(isubj,:)=calc_distance(bigdown, DATA(isubj).mean_cond10_wholetrial);
 end
 
-PAT.meandist_from_targ(1,:) = nanmean(dist_from_targ_cond1(1:16,:));
-PAT.meandist_from_targ(2,:) = nanmean(dist_from_targ_cond2(1:16,:));
-PAT.meandist_from_targ(3,:) = nanmean(dist_from_targ_cond3(1:16,:));
-PAT.meandist_from_targ(4,:) = nanmean(dist_from_targ_cond4(1:16,:));
-PAT.meandist_from_targ(5,:) = nanmean(dist_from_targ_cond5(1:16,:));
-PAT.meandist_from_targ(6,:) = nanmean(dist_from_targ_cond6(1:16,:));
-PAT.meandist_from_targ(7,:) = nanmean(dist_from_targ_cond7(1:16,:));
-PAT.meandist_from_targ(8,:) = nanmean(dist_from_targ_cond8(1:16,:));
-PAT.meandist_from_targ(9,:) = nanmean(dist_from_targ_cond9(1:16,:));
-PAT.meandist_from_targ(10,:) = nanmean(dist_from_targ_cond10(1:16,:));
 
-HC.meandist_from_targ(1,:) = nanmean(dist_from_targ_cond1(17:27,:));
-HC.meandist_from_targ(2,:) = nanmean(dist_from_targ_cond2(17:27,:));
-HC.meandist_from_targ(3,:) = nanmean(dist_from_targ_cond3(17:27,:));
-HC.meandist_from_targ(4,:) = nanmean(dist_from_targ_cond4(17:27,:));
-HC.meandist_from_targ(5,:) = nanmean(dist_from_targ_cond5(17:27,:));
-HC.meandist_from_targ(6,:) = nanmean(dist_from_targ_cond6(17:27,:));
-HC.meandist_from_targ(7,:) = nanmean(dist_from_targ_cond7(17:27,:));
-HC.meandist_from_targ(8,:) = nanmean(dist_from_targ_cond8(17:27,:));
-HC.meandist_from_targ(9,:) = nanmean(dist_from_targ_cond9(17:27,:));
-HC.meandist_from_targ(10,:) = nanmean(dist_from_targ_cond10(17:27,:));
+
+
+
+PAT.meandist_from_targ(1,:) = nanmean(dist_from_targ_cond1(allincluded,:));
+PAT.meandist_from_targ(2,:) = nanmean(dist_from_targ_cond2(allincluded,:));
+PAT.meandist_from_targ(3,:) = nanmean(dist_from_targ_cond3(allincluded,:));
+PAT.meandist_from_targ(4,:) = nanmean(dist_from_targ_cond4(allincluded,:));
+PAT.meandist_from_targ(5,:) = nanmean(dist_from_targ_cond5(allincluded,:));
+PAT.meandist_from_targ(6,:) = nanmean(dist_from_targ_cond6(allincluded,:));
+PAT.meandist_from_targ(7,:) = nanmean(dist_from_targ_cond7(allincluded,:));
+PAT.meandist_from_targ(8,:) = nanmean(dist_from_targ_cond8(allincluded,:));
+PAT.meandist_from_targ(9,:) = nanmean(dist_from_targ_cond9(allincluded,:));
+PAT.meandist_from_targ(10,:) = nanmean(dist_from_targ_cond10(allincluded,:));
+
+HC.meandist_from_targ(1,:) = nanmean(dist_from_targ_cond1(allincluded,:));
+HC.meandist_from_targ(2,:) = nanmean(dist_from_targ_cond2(allincluded,:));
+HC.meandist_from_targ(3,:) = nanmean(dist_from_targ_cond3(allincluded,:));
+HC.meandist_from_targ(4,:) = nanmean(dist_from_targ_cond4(allincluded,:));
+HC.meandist_from_targ(5,:) = nanmean(dist_from_targ_cond5(allincluded,:));
+HC.meandist_from_targ(6,:) = nanmean(dist_from_targ_cond6(allincluded,:));
+HC.meandist_from_targ(7,:) = nanmean(dist_from_targ_cond7(allincluded,:));
+HC.meandist_from_targ(8,:) = nanmean(dist_from_targ_cond8(allincluded,:));
+HC.meandist_from_targ(9,:) = nanmean(dist_from_targ_cond9(allincluded,:));
+HC.meandist_from_targ(10,:) = nanmean(dist_from_targ_cond10(allincluded,:));
+
+test(1,:)=calc_distance(group_cond1_HCs_to_use_mean, smallup)
+test(2,:)=calc_distance(group_cond2_HCs_to_use_mean, bigup)
+test(3,:)=calc_distance(group_cond3_HCs_to_use_mean, nostep)
+test(4,:)=calc_distance(group_cond4_HCs_to_use_mean, smalldown)
+test(5,:)=calc_distance(group_cond5_HCs_to_use_mean, bigdown)
+test(6,:)=calc_distance(group_cond6_HCs_to_use_mean, smallup)
+test(7,:)=calc_distance(group_cond7_HCs_to_use_mean, bigup)
+test(8,:)=calc_distance(group_cond8_HCs_to_use_mean, nostep)
+test(9,:)=calc_distance(group_cond9_HCs_to_use_mean, smalldown)
+test(10,:)=calc_distance(group_cond10_HCs_to_use_mean, bigdown)
+
+
+
+one=calc_distance(group_cond1_HCs_to_use_mean, smallup)
+
+moo=nanmean(dist_from_targ_cond1(allincluded,:))
+
+
+two=calc_distance(moo, smallup)
+% PAT_goodsubs=PAT(patients_included)
+% 
+% 
+% subjects_included= [1 6 10 11];
+%  patients_included=[1 5 8:16];
+% 
+
+
+
 
 plot(smallup)
 hold on
@@ -419,7 +452,556 @@ plot(HC.noisetrials_groupmean, 'm', 'LineWidth', 1.3)
 axis([0 1400 0 400])
 
 
+% % group mean conditions separately
+% for icond=1:10
+% PAT.groupmean_sepconds(icond,:)=nanmean(PAT.meandist_from_targ(icond,:));
+% HC.groupmean_sepconds(icond,:)=nanmean(HC.meandist_from_targ(icond,:));
+% end
 
-plot(nanmean(dist_from_targ_cond1(1:16,:)))
-plot(nanmean(dist_from_targ_cond2(1:16,:)))
+for moo=1:10
+    subplot (2,5, moo)
+    plot(PAT.meandist_from_targ(moo,:), 'k', 'LineWidth', 1.3)
+    axis ([0 1400 0 400])
+end
+% 
+% figure
+% 
+% subplot(541)
+% plot(group_cond1_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(smallup,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(542)
+% plot(PAT.meandist_from_targ(1,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(545)
+% plot(group_cond2_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(bigup,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(546)
+% plot(PAT.meandist_from_targ(2,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(549)
+% plot(group_cond3_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(nostep,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5,4,10)
+% plot(PAT.meandist_from_targ(3,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5, 4, 13)
+% plot(group_cond4_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(smalldown,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5,4,14)
+% plot(PAT.meandist_from_targ(4,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5, 4, 17)
+% plot(group_cond5_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(bigdown,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5,4,18)
+% plot(PAT.meandist_from_targ(5,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(543)
+% plot(group_cond6_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(smallup,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(544)
+% plot(PAT.meandist_from_targ(1,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(547)
+% plot(group_cond7_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(bigup,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(548)
+% plot(PAT.meandist_from_targ(7,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5,4,11)
+% plot(group_cond8_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(nostep,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5,4,12)
+% plot(PAT.meandist_from_targ(8,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5, 4, 15)
+% plot(group_cond9_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(smalldown,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5,4,16)
+% plot(PAT.meandist_from_targ(9,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5, 4, 19)
+% plot(group_cond10_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(bigdown,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5,4,20)
+% plot(PAT.meandist_from_targ(10,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% 
+% % HCs
+% figure
+% subplot(541)
+% plot(group_cond1_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(smallup,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(542)
+% 
+% plot(HC.meandist_from_targ(1,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(545)
+% plot(group_cond2_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(bigup,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(546)
+% plot(HC.meandist_from_targ(2,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(549)
+% plot(group_cond3_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(nostep,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5,4,10)
+% plot(HC.meandist_from_targ(3,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5, 4, 13)
+% plot(group_cond4_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(smalldown,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5,4,14)
+% plot(HC.meandist_from_targ(4,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5, 4, 17)
+% plot(group_cond5_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(bigdown,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5,4,18)
+% plot(HC.meandist_from_targ(5,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(543)
+% plot(group_cond6_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(smallup,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(544)
+% plot(HC.meandist_from_targ(1,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(547)
+% plot(group_cond7_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(bigup,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(548)
+% plot(HC.meandist_from_targ(7,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5,4,11)
+% plot(group_cond8_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(nostep,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5,4,12)
+% plot(HC.meandist_from_targ(8,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5, 4, 15)
+% plot(group_cond9_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(smalldown,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5,4,16)
+% plot(HC.meandist_from_targ(9,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5, 4, 19)
+% plot(group_cond10_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+% hold on
+% plot(bigdown,  'm', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+% 
+% subplot(5,4,20)
+% plot(HC.meandist_from_targ(10,:), 'k', 'LineWidth', 1.3)
+% axis([0 1400 -350 350])
+
+
+
+
+
+%% works
+
+PAT.meandist_from_targ(1,:)=calc_distance(group_cond1_pats_to_use_mean, smallup)
+PAT.meandist_from_targ(2,:)=calc_distance(group_cond2_pats_to_use_mean, bigup)
+PAT.meandist_from_targ(3,:)=calc_distance(group_cond3_pats_to_use_mean, nostep)
+PAT.meandist_from_targ(4,:)=calc_distance(group_cond4_pats_to_use_mean, smalldown)
+PAT.meandist_from_targ(5,:)=calc_distance(group_cond5_pats_to_use_mean, bigdown)
+PAT.meandist_from_targ(6,:)=calc_distance(group_cond6_pats_to_use_mean, smallup)
+PAT.meandist_from_targ(7,:)=calc_distance(group_cond7_pats_to_use_mean, bigup)
+PAT.meandist_from_targ(8,:)=calc_distance(group_cond8_pats_to_use_mean, nostep)
+PAT.meandist_from_targ(9,:)=calc_distance(group_cond9_pats_to_use_mean, smalldown)
+PAT.meandist_from_targ(10,:)=calc_distance(group_cond10_pats_to_use_mean, bigdown)
+
+
+HC.meandist_from_targ(1,:)=calc_distance(group_cond1_HCs_to_use_mean, smallup)
+HC.meandist_from_targ(2,:)=calc_distance(group_cond2_HCs_to_use_mean, bigup)
+HC.meandist_from_targ(3,:)=calc_distance(group_cond3_HCs_to_use_mean, nostep)
+HC.meandist_from_targ(4,:)=calc_distance(group_cond4_HCs_to_use_mean, smalldown)
+HC.meandist_from_targ(5,:)=calc_distance(group_cond5_HCs_to_use_mean, bigdown)
+HC.meandist_from_targ(6,:)=calc_distance(group_cond6_HCs_to_use_mean, smallup)
+HC.meandist_from_targ(7,:)=calc_distance(group_cond7_HCs_to_use_mean, bigup)
+HC.meandist_from_targ(8,:)=calc_distance(group_cond8_HCs_to_use_mean, nostep)
+HC.meandist_from_targ(9,:)=calc_distance(group_cond9_HCs_to_use_mean, smalldown)
+HC.meandist_from_targ(10,:)=calc_distance(group_cond10_HCs_to_use_mean, bigdown)
+
+
+fig2=figure
+subplot(541)
+plot(group_cond1_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(smallup,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(542)
+plot(HC.meandist_from_targ(1,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(545)
+plot(group_cond2_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(bigup,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(546)
+plot(HC.meandist_from_targ(2,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(549)
+plot(group_cond3_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(nostep,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5, 4, 10)
+plot(HC.meandist_from_targ(3,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5,4,13)
+plot(group_cond4_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(smalldown,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5, 4, 14)
+plot(HC.meandist_from_targ(4,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5,4,17)
+plot(group_cond5_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(bigdown,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5,4,18)
+plot(HC.meandist_from_targ(5,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(543)
+plot(group_cond6_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(smallup,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(544)
+plot(HC.meandist_from_targ(6,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(547)
+plot(group_cond7_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(bigup,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(548)
+plot(HC.meandist_from_targ(7,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5, 4, 11)
+plot(group_cond8_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(nostep,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5, 4, 12)
+plot(HC.meandist_from_targ(8,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5,4,15)
+plot(group_cond9_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(smalldown,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5, 4, 16)
+plot(HC.meandist_from_targ(9,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5,4,19)
+plot(group_cond10_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(bigdown,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5,4,20)
+plot(HC.meandist_from_targ(10,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+
+
+
+%patients
+
+fig3=figure
+subplot(541)
+plot(group_cond1_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(smallup,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(542)
+plot(PAT.meandist_from_targ(1,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(545)
+plot(group_cond2_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(bigup,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(546)
+plot(PAT.meandist_from_targ(2,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(549)
+plot(group_cond3_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(nostep,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5, 4, 10)
+plot(PAT.meandist_from_targ(3,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5,4,13)
+plot(group_cond4_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(smalldown,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5, 4, 14)
+plot(PAT.meandist_from_targ(4,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5,4,17)
+plot(group_cond5_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(bigdown,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5,4,18)
+plot(PAT.meandist_from_targ(5,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(543)
+plot(group_cond6_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(smallup,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(544)
+plot(PAT.meandist_from_targ(6,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(547)
+plot(group_cond7_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(bigup,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(548)
+plot(PAT.meandist_from_targ(7,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5, 4, 11)
+plot(group_cond8_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(nostep,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5, 4, 12)
+plot(PAT.meandist_from_targ(8,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5,4,15)
+plot(group_cond9_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(smalldown,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5, 4, 16)
+plot(PAT.meandist_from_targ(9,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5,4,19)
+plot(group_cond10_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(bigdown,  'm', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+subplot(5,4,20)
+plot(PAT.meandist_from_targ(10,:),  'k', 'LineWidth', 1.3)
+axis([0 1400 -350 350])
+
+
+
+saveas(fig2, 'GroupData/distancefromtarg/meandistancefromtarg_HC.jpg')
+saveas(fig3, 'GroupData/distancefromtarg/meandistancefromtarg_PAT.jpg')
+
+
+
+%plot distance (clear v noise)
+fig4=figure
+for icond=1:5
+subplot(2,5,icond)
+plot(PAT.meandist_from_targ(icond,:), 'k', 'LineWidth', 1.3)
+hold
+plot(PAT.meandist_from_targ(icond+5,:), 'm', 'LineWidth', 1.3)
+end
+
+for icond=1:5
+subplot(2,5,icond+5)
+plot(HC.meandist_from_targ(icond,:), 'k', 'LineWidth', 1.3)
+hold
+plot(HC.meandist_from_targ(icond+5,:), 'm', 'LineWidth', 1.3)
+end
+
+saveas(fig4, 'GroupData/distancefromtarg/meandistancefromtarg_clearVsnoise.jpg')
+
+fig5=figure
+for icond=1:10
+subplot(2,5,icond)
+plot(PAT.meandist_from_targ(icond,:), 'k', 'LineWidth', 1.3)
+hold
+plot(HC.meandist_from_targ(icond,:), 'm', 'LineWidth', 1.3)
+end
+saveas(fig5, 'GroupData/distancefromtarg/meandistancefromtarg_patsvshcs.jpg')
+
+
+fig6=figure
+for icond=1:10
+zee(icond,:)=calc_distance(HC.meandist_from_targ(icond,:), PAT.meandist_from_targ(icond,:));
+subplot(2,5,icond)
+plot(zee(icond,:), 'k', 'LineWidth', 1.3)
+axis([0 1400 0 400])
+end
+
+
+
+anovadata=[zee(1,:) zee(2,:) zee(3,:) zee(4,:) zee(5,:) zee(6,:) zee(7,:) zee(8,:) zee(9,:) zee(10,:)]
+
+13600
+6800
+
+anovadata_prestep=[pat_mean_noise pat_mean_clear HC_mean_noise HC_mean_clear]  
+  
+
+%create subject group
+pattest=ones(1,6800);
+HCtest=ones(1,6800);
+test2=HCtest*2;
+subjectgroup=[pattest test2];
+
+%create condition group
+for i=1:PAT_size
+    condition_1{i}='clear';
+end
+
+for i=1:PAT_size
+    condition_2{i}='noise';
+end
+
+for i=1:HC_size
+    condition_3{i}='noise';
+end
+
+for i=1:HC_size
+    condition_4{i}='clear';
+end
+
+condition=[condition_1 condition_2 condition_3 condition_4]
+condition=condition'
+
+group1=[subjectgroup];
+group2=[condition];
+p = anovan(anovadata_prestep,{group1 group2},'model','interaction');
+
+% 
+% 
+% for isubj=1:3    
+%     figure
+%     subplot(221)
+%     plot(DATA(isubj).mean_cond1_wholetrial)
+%     hold on
+%     plot(smallup)
+%     
+%     subplot(222)
+%     plot(dist_from_targ_cond1(isubj,:))
+% end
+
+
 

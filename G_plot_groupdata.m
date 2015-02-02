@@ -77,6 +77,13 @@ group_cond1_HCs_to_use_mean=nanmean(group_cond1_HCs(subjects_included,:,:));
 group_cond1_HCs_to_use_pre=group_cond1_HCs_pre(subjects_included,:,:);
 group_cond1_HCs_to_use_pre_mean=nanmean(group_cond1_HCs_pre(subjects_included,:,:));
 
+
+% %% PROBLEM? maybe not..
+% group_cond1_HCs
+% group_cond1_HCs(11,:)
+% plot(DATA(27).mean_cond1_wholetrial)
+
+
 for ipat=1:16
     group_cond2_pats(ipat,:)=DATA(ipat).mean_cond2_wholetrial(1,:);
     group_cond2_pats_pre(ipat,:)=DATA(ipat).mean_cond2_pre(1,:);

@@ -12,13 +12,14 @@ close all
 set_params;
 fig1=figure
 
+cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data/';
+
 npatients = 0;
 npatients = npatients + 1; %400 and 1000 are ok
 patient_info{npatients}.exprdir = 'SUB01/expr20140321T103415_SUBJ01_measurepitch/speak/';
 patient_info_2{npatients}.exprdir = 'SUB01/expr2014.03.21.T10.46.03_mainrun/speak/';
 meanpitchtag(npatients)=1;
  
-cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data/';
 npatients = 0;
 npatients = npatients + 1; %400 and 1000 are ok
 patient_info{npatients}.exprdir = 'SUB01/expr20140321T103415_SUBJ01_measurepitch/speak/';

@@ -239,7 +239,7 @@ errY2= [pat_SEM_noise_group pat_SEM_clear_group; ...
         pat_SEM_noise_group_post pat_SEM_clear_group_post; ...
         HC_SEM_noise_group_post HC_SEM_clear_group_post];
 
-fig1=figure
+fig1=figure;
 whitebg('white')
 h = barwitherr(errY2, distfromtarg_DATA_TO_USE);% Plot with errorbars
 set(gca,'XTickLabel',{'patients (pre)','controls (pre)','patients(post)','controls(post)'})
@@ -650,11 +650,12 @@ subplot(2,5,icond)
 plot(zee(icond,:), 'k', 'LineWidth', 1.3)
 axis([0 1400 0 400])
 end
+saveas(fig6, 'GroupData/distancefromtarg/difference_in_meandistancefromtarg_patsvshcs.jpg')
 
 
-%% anova on group DATA_TO_USE
 
-anovadata=[zee(1,:) zee(2,:) zee(3,:) zee(4,:) zee(5,:) zee(6,:) zee(7,:) zee(8,:) zee(9,:) zee(10,:)]
+%% anova on group data comparing the HC distance from target with patient distance from target
+anovadata=[zee(1,:) zee(2,:) zee(3,:) zee(4,:) zee(5,:) zee(6,:) zee(7,:) zee(8,:) zee(9,:) zee(10,:)];
   
 %create subject group
 pattest=ones(1,6800);
@@ -671,7 +672,7 @@ for i=1:6800
     condition_2a{i}='noise';
 end
 
-condition=[condition_1a condition_2a]
+condition=[condition_1a condition_2a];
 condition=condition';
 
 group1=[subjectgroup];
@@ -680,8 +681,8 @@ p = anovan(anovadata,{group1 group2},'model','interaction');
 
 %% ttests
 
-clearconds=[zee(1,:) zee(2,:) zee(3,:) zee(4,:) zee(5,:)]
-noiseconds=[zee(6,:) zee(7,:) zee(8,:) zee(9,:) zee(10,:)]
+clearconds=[zee(1,:) zee(2,:) zee(3,:) zee(4,:) zee(5,:)];
+noiseconds=[zee(6,:) zee(7,:) zee(8,:) zee(9,:) zee(10,:)];
 
 ttest2(clearconds, noiseconds)
 

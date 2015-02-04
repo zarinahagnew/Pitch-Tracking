@@ -2,6 +2,8 @@
 % -------------------------------------------------------------------------
 % ZKA Jan 2015
 % loads in the good trials from the main analysis and just removes any trials where there is a gap in voicing
+% saves the data in each subject's folder as
+% 'gooddata_spectralanalysis.mat'
 
 %% here we go
 clear all
@@ -10,6 +12,7 @@ close all
 set_params;
 amp_thresh=5*(10 ^ 7);                                  %amplitude threshold for cut off
 load /Users/zagnew/Dropbox/cerebellum_expr_devel/Zed/meanpitches/subj_MP_allsubs
+
 % ----
 
 cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data/';

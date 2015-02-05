@@ -34,9 +34,9 @@ trialdata_HCs(10,:)=group_cond10_HCs_to_use_mean(250:1300);
 % calculate smoothed and filtered versions
 for icond=1:10
     PATs(icond,:).smoothedtrialdata=smooth_line(trialdata_pats(icond,:), 20);
-    PATs(icond,:).lowpassdata=lowpass(trialdata_pats(icond,:), 0.1, 3);
+    PATs(icond,:).lowpassdata=lowpass(trialdata_pats(icond,:), 0.01, 3);
     HCs(icond,:).smoothedtrialdata=smooth_line(trialdata_HCs(icond,:), 20);
-    HCs(icond,:).lowpassdata=lowpass(trialdata_HCs(icond,:), 0.1, 3);
+    HCs(icond,:).lowpassdata=lowpass(trialdata_HCs(icond,:), 0.01, 3);
     
     PATs(icond).smoothed_diff=calc_distance(trialdata_pats(icond,:), PATs(icond,:).smoothedtrialdata);
     PATs(icond).filtered_diff=calc_distance(trialdata_pats(icond,:), PATs(icond,:).lowpassdata);
@@ -44,23 +44,33 @@ for icond=1:10
     HCs(icond).smoothed_diff=calc_distance(trialdata_HCs(icond,:), HCs(icond,:).smoothedtrialdata);
     HCs(icond).filtered_diff=calc_distance(trialdata_HCs(icond,:), HCs(icond,:).lowpassdata);
     
+    
 end
 
 fig1=figure
+title('patients and HCs: distance from low pass filtered track')
 for iplot=1:10
-    subplot(5,2, iplot)
+    subplot(2,5, iplot)
     plot(PATs(iplot).filtered_diff,'k', 'Linewidth', 1.3)
     hold on
     plot(HCs(iplot).filtered_diff,'m', 'Linewidth', 1.3)
-    axis([0 length(PATs(iplot).filtered_diff) -10 200])
+    axis([0 length(PATs(iplot).filtered_diff) -200 200])
 end
-save
+
 saveas(fig1, 'GroupData/MeanDistancefromFiltered.jpg')
+
+
+
+
+
+
+
+
 
 %create matrix for plotting mean disntance from smooth line and plot that
 %as bar graph
 fig2=figure;
-ymin=0;
+ymin=-25;
 ymax=25;
 for icond=1:10
     cond(icond,:)=[mean(PATs(icond).filtered_diff); mean(HCs(icond).filtered_diff)];
@@ -79,6 +89,41 @@ for icond=1:10
 end
 
 saveas(fig2, 'GroupData/MeanDistancefromFiltered_bar.jpg')
+
+
+
+% stdev
+fig2=figure;
+ymin=0;
+ymax=50;
+for icond=1:10
+    cond(icond,:)=[std(PATs(icond).filtered_diff); std(HCs(icond).filtered_diff)];
+    
+    
+    
+    errY2(icond,:) = [std(PATs(icond).filtered_diff)/sqrt(numpats); std(HCs(icond).filtered_diff)/sqrt(numHCs)];
+    subplot(2,5, icond)
+    h(icond) = barwitherr(errY2(icond,:), cond(icond,:));% Plot with errorbars
+    set(gca,'XTickLabel',{'Patients','HCs'})
+    ylabel('distance from lowpass filtered')
+    if icond==1|3|5|7|9
+    set(h(icond),'FaceColor','k');
+    else
+    set(h(icond),'FaceColor','w');
+    end
+    title(sprintf('Condition'));
+    axis([0 3 ymin ymax])
+end
+
+saveas(fig2, 'GroupData/stdDistancefromFiltered_bar.jpg')
+
+
+
+
+
+
+
+
 
 % stats
 anovandata=[PATs(1).filtered_diff PATs(2).filtered_diff PATs(3).filtered_diff ...
@@ -138,20 +183,20 @@ ttest2(HC_noise, pat_noise)
 
 fig3=figure;
 ymin=0;
-ymax=20;
+ymax=50;
 
-cond=[mean(HC_clear),mean(pat_clear);mean(HC_noise), mean(pat_noise)];
+cond=[std(HC_clear),std(pat_clear);std(HC_noise), std(pat_noise)];
 errY2=[std(HC_clear)/numsubs,std(pat_clear)/numpats;std(HC_noise)/numsubs, std(pat_noise)/numpats]
 
 h = barwitherr(errY2, cond);% Plot with errorbars
-set(gca,'XTickLabel',{'HCs','Patients'})
+set(gca,'XTickLabel',{'Clear','Noise'})
 ylabel('distance from lowpass filtered (cents)')
 set(h(1),'FaceColor','k');
 set(h(2),'FaceColor','w');
 title(sprintf('Wobble in clear and noise trials for all groups'));
 axis([0 3 ymin ymax])
 
-saveas(fig3, 'GroupData/MeanDistancefromFiltered_bar_allconds.jpg')
+saveas(fig3, 'GroupData/stdDistancefromFiltered_bar_allconds.jpg')
 
 
 

@@ -1,8 +1,6 @@
-    %% calculates distance between pitch tracking and pitch target
+%% calculates distance between pitch tracking and pitch target
 % ZKA Jan 2015 
-
 % run first: G_plot_groupdata;
-
 close all
 set_params;
 
@@ -19,7 +17,7 @@ posttarg_cond5=-300;
 load /Users/zagnew/Cereb_data/data/DATA_TO_USE.mat;
 
 
-%% PRE & POST WINDOW DATA
+%% PRE & POST WINDOW DATA -all based on individual subject means
 subz=size(DATA_TO_USE)
 subz=subz(2)
 
@@ -404,7 +402,6 @@ HC.noisetrials_groupmean=mean(HC.meandist_from_targ(6:10,:));
 
 
 % 5. plot this separately for patients and controls
-
 fig2=figure;
 title(sprintf('Motor performance: pre and post windows'));
 
@@ -985,4 +982,13 @@ axis([0 1400 -350 350])
 
 
 
+
+
+
+
 %% plot final figures
+
+
+
+
+

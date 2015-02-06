@@ -202,3 +202,7 @@ istep = round(tstep*frame_rate);
 %SEM: dividing the SD by the square root of N. 
 forstdev_HCs=numHCs*8;
 forstdev_PATs=numpats*8;
+
+%% for ploting graphs
+patient_colour=[.49 1 .63];
+HC_colour=[.4 .4 .4]

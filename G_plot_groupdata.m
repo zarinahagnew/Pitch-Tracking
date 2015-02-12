@@ -55,7 +55,7 @@ for ipat=1:16
 end
 group_cond1_pats=group_cond1_pats(1:16,:);
 group_cond1_pats_pre=group_cond1_pats_pre(1:16,:);
-group_cond1_pats_to_use=group_cond1_pats(patients_included,:,:)
+group_cond1_pats_to_use=group_cond1_pats(patients_included,:,:);
 group_cond1_pats_to_use_mean=nanmean(group_cond1_pats(patients_included,:,:));
 group_cond1_pats_to_use_pre=group_cond1_pats_pre(patients_included,:,:);
 group_cond1_pats_to_use_pre_mean=nanmean(group_cond1_pats_pre(patients_included,:,:));
@@ -128,7 +128,7 @@ for isub=17:27
 end
 group_cond3_HCs=group_cond3_HCs(17:27,:);
 group_cond3_HCs_pre=group_cond3_HCs_pre(17:27,:);
-group_cond3_HCs_to_use=group_cond3_HCs(subjects_included,:,:)
+group_cond3_HCs_to_use=group_cond3_HCs(subjects_included,:,:);
 group_cond3_HCs_to_use_mean=nanmean(group_cond3_HCs(subjects_included,:,:));
 group_cond3_HCs_to_use_pre=group_cond3_HCs_pre(subjects_included,:,:);
 group_cond3_HCs_to_use_pre_mean=nanmean(group_cond3_HCs_pre(subjects_included,:,:));
@@ -196,7 +196,7 @@ for isub=17:27
 end
 group_cond6_HCs=group_cond6_HCs(17:27,:);
 group_cond6_HCs_pre=group_cond6_HCs_pre(17:27,:);
-group_cond6_HCs_to_use=group_cond6_HCs(subjects_included,:,:)
+group_cond6_HCs_to_use=group_cond6_HCs(subjects_included,:,:);
 group_cond6_HCs_to_use_mean=nanmean(group_cond6_HCs(subjects_included,:,:));
 group_cond6_HCs_to_use_pre=group_cond6_HCs_pre(subjects_included,:,:);
 group_cond6_HCs_to_use_pre_mean=nanmean(group_cond6_HCs_pre(subjects_included,:,:));
@@ -209,7 +209,7 @@ for ipat=1:16
 end
 group_cond7_pats=group_cond7_pats(1:16,:);
 group_cond7_pats_pre=group_cond7_pats_pre(1:16,:);
-group_cond7_pats_to_use=group_cond7_pats(patients_included,:,:)
+group_cond7_pats_to_use=group_cond7_pats(patients_included,:,:);
 group_cond7_pats_to_use_mean=nanmean(group_cond7_pats(patients_included,:,:));
 group_cond7_pats_to_use_pre=group_cond7_pats_pre(patients_included,:,:);
 group_cond7_pats_to_use_pre_mean=nanmean(group_cond7_pats_pre(patients_included,:,:));
@@ -315,19 +315,22 @@ annotation('textbox', [0 0.9 1 0.1], ...
     'HorizontalAlignment', 'center')
 
 subplot(2,2,1)
-plot(group_cond1_HCs_to_use_mean, 'b','LineWidth',1.3);
+% plot(group_cond1_HCs_to_use_mean, 'b','LineWidth',1.3);
+% hold all
+% plot(group_cond2_HCs_to_use_mean, 'c','LineWidth',1.3);
+% plot(group_cond3_HCs_to_use_mean, 'k','LineWidth',1.3);
+% plot(group_cond4_HCs_to_use_mean, 'y','LineWidth',1.3);
+% plot(group_cond5_HCs_to_use_mean, 'r','LineWidth',1.3);
+
+
+plot(group_cond1_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.5);
 hold all
-% plot(smallup, 'c','LineWidth',1);
-% plot(bigup, 'b','LineWidth',1);
-% plot(nostep, 'k','LineWidth',1);
-% plot(smalldown, 'y','LineWidth',1);
-% plot(bigdown, 'r','LineWidth',1);
+plot(group_cond2_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.5);
+plot(group_cond3_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.5);
+plot(group_cond4_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.5);
+plot(group_cond5_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.5);
 
 
-plot(group_cond2_HCs_to_use_mean, 'c','LineWidth',1.3);
-plot(group_cond3_HCs_to_use_mean, 'k','LineWidth',1.3);
-plot(group_cond4_HCs_to_use_mean, 'y','LineWidth',1.3);
-plot(group_cond5_HCs_to_use_mean, 'r','LineWidth',1.3);
 %plot(windowplot, 'm','LineWidth',1.3);
 axis([0 1400 ymin ymax])
 title(sprintf('HC clear trials'));
@@ -335,6 +338,8 @@ rectangle('Position',[T1_HC,boxmin,T2_HC-T1_HC,boxmax],...
     'LineWidth',2,'LineStyle','--')
 rectangle('Position',[T3_HC,boxmin,T4_HC-T3_HC,boxmax],...    
     'LineWidth',2,'LineStyle','--')
+% patient_colour=[.49 1 .63];
+% HC_colour=[.4 .4 .4]
 
 
 subplot(2,2,2)
@@ -822,6 +827,75 @@ cd(cerebellar_data_rootdir)
 
 
 save('GROUPDATA')
+
+
+%% FINAL FIGURES
+
+fig1final=figure
+boxmin=-345;
+boxmax=690;
+ymin=-400
+ymax=400
+
+annotation('textbox', [0 0.9 1 0.1], ...
+    'String', 'Mean responses', ...
+    'EdgeColor', 'none', ...
+    'HorizontalAlignment', 'center')
+
+subplot(2,2,1)
+plot(frame_taxis_to_use,group_cond1_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.3);
+hold all
+plot(frame_taxis_to_use, group_cond2_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.3);
+plot(frame_taxis_to_use, group_cond3_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.3);
+plot(frame_taxis_to_use, group_cond4_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.3);
+plot(frame_taxis_to_use, group_cond5_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.3);
+axis([0 4 ymin ymax])
+title(sprintf('HC clear trials'));
+xlabel('Time (s)')
+ylabel('Pitch(cents)')
+goodplot
+
+
+subplot(2,2,2)
+plot(frame_taxis_to_use, group_cond6_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.3);
+hold all
+plot(frame_taxis_to_use, group_cond7_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.3);
+plot(frame_taxis_to_use, group_cond8_HCs_to_use_mean,  'Color',[HC_colour],'LineWidth',1.3);
+plot(frame_taxis_to_use, group_cond9_HCs_to_use_mean,  'Color',[HC_colour],'LineWidth',1.3);
+plot(frame_taxis_to_use, group_cond10_HCs_to_use_mean,  'Color',[HC_colour],'LineWidth',1.3);
+title(sprintf('HC masked trials'));
+axis([0 4 ymin ymax])
+xlabel('Time (s)')
+ylabel('Pitch(cents)')
+goodplot
+
+subplot(2,2,3)
+plot(frame_taxis_to_use, group_cond1_pats_to_use_mean, 'Color',[patient_colour],'LineWidth',1.3);
+hold all
+plot(frame_taxis_to_use, group_cond2_pats_to_use_mean, 'Color',[patient_colour],'LineWidth',1.3);
+plot(frame_taxis_to_use, group_cond3_pats_to_use_mean, 'Color',[patient_colour],'LineWidth',1.3);
+plot(frame_taxis_to_use, group_cond4_pats_to_use_mean, 'Color',[patient_colour],'LineWidth',1.3);
+plot(frame_taxis_to_use, group_cond5_pats_to_use_mean, 'Color',[patient_colour],'LineWidth',1.3);
+axis([0 4 ymin ymax])
+title(sprintf('Patients clear trials'));
+xlabel('Time (s)')
+ylabel('Pitch(cents)')
+goodplot
+
+subplot(2,2,4)
+plot(frame_taxis_to_use, group_cond6_pats_to_use_mean, 'Color',[patient_colour],'LineWidth',1.3);
+hold all
+plot(frame_taxis_to_use, group_cond7_pats_to_use_mean, 'Color',[patient_colour],'LineWidth',1.3);
+plot(frame_taxis_to_use, group_cond8_pats_to_use_mean, 'Color',[patient_colour],'LineWidth',1.3);
+plot(frame_taxis_to_use, group_cond9_pats_to_use_mean, 'Color',[patient_colour],'LineWidth',1.3);
+plot(frame_taxis_to_use, group_cond10_pats_to_use_mean, 'Color',[patient_colour],'LineWidth',1.3);
+axis([0 4 ymin ymax])
+xlabel('Time (s)')
+ylabel('Pitch(cents)')
+title(sprintf('Patients masked trials'));
+goodplot
+
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/Fig2.pdf');
 
 
 

@@ -245,6 +245,7 @@ ylabel('distance from target pitch (cents)')
 set(h(1),'FaceColor','k');
 set(h(2),'FaceColor','w');
 title(sprintf('Motor performance: pre and post windows'));
+
 saveas(fig1, 'GroupData/distancefromtarg/meandistancefromtarg_pre_post.jpg')
 
 %% anova (pre and post DATA_TO_USE)
@@ -988,6 +989,249 @@ axis([0 1400 -350 350])
 
 %% plot final figures
 
+fig1_final=figure
+whitebg('white')
+h = barwitherr(errY2, distfromtarg_DATA_TO_USE);% Plot with errorbars
+set(gca,'XTickLabel',{'patients  (prestep)','controls  (prestep)','patients  (poststep)','controls  (poststep)'})
+ylabel('distance from target pitch in trials (cents)')
+set(h(1),'FaceColor', 'w')
+set(h(2),'FaceColor','k')
+%set(h(3),'FaceColor','w')
+
+title(sprintf('Motor performance: pre and post windows, noise and clear conditions'));
+goodplot
+
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/Fig3.pdf');
+
+fig2_final=figure
+subplot(541)
+plot(frame_taxis_to_use, group_cond1_pats_to_use_mean,'Color',[patient_colour],'LineWidth',1.3);
+hold on
+plot(frame_taxis_to_use, smallup,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350])
+goodplot
+ 
+subplot(542)
+plot(frame_taxis_to_use, PAT.meandist_from_targ_groupdata(1,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350])
+goodplot
+
+subplot(545)
+plot(frame_taxis_to_use, group_cond2_pats_to_use_mean, 'Color',[patient_colour],'LineWidth',1.3);
+hold on
+plot(bigup,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350]) 
+goodplot
+
+subplot(546)
+plot(frame_taxis_to_use, PAT.meandist_from_targ_groupdata(2,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350]) 
+goodplot
+
+subplot(549)
+plot(frame_taxis_to_use, group_cond3_pats_to_use_mean, 'Color',[patient_colour],'LineWidth',1.3);
+hold on
+plot(nostep,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350]) 
+goodplot
+
+subplot(5, 4, 10)
+plot(frame_taxis_to_use, PAT.meandist_from_targ_groupdata(3,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350]) 
+goodplot
+
+subplot(5,4,13)
+plot(frame_taxis_to_use, group_cond4_pats_to_use_mean, 'Color',[patient_colour],'LineWidth',1.3);
+hold on
+plot(frame_taxis_to_use, smalldown,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350]) 
+goodplot
+
+subplot(5, 4, 14)
+plot(frame_taxis_to_use, PAT.meandist_from_targ_groupdata(4,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350]) 
+goodplot
+
+subplot(5,4,17)
+plot(frame_taxis_to_use, group_cond5_pats_to_use_mean, 'Color',[patient_colour],'LineWidth',1.3);
+hold on
+plot(bigdown,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350]) 
+goodplot
+
+subplot(5,4,18)
+plot(frame_taxis_to_use, PAT.meandist_from_targ_groupdata(5,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350]) 
+goodplot
+
+subplot(543)
+plot(frame_taxis_to_use, group_cond6_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(smallup,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350]) 
+goodplot
+
+subplot(544)
+plot(frame_taxis_to_use, PAT.meandist_from_targ_groupdata(6,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350]) 
+goodplot
+
+subplot(547)
+plot(frame_taxis_to_use, group_cond7_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(bigup,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350]) 
+goodplot
+
+subplot(548)
+plot(frame_taxis_to_use, PAT.meandist_from_targ_groupdata(7,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350]) 
+goodplot
+
+subplot(5, 4, 11)
+plot(frame_taxis_to_use, group_cond8_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(nostep,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350]) 
+goodplot
+
+subplot(5, 4, 12)
+plot(frame_taxis_to_use, PAT.meandist_from_targ_groupdata(8,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350]) 
+goodplot
+
+subplot(5,4,15)
+plot(frame_taxis_to_use, group_cond9_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(smalldown,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350]) 
+goodplot
+
+subplot(5, 4, 16)
+plot(frame_taxis_to_use, PAT.meandist_from_targ_groupdata(9,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350]) 
+goodplot
+
+subplot(5,4,19)
+plot(frame_taxis_to_use, group_cond10_pats_to_use_mean, 'k', 'LineWidth', 1.3)
+hold on
+plot(bigdown,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350]) 
+goodplot
+
+subplot(5,4,20)
+plot(frame_taxis_to_use, PAT.meandist_from_targ_groupdata(10,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350]) 
+goodplot
+
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/Fig3a.pdf');
+
+%% HCs
+
+figure
+title(sprintf('Motor performance: pre and post windows'));
+subplot(541)
+plot(frame_taxis_to_use, group_cond1_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.3);
+hold on
+plot(frame_taxis_to_use, smallup,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350])  
+goodplot
+
+subplot(542)
+plot(frame_taxis_to_use, HC.meandist_from_targ_groupdata(1,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350])  
+goodplot
+
+subplot(545)
+plot(frame_taxis_to_use, group_cond2_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.3);
+hold on
+plot(frame_taxis_to_use, bigup,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350])  ; goodplot
+
+subplot(546)
+plot(frame_taxis_to_use, HC.meandist_from_targ_groupdata(2,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350])  ; goodplot
+
+subplot(549)
+plot(frame_taxis_to_use, group_cond3_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.3);
+hold on
+plot(frame_taxis_to_use, nostep,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350])  ; goodplot
+
+subplot(5, 4, 10)
+plot(frame_taxis_to_use, HC.meandist_from_targ_groupdata(3,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350])  ; goodplot
+
+subplot(5,4,13)
+plot(frame_taxis_to_use, group_cond4_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.3);
+hold on
+plot(frame_taxis_to_use, smalldown,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350])  ; goodplot
+
+subplot(5, 4, 14)
+plot(frame_taxis_to_use, HC.meandist_from_targ_groupdata(4,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350])  ; goodplot
+
+subplot(5,4,17)
+plot(frame_taxis_to_use, group_cond5_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.3);
+hold on
+plot(frame_taxis_to_use, bigdown,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350])  ; goodplot
+
+subplot(5,4,18)
+plot(frame_taxis_to_use, HC.meandist_from_targ_groupdata(5,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350])  ; goodplot
+
+subplot(543)
+plot(frame_taxis_to_use, group_cond6_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.3);
+hold on
+plot(frame_taxis_to_use, smallup,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350])  ; goodplot
+
+subplot(544)
+plot(frame_taxis_to_use, HC.meandist_from_targ_groupdata(6,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350])  ; goodplot
+
+subplot(547)
+plot(frame_taxis_to_use, group_cond7_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.3);
+hold on
+plot(frame_taxis_to_use, bigup,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350])  ; goodplot
+
+subplot(548)
+plot(frame_taxis_to_use, HC.meandist_from_targ_groupdata(7,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350])  ; goodplot
+
+subplot(5, 4, 11)
+plot(frame_taxis_to_use, group_cond8_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.3);
+hold on
+plot(frame_taxis_to_use, nostep,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350])  ; goodplot
+
+subplot(5, 4, 12)
+plot(frame_taxis_to_use, HC.meandist_from_targ_groupdata(8,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350])  ; goodplot
+
+subplot(5,4,15)
+plot(frame_taxis_to_use, group_cond9_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.3);
+hold on
+plot(frame_taxis_to_use, smalldown,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350])  ; goodplot
+
+subplot(5, 4, 16)
+plot(frame_taxis_to_use, HC.meandist_from_targ_groupdata(9,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350])  ; goodplot
+
+subplot(5,4,19)
+plot(frame_taxis_to_use, group_cond10_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.3);
+hold on
+plot(frame_taxis_to_use, bigdown,  'm', 'LineWidth', 1.3)
+axis([0 4 -350 350])  ; goodplot
+
+subplot(5,4,20)
+plot(frame_taxis_to_use, HC.meandist_from_targ_groupdata(10,:),  'k', 'LineWidth', 1.3)
+axis([0 4 -350 350])  ; goodplot
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/Fig3b.pdf');
 
 
 

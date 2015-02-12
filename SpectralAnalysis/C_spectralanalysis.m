@@ -24,8 +24,7 @@ fig2=figure
 % Subject Loop
 for isubj=1:npatients
     the_expr_dir = [cerebellar_data_rootdir (patient_info_2{isubj}.exprdir)];
-    cd (the_expr_dir);
-    
+    cd (the_expr_dir);    
     load (sprintf('%ssorted_data_spectral.mat',patient_info_2{isubj}.exprdir));
     %for iblock=1:8
     for icond=1:10
@@ -34,12 +33,31 @@ for isubj=1:npatients
             temp1(icond).data(itrial,:)=my_spectrum(sorted_data(icond).wholetrial(itrial,250:end),fs_spec,nfreqs);
             subplot(5,3,itrial)
             plot(temp1(icond).data(itrial,:))
-            axis([0 20 0 5])
+            axis([0 100 0 40])
         end
         meanspec(isubj,:).cond(icond,:)=nanmean(temp1(icond).data);        
-    end    
+        figure
+        plot(meanspec(isubj,:).cond(icond,:), 'm', 'LineWidth', 1.2)
+        axis([0 100 0 40])
+        goodplot
+    end
+    for icond=1:10
+    SPEC(isubj,:).condition(1)=meanspec(isubj).cond(icond,:)
+    end
+    
+    
+    
     cd(cerebellar_data_rootdir);
     save GroupData/meanspec.mat meanspec
 end
+
+%Pat_GpSpec=nanmean(SPEC(isubj,:))
+
+%% Group analysis
+% 
+% for moo=1:npatients
+% 
+% end
+
 
 %% working on the loop and savingggg

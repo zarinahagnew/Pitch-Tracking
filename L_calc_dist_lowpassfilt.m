@@ -55,6 +55,7 @@ for iplot=1:10
     hold on
     plot(HCs(iplot).filtered_diff,'m', 'Linewidth', 1.3)
     axis([0 length(PATs(iplot).filtered_diff) -200 200])
+    goodplot
 end
 
 saveas(fig1, 'GroupData/MeanDistancefromFiltered.jpg')

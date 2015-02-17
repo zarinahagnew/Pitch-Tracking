@@ -408,9 +408,7 @@ end
             end
         end
             
-    
-    
-        
+   
         %% calculate WT devs for each subject
         for each_block=1:num_blocks;
             for d=1:trialsperblock
@@ -430,26 +428,96 @@ end
         end
         
         % write out into 'gooddata.mat'
-        gooddata=data_7;
+        gooddata2=data_7;
         
         % eliminate trials with a break in voicing for spectral analysis
         for each_block=1:num_blocks
             for itrial=1:trialsperblock
                 for iframe=250:1300
-                    if sum(isnan(gooddata(1).goodpitchdata(each_block).data(itrial,201:1360)))>0
+                    if sum(isnan(gooddata2(1).goodpitchdata(each_block).data(itrial,201:1360)))>0
                         %gooddata_spec(1).goodpitchdata(each_block).data(itrial,:)=NaN(1,1360);
-                        gooddata(1).goodpitchdata_spectral(each_block).data(itrial,:)=NaN(1,1360);
+                        gooddata2(1).goodpitchdata_spectral(each_block).data(itrial,:)=NaN(1,1360);
                     else
-                        gooddata(1).goodpitchdata_spectral(each_block).data(itrial,:)=gooddata(1).goodpitchdata(each_block).data(itrial,:);
+                        gooddata2(1).goodpitchdata_spectral(each_block).data(itrial,:)=gooddata2(1).goodpitchdata(each_block).data(itrial,:);
                         
                     end
                 end
             end
         end
         
+        % write out difference between each trial and low pass filtered
+        % version
+        
+        gooddata=gooddata2;
+        trialdata=250:1000;
+        numframes_data=length(trialdata);
+        for each_block=1:num_blocks
+            for itrial=1:trialsperblock
+                if sum(isnan(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata)))>0
+                    lowpassdata(1).goodpitchdata(each_block).data(itrial,:)=nan(1, numframes_data);
+                    gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:)=nan(1, numframes_data);
+                else
+                    lowpassdata(1).goodpitchdata(each_block).data(itrial,:)=lowpass(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata), 0.01, 3);
+                    gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:)=calc_distance(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata), lowpassdata(1).goodpitchdata(each_block).data(itrial,:))
+
+                end
+            end
+        end
+%         
+%         figure
+%         for each_block=1:num_blocks
+%             for itrial=1:trialsperblock                
+%                 subplot(4,1,1)
+%                 plot(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata))
+%                 hold 
+%                 plot(lowpassdata(1).goodpitchdata(each_block).data(itrial,:), 'm')
+%                 axis([0 1200 -100 100])
+%                 
+%                 subplot(4,1,2)
+%                 plot(lowpassdata(1).goodpitchdata(each_block).data(itrial,:))
+%                 axis([0 1200 -100 100])
+%                 
+%                 subplot(4,1,3)
+%                 plot(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata))
+%                 hold on
+%                 plot(gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:), 'm')
+%                 axis([0 1200 -100 100])
+%                 
+%                 subplot(4,1,4)
+%                 plot(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata)- lowpassdata(1).goodpitchdata(each_block).data(itrial,:))
+%                 axis([0 1200 -100 100])
+%                 goodplot
+%                 
+%                 pause
+%             end
+%         end
+% 
+%         
+        
+%         
+%         wiggle=[1 3 6 2 5 7 9 3 6 7]
+%         flat  =[1 2 1 2 1 2 1 2 1 1]
+%         difshouldbe=[0 1 5 0 4 5 8 1 5 6]
+%         test=wiggle-flat
+%         
+%         subplot(311)
+%         plot(wiggle)
+%         
+%         subplot(312)
+%         plot(flat)
+%         
+%         subplot(313)
+%         plot(test)
+%         plot(difshouldbe, 'm')
         
         
         
+%             subplot(211)
+%             plot(gooddata(1).goodpitchdata(1).data(3,250:1300))
+%             subplot(212)
+%             plot(lowpass(gooddata(1).goodpitchdata(1).data(3,250:1300), 0.01, 3))
+%             
+            
         %% calculate gaps
         for each_block=1:num_blocks;
             for d=1:trialsperblock

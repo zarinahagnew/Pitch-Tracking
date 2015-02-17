@@ -48,28 +48,28 @@ npatients = npatients + 1;
 patient_info{npatients}.exprdir = 'SUB16/expr2014.03.23.T18.16.58_mainrun/speak/';
 
 % % list controls here
-% npatients = npatients + 1;
-% patient_info{npatients}.exprdir = 'HC01/expr2014.05.06.T12.36.43_mainrun/speak/';
-% npatients = npatients + 1;
-% patient_info{npatients}.exprdir = 'HC02/expr2014.06.17.T12.53.53_mainrun/speak/';
-% npatients = npatients + 1;
-% patient_info{npatients}.exprdir = 'HC03/expr2014.06.17.T13.50.36_mainrun/speak/';
-% npatients = npatients + 1;
-% patient_info{npatients}.exprdir = 'HC04/expr2014.06.17.T16.22.20_mainrun/speak/';
-% npatients = npatients + 1;
-% patient_info{npatients}.exprdir = 'HC05/expr2014.06.18.T15.14.02_mainrun/speak/';
-% npatients = npatients + 1;
-% patient_info{npatients}.exprdir = 'HC06/expr2014.06.18.T16.18.27_mainrun/speak/';
-% npatients = npatients + 1;
-% patient_info{npatients}.exprdir = 'HC07/expr2014.07.25.T10.29.55_mainrun/speak/'; % bad subject
-% npatients = npatients + 1;
-% patient_info{npatients}.exprdir = 'HC08/expr2014.08.14.T15.57.52_mainrun/speak/';
-% npatients = npatients + 1;
-% patient_info{npatients}.exprdir = 'HC09/expr2014.09.21.T14.17.36_mainrun/speak/';
-% npatients = npatients + 1;
-% patient_info{npatients}.exprdir = 'HC10/expr2014.09.21.T15.35.54_JL_mainrun/speak/';
-% npatients = npatients + 1;
-% patient_info{npatients}.exprdir = 'HC11/expr2014.09.23.t15.27.32_sn_mainrun/speak/';
+npatients = npatients + 1;
+patient_info{npatients}.exprdir = 'HC01/expr2014.05.06.T12.36.43_mainrun/speak/';
+npatients = npatients + 1;
+patient_info{npatients}.exprdir = 'HC02/expr2014.06.17.T12.53.53_mainrun/speak/';
+npatients = npatients + 1;
+patient_info{npatients}.exprdir = 'HC03/expr2014.06.17.T13.50.36_mainrun/speak/';
+npatients = npatients + 1;
+patient_info{npatients}.exprdir = 'HC04/expr2014.06.17.T16.22.20_mainrun/speak/';
+npatients = npatients + 1;
+patient_info{npatients}.exprdir = 'HC05/expr2014.06.18.T15.14.02_mainrun/speak/';
+npatients = npatients + 1;
+patient_info{npatients}.exprdir = 'HC06/expr2014.06.18.T16.18.27_mainrun/speak/';
+npatients = npatients + 1;
+patient_info{npatients}.exprdir = 'HC07/expr2014.07.25.T10.29.55_mainrun/speak/'; % bad subject
+npatients = npatients + 1;
+patient_info{npatients}.exprdir = 'HC08/expr2014.08.14.T15.57.52_mainrun/speak/';
+npatients = npatients + 1;
+patient_info{npatients}.exprdir = 'HC09/expr2014.09.21.T14.17.36_mainrun/speak/';
+npatients = npatients + 1;
+patient_info{npatients}.exprdir = 'HC10/expr2014.09.21.T15.35.54_JL_mainrun/speak/';
+npatients = npatients + 1;
+patient_info{npatients}.exprdir = 'HC11/expr2014.09.23.t15.27.32_sn_mainrun/speak/';
 
 for each_subject = 1:npatients
 %for each_subject = 23
@@ -143,15 +143,13 @@ for each_subject = 1:npatients
         blockx=blockcondname(each_block,:);
         for trial=1:10
             sorted_data(blockx(trial)).wholetrial(line_counter(blockx(trial)),:)=gooddata(1).goodpitchdata(each_block).data(trial,:);
+            sorted_data(blockx(trial)).goodpitchdata_difflowpassfilt(line_counter(blockx(trial)),:)=gooddata(1).goodpitch_difflowpassfilt(1).data(trial,:);            
             sorted_data(blockx(trial)).prestep(line_counter(blockx(trial)),:)=gooddata(1).prestep(each_block).data(trial,:);
             sorted_data(blockx(trial)).poststep(line_counter(blockx(trial)),:)=gooddata(1).poststep(each_block).data(trial,:);            
             sorted_data(blockx(trial)).AMP_wholetrial(line_counter(blockx(trial)),:)=gooddata(1).goodampdata(1).wholetrial_amp(trial,:);                                                                                     
             sorted_data(blockx(trial)).AMP_prestep(line_counter(blockx(trial)),:)=gooddata(1).goodampdata(1).prestep_amp(trial,:);
             sorted_data(blockx(trial)).AMP_poststep(line_counter(blockx(trial)),:)=gooddata(1).goodampdata(1).poststep_amp(trial,:);
             sorted_data(blockx(trial)).wholetrial_spectral(line_counter(blockx(trial)),:)=gooddata(1).goodpitchdata_spectral(each_block).data(trial,:);
-            
-            
-            
             sorted_data(blockx(trial)).distfromtarg_pre=gooddata(1).pre_distfromtarget(1).data(trial);
             sorted_data(blockx(trial)).distfromtarg_post=gooddata(1).post_distfromtarget(1).data(trial);
             sorted_data(blockx(trial)).pertresp{line_counter(blockx(trial)),:}=shifted_blockalt{trial, each_block};
@@ -168,7 +166,6 @@ for each_subject = 1:npatients
             sorted_data(blockx(trial)).mean_goodstdwholetrial_amp(line_counter(blockx(trial)),:)=nanmean(gooddata(1).goodstd(1).wholetrial_amp);
             sorted_data(blockx(trial)).mean_goodstdprestep_amp(line_counter(blockx(trial)),:)=nanmean(gooddata(1).goodstd(1).prestep_amp);
             sorted_data(blockx(trial)).mean_goodstdpoststep_amp(line_counter(blockx(trial)),:)=nanmean(gooddata(1).goodstd(1).poststep_amp);
-
             %sorted_data(blockx(trial)).audiodata(line_counter(blockx(trial)),:)=gooddata.audio(each_block).audio(trial,:);
             line_counter(blockx(trial))=line_counter(blockx(trial))+1;
         end
@@ -177,20 +174,20 @@ for each_subject = 1:npatients
     close
     
     %% ------------------------------------------------------------------------
-        for cond=1:10
-            for itrial=1:8
-                subplot(2,5,cond)
-                for one=1:8
-                plot(sorted_data(cond).wholetrial(itrial,:))
-                hold all
-                plot(nanmean(sorted_data(cond).wholetrial),'k','LineWidth',1.1);
-                axis([1 1500 -350 350])
-                end
-            end
-        end
-        saveas(fig1, 'sorted_trials.jpg')
+%         for cond=1:10
+%             for itrial=1:8
+%                 subplot(2,5,cond)
+%                 for one=1:8
+%                 plot(sorted_data(cond).wholetrial(itrial,:))
+%                 hold all
+%                 plot(nanmean(sorted_data(cond).wholetrial),'k','LineWidth',1.1);
+%                 axis([1 1500 -350 350])
+%                 end
+%             end
+%         end
+%        saveas(fig1, 'sorted_trials.jpg')
     
-    pause
+    %pause
     clc
     display('dont be fooled by thinking this is wrong before checking the Y axis..')
     save sorted_data sorted_data

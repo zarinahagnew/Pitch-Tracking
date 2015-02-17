@@ -164,6 +164,7 @@ perf_thresh_neg_cents=-50;
 nframes_to_plot= 1378-5;     %nframes_per_trial-5;
 nframes_to_use=1360;         %nframes_per_trial-18;
 frame_taxis = (0:(nframes_per_trial-1))/framef;
+frame_taxis_to_use = (0:(nframes_to_use-1))/frame_fs;
 
 %% convert frames to seconds
 % 1 frame=3.445 ms

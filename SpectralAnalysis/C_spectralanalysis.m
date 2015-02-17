@@ -123,7 +123,8 @@ patient_info_2{npatients}.exprdir = 'HC11/expr2014.09.23.t15.27.32_sn_mainrun/sp
 
 
 
-% Subject Loop
+% Subject Loop - calculates spectrum for each trial, then calculates the
+% mean for each condition - 'meanspec'
 for isubj=1:npatients
     the_expr_dir = [cerebellar_data_rootdir (patient_info_2{isubj}.exprdir)];
     cd (the_expr_dir);    
@@ -140,6 +141,7 @@ for isubj=1:npatients
 end
 close all
 
+%% puts all patients in one matrix and all HCs in another
 for isubj=1:16        
    SPEC_cond1_pat(isubj,:)=meanspec(isubj).cond(1,:);
    SPEC_cond2_pat(isubj,:)=meanspec(isubj).cond(2,:);
@@ -166,13 +168,66 @@ for isubj=1:10
    SPEC_cond10_HC(isubj,:)=meanspec(isubj).cond(10,:);   
 end
 
+
+%% ANOVA
+% create single matrix for all clear and noise conditions
 Pats_clear = vertcat(SPEC_cond1_pat, SPEC_cond2_pat, SPEC_cond3_pat, SPEC_cond4_pat, SPEC_cond5_pat);
 Pats_noise = vertcat(SPEC_cond6_pat, SPEC_cond7_pat, SPEC_cond8_pat, SPEC_cond9_pat, SPEC_cond10_pat);
 HCs_clear = vertcat(SPEC_cond1_HC, SPEC_cond2_HC, SPEC_cond3_HC, SPEC_cond4_HC, SPEC_cond5_HC);
 HCs_noise = vertcat(SPEC_cond6_HC, SPEC_cond7_HC, SPEC_cond8_HC, SPEC_cond9_HC, SPEC_cond10_HC);
 
-%ttest between patients clear and noise
 
+% create single array for clear and noise conditions for anova
+Pats_clear_anova=reshape(Pats_clear',44480,1);
+Pats_clear_anova=Pats_clear_anova';
+
+Pats_noise_anova=reshape(Pats_noise',44480,1);
+Pats_noise_anova=Pats_noise_anova';
+
+HCs_clear_anova=reshape(HCs_clear',27800,1);
+HCs_clear_anova=HCs_clear_anova';
+
+HCs_noise_anova=reshape(HCs_noise',27800,1);
+HCs_noise_anova=HCs_noise_anova';
+
+
+anovadata=[HCs_clear_anova HCs_noise_anova Pats_clear_anova Pats_noise_anova]
+
+subgp_1=2*length(HCs_clear_anova);
+subgp_2=2*length(Pats_clear_anova);
+
+condgp_1=length(HCs_clear_anova);
+condgp_2=length(Pats_clear_anova);
+
+%create subject group
+test=ones(1,subgp_1);
+testz=ones(1,subgp_2);
+test2=testz*2;
+subjectgroup=[test test2];
+
+%create condition group
+condition = cell(1,144560);
+for i=1:27800
+    condition{i}='clear';
+end
+for i=27800+1:55600
+    condition{i}='noise';
+end
+for i=55600+1:55600+length(Pats_clear_anova)
+    condition{i}='clear';
+end
+for i=100080+1:100080+length(Pats_clear_anova)
+    condition{i}='noise';
+end
+
+condition=condition';
+
+group1=[subjectgroup];
+group2=[condition];
+p = anovan(anovadata,{group1 group2 },'model','interaction')
+
+
+% ttest between patients clear and noise
 for iframe=1:length(SPEC_cond3_pat)
     ttestspec_alltrials_pats(:, iframe)=ttest(Pats_clear(1:80,iframe), Pats_noise(1:80,iframe));            
     ttestspec_alltrials_HCs(:, iframe)=ttest(HCs_clear(1:50,iframe), HCs_noise(1:50,iframe));            
@@ -181,7 +236,17 @@ end
 ttestspec_alltrials_pats(1:7)
 ttestspec_alltrials_HCs(1:7)
 
+% ttest between patients clear and noise
+for iframe=1:length(SPEC_cond3_pat)
+    ttestspec_cleartrials(:, iframe)=ttest2(Pats_clear(1:80,iframe), HCs_clear(1:50,iframe));            
+    ttestspec_noisetrials(:, iframe)=ttest2(HCs_noise(1:50,iframe), Pats_noise(1:50,iframe));            
+end
 
+ttestspec_cleartrials(1:7)
+ttestspec_noisetrials(1:7)
+
+
+%% anova on raw data
 
 
 GpMean_cond1_pat=nanmean(SPEC_cond1_pat);
@@ -340,28 +405,49 @@ mean_pat_noise=nanmean(pat_noise)
 
 
 
-
-
-
-%% running ttest
+%% flat trials only
+% running ttest - flat trials only
+% pats v HCs - clear
 for iframe=1:length(SPEC_cond3_pat)
     ttest_spec_clearflattrials(:, iframe)=ttest2(SPEC_cond3_pat(1:16,iframe), SPEC_cond3_HC(1:end,iframe));            
 end
+ttest_spec_clearflattrials=ttest_spec_clearflattrials(1:7)
 
-ttest_spec_clearflattrials(1:7)
-
+% pats v HCs - noise
 for iframe=1:length(SPEC_cond3_pat)
     ttest_spec_noiseflattrials(:, iframe)=ttest2(SPEC_cond8_pat(1:16,iframe), SPEC_cond8_HC(1:end,iframe));            
 end
+ttest_spec_noiseflattrials=ttest_spec_noiseflattrials(1:7)
 
-ttest_spec_noiseflattrials(1:7)
+% pats - clear vs noise
+for iframe=1:length(SPEC_cond3_pat)
+    ttest_spec_pats_clearvnoise(:, iframe)=ttest(SPEC_cond3_pat(1:16,iframe), SPEC_cond8_pat(1:16,iframe));            
+end
+ttest_spec_pats_clearvnoise=ttest_spec_pats_clearvnoise(1:7)
 
-figure
+% pats - clear vs noise
+for iframe=1:length(SPEC_cond8_HC)
+    ttest_spec_HCs_clearvnoise(:, iframe)=ttest(SPEC_cond3_HC(1:end,iframe), SPEC_cond8_HC(1:end,iframe));            
+end
+ttest_spec_HCs_clearvnoise=ttest_spec_HCs_clearvnoise(1:7)
+
+% print out
+ttest_spec_clearflattrials
+ttest_spec_noiseflattrials
+ttest_spec_pats_clearvnoise
+ttest_spec_HCs_clearvnoise
+
+
+
+
+
+fig1=figure
 clf
 subplot(1,2,1)
 patch([0.5 1.5 1.5 0.5], [1.1 1.1 70 70 ], [0.8500    0.8500    0.8500],'EdgeColor', 'none');
-patch([4.5 5.5 5.5 4.5], [1.1 1.1 70 70 ], [0.8500    0.8500    0.8500],'EdgeColor', 'none');
 hold on
+patch([4.5 5.5 5.5 4.5], [1.1 1.1 70 70 ], [0.8500    0.8500    0.8500],'EdgeColor', 'none');
+
 plot(mean_HC_clear, '-o', 'Color',[HC_colour],'LineWidth',1.3);
 plot(mean_HC_noise, '--o', 'Color',[HC_colour],'LineWidth',1.3);
 goodplot
@@ -377,38 +463,49 @@ goodplot
 axis([2 7 0 100]);
 title('Patients')
 
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/Fig3a.pdf');
 
-ttest_spec(1:7)
 
-% patch([1 5 5 1], [1.1 1.1 70 70 ], [0.3000    0.3000    0.8000],'EdgeColor', 'none');
-% patch([13.5 14.5 14.5 13.5], [1 1 25 25], [0.3000    0.3000    0.8000],'EdgeColor', 'none');
-% patch([18.5 19.5 19.5 18.5], [1 1 25 25], [0.3000    0.3000    0.8000],'EdgeColor', 'none');
-% patch([24.5 25.5 25.5 24.5], [1 1 25 25], [0.3000    0.3000    0.8000],'EdgeColor', 'none');
-% patch([28.5 29.5 29.5 28.5], [1 1 25 25], [0.3000    0.3000    0.8000],'EdgeColor', 'none');
-
+fig2=figure
+subplot(2,2,1)
+plot(mean_HC_clear, 'Color',[HC_colour],'LineWidth',1.3);
+goodplot
+axis([0 10 0 250]);
+title('HC clear')
+goodplot
 
 subplot(2,2,2)
 plot(mean_HC_noise, 'Color',[HC_colour],'LineWidth',1.3);
 goodplot
-axis([2 7 0 100]);
+axis([0 10 0 250]);
 title('HC noise')
+
+subplot(2,2,3)
+plot(mean_pat_clear, 'Color',[patient_colour],'LineWidth',1.3);
+goodplot
+axis([0 10 0 250]);
+title('Patients clear')
+
+subplot(2,2,4)
+plot(mean_pat_noise, 'Color',[patient_colour],'LineWidth',1.3);
+goodplot
+axis([0 10 0 250]);
+title('Patients noise')
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/Fig3b.pdf');
+
 
 ttest(mean_HC_clear, mean_HC_noise)
 ttest(mean_pat_clear, mean_pat_noise)
 ttest2(mean_HC_clear, mean_pat_clear)
 ttest2(mean_HC_noise, mean_pat_noise)
 
-subplot(2,2,3)
-plot(mean_pat_clear, 'Color',[patient_colour],'LineWidth',1.3);
-goodplot
-axis([2 7 0 100]);
-title('Patients clear')
-
-subplot(2,2,4)
+figure 
 plot(mean_pat_noise, 'Color',[patient_colour],'LineWidth',1.3);
+hold on
+plot(mean_pat_clear, '--','Color',[patient_colour],'LineWidth',1.3);
+axis([0 8 0 200]);
+title('Patients noise vs clear')
 goodplot
-axis([2 7 0 100]);
-title('Patients noise')
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/Fig3c.pdf');
 
-%% anova
 

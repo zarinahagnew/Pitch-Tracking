@@ -91,6 +91,114 @@ for isubj = 1:npatients
     DATA(isubj).distfromlowasspass= load (sprintf('%ssorted_data.mat',patient_info{isubj}.exprdir));  
 end
 
+%% put all data into one matrix
+for cond=1:10
+Pat_data_distlowpass(cond).data=vertcat( ...
+    DATA(1).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(2).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(3).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(4).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(5).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(6).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(7).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(8).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(9).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(10).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(11).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(12).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(13).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(14).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(15).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(16).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt);
+
+HC_data_distlowpass(cond).data=vertcat( ...
+    DATA(17).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(18).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(19).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(20).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(21).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(22).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(23).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(24).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(25).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(26).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA(27).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt);
+
+end
+
+%% caluclate how many are all nan trials
+HC_alltrials_clear=vertcat(...
+    HC_data_distlowpass(1).data, HC_data_distlowpass(2).data, HC_data_distlowpass(3).data, HC_data_distlowpass(4).data, ...
+    HC_data_distlowpass(5).data);
+
+HC_alltrials_noise=vertcat(...
+    HC_data_distlowpass(6).data, HC_data_distlowpass(7).data, HC_data_distlowpass(8).data, ...
+    HC_data_distlowpass(9).data, HC_data_distlowpass(9).data, HC_data_distlowpass(10).data);
+
+PAT_alltrials_clear=vertcat(...
+    Pat_data_distlowpass(1).data, Pat_data_distlowpass(2).data, Pat_data_distlowpass(3).data, Pat_data_distlowpass(4).data, ...
+    Pat_data_distlowpass(5).data);
+
+PAT_alltrials_noise=vertcat(...
+    Pat_data_distlowpass(6).data, Pat_data_distlowpass(7).data, Pat_data_distlowpass(8).data, ...
+    Pat_data_distlowpass(9).data, Pat_data_distlowpass(9).data, Pat_data_distlowpass(10).data);
+
+%%
+pat_clear_goodtrial_counter=0;
+for itrial=1:640
+    if sum(isnan(PAT_alltrials_clear(itrial,:)))<750
+        pat_clear_goodtrial_counter=pat_clear_goodtrial_counter+1;
+    end
+end
+fraction_gd_pats_clear=(pat_clear_goodtrial_counter/640)*100
+goodtrials_pat_clear=pat_clear_goodtrial_counter % use this as N for SEM
+
+
+pat_noise_goodtrial_counter=0;
+for itrial=1:768
+    if sum(isnan(PAT_alltrials_noise(itrial,:)))<750
+        pat_noise_goodtrial_counter=pat_noise_goodtrial_counter+1;
+    end
+end
+fraction_gd_pats_noise=(pat_noise_goodtrial_counter/768)*100
+goodtrials_pat_noise=pat_noise_goodtrial_counter % use this as N for SEM
+
+HC_clear_goodtrial_counter=0;
+for itrial=1:440
+    if sum(isnan(HC_alltrials_clear(itrial,:)))<750
+        HC_clear_goodtrial_counter=HC_clear_goodtrial_counter+1;
+    end
+end
+fraction_gd_HCs_clear=(HC_clear_goodtrial_counter/440)*100
+goodtrials_HC_clear=HC_clear_goodtrial_counter % use this as N for SEM
+
+
+HC_noise_goodtrial_counter=0;
+for itrial=1:528
+    if sum(isnan(HC_alltrials_noise(itrial,:)))<750
+        HC_noise_goodtrial_counter=HC_noise_goodtrial_counter+1;
+    end
+end
+fraction_gd_HCs_noise=(HC_noise_goodtrial_counter/528)*100
+goodtrials_HC_noise=HC_noise_goodtrial_counter % use this as N for SEM
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 %% ACROSS trial mean and stdev
 for isubj=1:16
     for cond=1:10
@@ -187,6 +295,7 @@ HCGp_WTstddev_noise_horz=horzcat(...
     HCGp_WTstddev_noise(5,:));
 
 
+%% anova
 anova_data_WTstdev=[HCGp_WTstddev_clear_horz, HCGp_WTstddev_noise_horz, PatGp_WTstddev_clear_horz, PatGp_WTstddev_noise_horz]
 
 %create subject group
@@ -194,14 +303,6 @@ test=ones(1,880);
 test2=ones(1,1280);
 test2=test2*2;
 subjectgroup=[test test2];
-
-% sub random factor
-sub_1=ones(1,40)
-
-for isub=1:27
-    sub(isub,:)=sub_1*isub
-end
-
 
 %create condition group
 condition = cell(1,2160);
@@ -221,156 +322,45 @@ condition=condition';
 
 group1=[subjectgroup];
 group2=[condition];
-p = anovan(anova_data_WTstdev,{group1 group2},'model','interaction')
-sub_fact=horzcat(...
-    sub(1, :),sub(2, :),sub(3, :),sub(4, :),sub(5, :),sub(6, :),sub(7, :), ...
-    sub(8, :),sub(9, :),sub(10, :),sub(11, :),sub(12, :),sub(13, :),sub(14, :), ...
-    sub(15, :),sub(16, :),sub(17, :),sub(18, :),sub(19, :),sub(20, :),sub(21, :), ...    
-    sub(22, :),sub(23, :),sub(24, :),sub(25, :),sub(26, :),sub(27, :));
+% sub_fact=horzcat(...
+%     sub(1, :),sub(2, :),sub(3, :),sub(4, :),sub(5, :),sub(6, :),sub(7, :), ...
+%     sub(8, :),sub(9, :),sub(10, :),sub(11, :),sub(12, :),sub(13, :),sub(14, :), ...
+%     sub(15, :),sub(16, :),sub(17, :),sub(18, :),sub(19, :),sub(20, :),sub(21, :), ...    
+%     sub(22, :),sub(23, :),sub(24, :),sub(25, :),sub(26, :),sub(27, :));
 
+% p= anovan(anova_data_WTstdev,{group1 group2},'model','interaction')
 [pvals,tbl,stats] = anovan(anova_data_WTstdev,{group1 group2},'random',1, 'model','interaction','varnames',{'subjectgroup' 'condition'});
-
 [pvals,tbl,stats] = anovan(anova_data_WTstdev,{group1 group2}, 'model','interaction','varnames',{'subjectgroup' 'condition'});
 
-HCGp_WTstddev_clear_horz
-PatGp_WTstddev_clear_horz
-
+%% ttests
 ttest(HCGp_WTstddev_clear_horz, HCGp_WTstddev_noise_horz)
 ttest(PatGp_WTstddev_clear_horz, PatGp_WTstddev_noise_horz)
-ttest2(HCs_groupstdev_clear, Pats_groupstdev_clear)
-ttest2(HCs_groupstdev_noise, Pats_groupstdev_noise)
-
-
+ttest2(HCGp_WTstddev_clear_horz, PatGp_WTstddev_clear_horz)
+ttest2(HCGp_WTstddev_noise_horz, PatGp_WTstddev_noise_horz)
 
 %plot this:
-
+figure
 y_pitch2=[nanmean(HCGp_WTstddev_clear_horz) nanmean(HCGp_WTstddev_noise_horz); ...
           nanmean(PatGp_WTstddev_clear_horz) nanmean(PatGp_WTstddev_noise_horz)]
-errY2 = [nanstd(HCGp_WTstddev_clear_horz)/sqrt(goodtrials_HC) nanstd(HCGp_WTstddev_noise_horz)/sqrt(goodtrials_HC); ...
-          nanstd(PatGp_WTstddev_clear_horz)/sqrt(goodtrials_HC) nanstd(PatGp_WTstddev_noise_horz)/sqrt(goodtrials_HC)]            
+errY2 = [nanstd(HCGp_WTstddev_clear_horz)/sqrt(goodtrials_HC_clear) nanstd(HCGp_WTstddev_noise_horz)/sqrt(goodtrials_HC_noise); ...
+          nanstd(PatGp_WTstddev_clear_horz)/sqrt(goodtrials_pat_clear) nanstd(PatGp_WTstddev_noise_horz)/sqrt(goodtrials_pat_noise)]            
 h = barwitherr(errY2, y_pitch2);% Plot with errorbars
 set(gca,'XTickLabel',{'HCs','Patients'})
 ylabel('mean stdev of distance from low pass filt')
 set(h(1),'FaceColor','k');
 set(h(2),'FaceColor','w');
 title(sprintf('Group mean variability in pitch tracking'));
-axis([0 3 ymin ymax])
+axis([0 3 0 35])
+legend('clear', 'noise')
 goodplot
 print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/meanstdvaribility.pdf');
 
 
+HC_WT_STD_var(1).data(1).data
+HCGp_WTstddev_clear_horz(1:8)
 
 
 
-
-
-
-
-
-
-
-% %check
-% HC_WT_STD_var(1).data(1).data(1)
-% should be same as
-% nanstd(DATA(17).distfromlowasspass(1).sorted_data(1).goodpitchdata_difflowpassfilt(1,:))
-
-
-HC_clear=[HC_WT_STD_var(1).data(icond).data HC_WT_STD_var(2).data(icond).data HC_WT_STD_var(3).data(icond).data HC_WT_STD_var(4).data(icond).data HC_WT_STD_var(5).data(icond).data];
-HC_noise=[HC_WT_STD_var(6).data(icond).data HC_WT_STD_var(7).data(icond).data HC_WT_STD_var(8).data(icond).data HC_WT_STD_var(9).data(icond).data HC_WT_STD_var(10).data(icond).data];
-Pat_clear=[PAT_WT_STD_var(1).data(icond).data PAT_WT_STD_var(2).data(icond).data PAT_WT_STD_var(3).data(icond).data PAT_WT_STD_var(4).data(icond).data PAT_WT_STD_var(5).data(icond).data];
-Pat_noise=[PAT_WT_STD_var(6).data(icond).data PAT_WT_STD_var(7).data(icond).data PAT_WT_STD_var(8).data(icond).data PAT_WT_STD_var(9).data(icond).data PAT_WT_STD_var(10).data(icond).data];
-
-y_pitch2=[nanmean(HC_clear) nanmean(HC_noise); ...
-          nanmean(Pat_clear) nanmean(Pat_noise)]
-errY2 = [nanstd(HC_clear)/sqrt(goodtrials_HC) nanstd(HC_noise)/sqrt(goodtrials_HC); ...
-          nanstd(Pat_clear)/sqrt(goodtrials_HC) nanstd(Pat_noise)/sqrt(goodtrials_HC)]            
-h = barwitherr(errY2, y_pitch2);% Plot with errorbars
-set(gca,'XTickLabel',{'HCs','Patients'})
-ylabel('mean stdev of distance from low pass filt')
-set(h(1),'FaceColor','k');
-set(h(2),'FaceColor','w');
-title(sprintf('Group mean variability in pitch tracking'));
-axis([0 3 ymin ymax])
-goodplot
-print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/meanstdvaribility.pdf');
-
-
-
-
-
-
-
-for cond=1:10
-Pat_data_distlowpass(cond).data=vertcat( ...
-    DATA(1).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(2).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(3).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(4).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(5).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(6).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(7).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(8).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(9).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(10).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(11).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(12).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(13).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(14).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(15).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(16).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt);
-
-HC_data_distlowpass(cond).data=vertcat( ...
-    DATA(17).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(18).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(19).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(20).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(21).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(22).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(23).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(24).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(25).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(26).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(27).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt);
-
-end
-
-% how many are all nan trials
-HC_alltrials_clear=vertcat(...
-    HC_data_distlowpass(1).data, HC_data_distlowpass(2).data, HC_data_distlowpass(3).data, HC_data_distlowpass(4).data, ...
-    HC_data_distlowpass(5).data);
-
-HC_alltrials_noise=vertcat(...
-    HC_data_distlowpass(6).data, HC_data_distlowpass(7).data, HC_data_distlowpass(8).data, ...
-    HC_data_distlowpass(9).data, HC_data_distlowpass(9).data, HC_data_distlowpass(10).data);
-
-PAT_alltrials_clear=vertcat(...
-    Pat_data_distlowpass(1).data, Pat_data_distlowpass(2).data, Pat_data_distlowpass(3).data, Pat_data_distlowpass(4).data, ...
-    Pat_data_distlowpass(5).data, Pat_data_distlowpass(6).data, Pat_data_distlowpass(7).data, Pat_data_distlowpass(8).data, ...
-    Pat_data_distlowpass(9).data, Pat_data_distlowpass(9).data, Pat_data_distlowpass(10).data);
-
-
-
-
-
-%% ZED - do this for each cond and for all clear trials it's wrong right now
-%%
-pat_goodtrial_counter=0;
-for itrial=1:1408
-    if sum(isnan(PAT_alltrials(itrial,:)))<750
-        pat_goodtrial_counter=pat_goodtrial_counter+1;
-    end
-end
-fraction_gd_pats=(pat_goodtrial_counter/1408)*100
-goodtrials_pat=pat_goodtrial_counter % use this as N for SEM
-
-HC_goodtrial_counter=0;
-for itrial=1:968
-    if sum(isnan(HC_alltrials(itrial,:)))<750
-        HC_goodtrial_counter=HC_goodtrial_counter+1;
-    end
-end
-fraction_bad_HCs=(HC_goodtrial_counter/968)*100
-goodtrials_HC=HC_goodtrial_counter % use this as N for SEM
 
 
 %% all conditions separately

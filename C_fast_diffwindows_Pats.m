@@ -173,10 +173,8 @@ for isubj = 1:npats
                 %if SUB{isubj}.block{each_block}(d)==1;
                 if SUB{meanpitchtag(isubj)}.block{each_block}(d)==1;
                     data_1.goodpitchdata(each_block).data(d,:)=shiftedpitch_data{1,each_block}{1,d}(1:nframes_to_use);     % group data from ypitch_fr
-                    %shiftedpitch_data{1,each_block}{1,d}
                     data_1.goodstd.wholetrial(d)=nanstd(shiftedpitch_data{1,each_block}{1, d}(1:nframes_to_use));          % within trial stdev
                     data_1.goodpertresp(each_block).data{d}=shifted_blockalt{d,each_block}(1:nframes_to_use);
-                    %data_1.goodpitchdata(each_block).audio(d,:)=outbuff_wav.data(d,:);
                     data_1.goodpitchdata(each_block).audio(d,:)=outbuff_wav_data{each_block}{d};
                     
                     %amp data
@@ -344,7 +342,6 @@ end
 %% REMOVE ACCORDING TO MOTOR PERFORMANCE (cents)
         for each_block=1:num_blocks;
             for d=1:trialsperblock
-                % if blockx(d)==1 | blockx(d)==6
                  if blockcondname(each_block,d)==1 | blockcondname(each_block,d)==6
                     pre_target(each_block).data(d)= shiftinhertz_allsubs(isubj).nostep;
                     post_target(each_block).data(d)=shiftinhertz_allsubs(isubj).smallstepup;
@@ -396,7 +393,6 @@ end
                 
                 if data_7.post_distfromtarget(each_block).data(d) > perf_thresh_pos_cents || data_7.post_distfromtarget(each_block).data(d)<perf_thresh_neg_cents
                     data_7.poststep(each_block).data(d,:)=nan(1,201);
-                    %data_7.goodpitchdata(each_block).data(d,:)=nan(1,1360);
 
                     subplot(4,1,1)
                     plot(data_7.goodpitchdata(each_block).data(d,:))
@@ -415,11 +411,9 @@ end
                     data_7.WTstd(each_block).wholetrial(d)=nanstd(data_7.goodpitchdata(each_block).data(d,:));          % within trial stdev
                     data_7.WTstd(each_block).prestep(d)=nanstd(data_7(1).goodpitchdata(each_block).prestep_data(d,:));          % within trial stdev
                     data_7.WTstd(each_block).poststep(d)=nanstd(data_7(1).goodpitchdata(each_block).poststep_data(d,:));          % within trial stdev
-                    
                     data_7.wholetrial_WTstd_amp(each_block).wholetrial(d)=nanstd(data_7.goodampdata(each_block).wholetrial_amp(d,:));          % within trial stdev
                     data_7.prestep_WTstd_amp(each_block).wholetrial(d)=nanstd(data_7.goodampdata(each_block).prestep_amp(d,:));          % within trial stdev
                     data_7.proststep_WTstd_amp(each_block).wholetrial(d)=nanstd(data_7.goodampdata(each_block).poststep_amp(d,:));          % within trial stdev
-
                     data_7.WTstd_cents(each_block).wholetrial(d)=nanstd(data_7.goodpitchdata(each_block).data(d,:));          % within trial stdev
                     data_7.WTstd_cents(each_block).prestep(d)=nanstd(data_7(1).goodpitchdata(each_block).prestep_data(d,:));          % within trial stdev
                     data_7.WTstd_cents(each_block).poststep(d)=nanstd(data_7(1).goodpitchdata(each_block).poststep_data(d,:));          % within trial stdev
@@ -427,15 +421,12 @@ end
             end 
         end
         
-        % write out into 'gooddata.mat'
-        gooddata2=data_7;
-        
+        gooddata2=data_7;        
         % eliminate trials with a break in voicing for spectral analysis
         for each_block=1:num_blocks
             for itrial=1:trialsperblock
                 for iframe=250:1300
                     if sum(isnan(gooddata2(1).goodpitchdata(each_block).data(itrial,201:1360)))>0
-                        %gooddata_spec(1).goodpitchdata(each_block).data(itrial,:)=NaN(1,1360);
                         gooddata2(1).goodpitchdata_spectral(each_block).data(itrial,:)=NaN(1,1360);
                     else
                         gooddata2(1).goodpitchdata_spectral(each_block).data(itrial,:)=gooddata2(1).goodpitchdata(each_block).data(itrial,:);
@@ -445,6 +436,7 @@ end
             end
         end
         
+        %% Calc diff from low pass filtered track
         % write out difference between each trial and low pass filtered
         % version
         
@@ -459,172 +451,22 @@ end
                 else
                     lowpassdata(1).goodpitchdata(each_block).data(itrial,:)=lowpass(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata), 0.01, 3);
                     gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:)=calc_distance(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata), lowpassdata(1).goodpitchdata(each_block).data(itrial,:))
-
                 end
             end
         end
-%         
-%         figure
-%         for each_block=1:num_blocks
-%             for itrial=1:trialsperblock                
-%                 subplot(4,1,1)
-%                 plot(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata))
-%                 hold 
-%                 plot(lowpassdata(1).goodpitchdata(each_block).data(itrial,:), 'm')
-%                 axis([0 1200 -100 100])
-%                 
-%                 subplot(4,1,2)
-%                 plot(lowpassdata(1).goodpitchdata(each_block).data(itrial,:))
-%                 axis([0 1200 -100 100])
-%                 
-%                 subplot(4,1,3)
-%                 plot(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata))
-%                 hold on
-%                 plot(gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:), 'm')
-%                 axis([0 1200 -100 100])
-%                 
-%                 subplot(4,1,4)
-%                 plot(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata)- lowpassdata(1).goodpitchdata(each_block).data(itrial,:))
-%                 axis([0 1200 -100 100])
-%                 goodplot
-%                 
-%                 pause
-%             end
-%         end
-% 
-%         
-        
-%         
-%         wiggle=[1 3 6 2 5 7 9 3 6 7]
-%         flat  =[1 2 1 2 1 2 1 2 1 1]
-%         difshouldbe=[0 1 5 0 4 5 8 1 5 6]
-%         test=wiggle-flat
-%         
-%         subplot(311)
-%         plot(wiggle)
-%         
-%         subplot(312)
-%         plot(flat)
-%         
-%         subplot(313)
-%         plot(test)
-%         plot(difshouldbe, 'm')
-        
-        
-        
-%             subplot(211)
-%             plot(gooddata(1).goodpitchdata(1).data(3,250:1300))
-%             subplot(212)
-%             plot(lowpass(gooddata(1).goodpitchdata(1).data(3,250:1300), 0.01, 3))
-%             
-            
+
         %% calculate gaps
         for each_block=1:num_blocks;
             for d=1:trialsperblock
                 gaps(each_block).data(d)=countgaps(data_6.goodpitchdata(each_block).data(d,:), 9);
             end
         end
-    end
-    
-%     
-% %     %% plot all dis (comment out for speed)
-%         for each_block=1:num_blocks;
-%             for d=1:trialsperblock            
-%             
-%             subplot(5,2,1)
-%             plot(data_1.goodpitchdata(each_block).data(d,:))
-%             axis([1 1500 70 350])
-%             title('raw data (Hz)')
-%             
-%             subplot(5,2,3)
-%             plot(data_2.goodpitchdata(each_block).data(d,:))
-%             axis([1 1500 70 350])
-%             title('first 200 frames removed (Hz)')
-%             
-%             subplot(5,2,5)
-%             plot(data_3.goodpitchdata(each_block).data(d,:))
-%             axis([1 1500 70 350])
-%             title('thresholded by amp signal (Hz)')
-%             
-%             subplot(5,2,7)
-%             plot(data_4.goodpitchdata(each_block).data(d,:))
-%             axis([1 1500 70 350])
-%             title('voice onset artifact removed (Hz)')
-%             
-%             subplot(5,2,9)            
-%             plot(data_4.prestep(each_block).data(d,:), 'c')
-%             hold
-%             plot(data_4.poststep(each_block).data(d,:), 'm')
-%             axis([1 201 70 350])
-%             title('pre and post step (Hz)')
-% 
-%            
-%             subplot(5,2,2)            
-%             plot(data_5.prestep(each_block).data(d,:), 'c')
-%             hold
-%             plot(data_5.poststep(each_block).data(d,:), 'm')
-%             axis([1 201 -350 350])
-%             title('pre and post step (cents)')
-%             
-%             subplot(5,2,4)
-%             bar(1, data_7.pre_distfromtarget(each_block).data(d), 'c')
-%             hold
-%             bar(2, data_7.post_distfromtarget(each_block).data(d), 'm')
-%             moo=ones(1,3);
-%             plot(moo*perf_thresh_pos_cents, 'r')
-%             plot(moo*perf_thresh_neg_cents, 'r')            
-%             axis([0 3 -60 60])
-%             title('mean distance from target - cents (red line = thresh)')
-% 
-%             subplot(5,2,6)
-%             plot(data_7.prestep(each_block).data(d,:), 'c')
-%             hold
-%             plot(data_7.poststep(each_block).data(d,:), 'm')
-%             axis([1 201 -350 350])
-%             title('pre and post step (cents) after motor thresholding')
-%             
-%             subplot(5,2,8)            
-%             plot(data_1.goodpertresp(each_block).data{d}, 'r')
-%             hold
-%             moo1=NaN(1,T1_pat);
-%             moo=ones(1,200);
-%             moo=moo*150;
-%             moo3=NaN(1,550);           
-%             moo2=[moo1 moo moo3 moo];
-%             plot(moo2);
-%             plot(data_7.goodpitchdata(each_block).data(d,:), 'c')
-%             axis([1 1500 -350 350])
-%             title('pert resp')
-%             
-%             subplot(5,2,10)
-%             plot(data_7.goodpitchdata(each_block).data(d,:), 'c')
-%             hold 
-%             plot(moo2);
-%             axis([1 1500 -350 350])
-%             title('pitch in cents')
-%             
-% %             
-% % %             % check
-% % %             % trial 1, block 1
-% % %             % PRE: should be the same
-% % % 
-% % %             nanmean(data_6b.prestep(each_block).data(d,:))
-% % %             data_7.pre_distfromtarget(each_block).data(d)
-% % %             
-% % %             % POST - trialscript_expr(1) is condition 2, a big step up so
-% % %             % this target should be 300 c
-% % %             nanmean(data_6b.poststep(each_block).data(d,:))
-% % %             data_7.post_distfromtarget(each_block).data(d)
-% 
-%             pause
-%             clf             
-%             end
-%         end
         
+    end
+
         cd (the_expr_dir)
         save gaps gaps
     save gooddata gooddata
-    %save gooddata_spec gooddata_spec
 end
 
 close all

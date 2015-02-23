@@ -91,11 +91,214 @@ for isubj = 1:npatients
     DATA(isubj).distfromlowasspass= load (sprintf('%ssorted_data.mat',patient_info{isubj}.exprdir));  
 end
 
-for isubj=1:npatients
+%% ACROSS trial mean and stdev
+for isubj=1:16
     for cond=1:10
-        subjmean(isubj).data(cond,:)=nanmean(DATA(1).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt);
+        PAT_subjmean(isubj).data(cond,:)=nanmean(DATA(isubj).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt);
+        PAT_subjstdev(isubj).data(cond,:)=nanstd(DATA(isubj).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt);
     end
 end
+for isub=1:11
+    for cond=1:10
+        HC_subjmean(isubj).data(cond,:)=nanmean(DATA(isub+16).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt);
+        HC_subjstdev(isubj).data(cond,:)=nanstd(DATA(isub+16).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt);
+    end
+end
+
+%% *WT* trial mean and stdev
+% ZED - need to add subject number in here
+for ipat=1:16
+    for icond=1:10
+        for itrial=1:8
+            PAT_WT_STD_var(ipat).data(icond).data(itrial)=nanstd(DATA(ipat).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt(itrial,:))
+        end
+    end
+end
+
+for isub=1:11
+    for icond=1:10
+        for itrial=1:8
+            HC_WT_STD_var(isub).data(icond).data(itrial)=nanstd(DATA(isub+16).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt(itrial,:))
+        end
+    end
+end
+
+for icond=1:5
+PatGp_WTstddev_clear(icond,:)=horzcat(...
+    PAT_WT_STD_var(1).data(icond).data, PAT_WT_STD_var(2).data(icond).data, ...
+    PAT_WT_STD_var(3).data(icond).data, PAT_WT_STD_var(4).data(icond).data, ...
+    PAT_WT_STD_var(5).data(icond).data, PAT_WT_STD_var(6).data(icond).data, ...
+    PAT_WT_STD_var(7).data(icond).data, PAT_WT_STD_var(8).data(icond).data, ...
+    PAT_WT_STD_var(9).data(icond).data, PAT_WT_STD_var(10).data(icond).data, ...
+    PAT_WT_STD_var(11).data(icond).data, PAT_WT_STD_var(12).data(icond).data, ...
+    PAT_WT_STD_var(13).data(icond).data, PAT_WT_STD_var(14).data(icond).data, ...
+    PAT_WT_STD_var(15).data(icond).data, PAT_WT_STD_var(16).data(icond).data);
+end
+
+PatGp_WTstddev_clear_horz=horzcat(...
+    PatGp_WTstddev_clear(1,:), PatGp_WTstddev_clear (2,:), ...
+    PatGp_WTstddev_clear(3,:), PatGp_WTstddev_clear (4,:), ...
+    PatGp_WTstddev_clear(5,:));
+
+for icond=1:5
+PatGp_WTstddev_noise(icond,:)=horzcat(...
+    PAT_WT_STD_var(1).data(icond+5).data, PAT_WT_STD_var(2).data(icond+5).data, ...
+    PAT_WT_STD_var(3).data(icond+5).data, PAT_WT_STD_var(4).data(icond+5).data, ...
+    PAT_WT_STD_var(5).data(icond+5).data, PAT_WT_STD_var(6).data(icond+5).data, ...
+    PAT_WT_STD_var(7).data(icond+5).data, PAT_WT_STD_var(8).data(icond+5).data, ...
+    PAT_WT_STD_var(9).data(icond+5).data, PAT_WT_STD_var(10).data(icond+5).data, ...
+    PAT_WT_STD_var(11).data(icond+5).data, PAT_WT_STD_var(12).data(icond+5).data, ...
+    PAT_WT_STD_var(13).data(icond+5).data, PAT_WT_STD_var(14).data(icond+5).data, ...
+    PAT_WT_STD_var(15).data(icond+5).data, PAT_WT_STD_var(16).data(icond+5).data);
+end
+PatGp_WTstddev_noise_horz=horzcat(...
+    PatGp_WTstddev_noise(1,:), PatGp_WTstddev_noise (2,:), ...
+    PatGp_WTstddev_noise(3,:), PatGp_WTstddev_noise (4,:), ...
+    PatGp_WTstddev_noise(5,:));
+
+for icond=1:5
+HCGp_WTstddev_clear(icond,:)=horzcat(...
+    HC_WT_STD_var(1).data(icond).data, HC_WT_STD_var(2).data(icond).data, ...
+    HC_WT_STD_var(3).data(icond).data, HC_WT_STD_var(4).data(icond).data, ...
+    HC_WT_STD_var(5).data(icond).data, HC_WT_STD_var(6).data(icond).data, ...
+    HC_WT_STD_var(7).data(icond).data, HC_WT_STD_var(8).data(icond).data, ...
+    HC_WT_STD_var(9).data(icond).data, HC_WT_STD_var(10).data(icond).data, ...
+    HC_WT_STD_var(11).data(icond).data);
+end
+
+HCGp_WTstddev_clear_horz=horzcat(...
+    HCGp_WTstddev_clear(1,:), HCGp_WTstddev_clear (2,:), ...
+    HCGp_WTstddev_clear(3,:), HCGp_WTstddev_clear (4,:), ...
+    HCGp_WTstddev_clear(5,:));
+
+for icond=1:5
+HCGp_WTstddev_noise(icond,:)=horzcat(...
+    HC_WT_STD_var(1).data(icond+5).data, HC_WT_STD_var(2).data(icond+5).data, ...
+    HC_WT_STD_var(3).data(icond+5).data, HC_WT_STD_var(4).data(icond+5).data, ...
+    HC_WT_STD_var(5).data(icond+5).data, HC_WT_STD_var(6).data(icond+5).data, ...
+    HC_WT_STD_var(7).data(icond+5).data, HC_WT_STD_var(8).data(icond+5).data, ...
+    HC_WT_STD_var(9).data(icond+5).data, HC_WT_STD_var(10).data(icond+5).data, ...
+    HC_WT_STD_var(11).data(icond+5).data);
+end
+
+HCGp_WTstddev_noise_horz=horzcat(...
+    HCGp_WTstddev_noise(1,:), HCGp_WTstddev_noise (2,:), ...
+    HCGp_WTstddev_noise(3,:), HCGp_WTstddev_noise (4,:), ...
+    HCGp_WTstddev_noise(5,:));
+
+
+anova_data_WTstdev=[HCGp_WTstddev_clear_horz, HCGp_WTstddev_noise_horz, PatGp_WTstddev_clear_horz, PatGp_WTstddev_noise_horz]
+
+%create subject group
+test=ones(1,880);
+test2=ones(1,1280);
+test2=test2*2;
+subjectgroup=[test test2];
+
+% sub random factor
+sub_1=ones(1,40)
+
+for isub=1:27
+    sub(isub,:)=sub_1*isub
+end
+
+
+%create condition group
+condition = cell(1,2160);
+for i=1:440
+    condition{i}='clear';
+end
+for i=441:880
+    condition{i}='noise';
+end
+for i=881:1520
+    condition{i}='clear';
+end
+for i=1521:2160
+    condition{i}='noise';
+end
+condition=condition';
+
+group1=[subjectgroup];
+group2=[condition];
+p = anovan(anova_data_WTstdev,{group1 group2},'model','interaction')
+sub_fact=horzcat(...
+    sub(1, :),sub(2, :),sub(3, :),sub(4, :),sub(5, :),sub(6, :),sub(7, :), ...
+    sub(8, :),sub(9, :),sub(10, :),sub(11, :),sub(12, :),sub(13, :),sub(14, :), ...
+    sub(15, :),sub(16, :),sub(17, :),sub(18, :),sub(19, :),sub(20, :),sub(21, :), ...    
+    sub(22, :),sub(23, :),sub(24, :),sub(25, :),sub(26, :),sub(27, :));
+
+[pvals,tbl,stats] = anovan(anova_data_WTstdev,{group1 group2},'random',1, 'model','interaction','varnames',{'subjectgroup' 'condition'});
+
+[pvals,tbl,stats] = anovan(anova_data_WTstdev,{group1 group2}, 'model','interaction','varnames',{'subjectgroup' 'condition'});
+
+HCGp_WTstddev_clear_horz
+PatGp_WTstddev_clear_horz
+
+ttest(HCGp_WTstddev_clear_horz, HCGp_WTstddev_noise_horz)
+ttest(PatGp_WTstddev_clear_horz, PatGp_WTstddev_noise_horz)
+ttest2(HCs_groupstdev_clear, Pats_groupstdev_clear)
+ttest2(HCs_groupstdev_noise, Pats_groupstdev_noise)
+
+
+
+%plot this:
+
+y_pitch2=[nanmean(HCGp_WTstddev_clear_horz) nanmean(HCGp_WTstddev_noise_horz); ...
+          nanmean(PatGp_WTstddev_clear_horz) nanmean(PatGp_WTstddev_noise_horz)]
+errY2 = [nanstd(HCGp_WTstddev_clear_horz)/sqrt(goodtrials_HC) nanstd(HCGp_WTstddev_noise_horz)/sqrt(goodtrials_HC); ...
+          nanstd(PatGp_WTstddev_clear_horz)/sqrt(goodtrials_HC) nanstd(PatGp_WTstddev_noise_horz)/sqrt(goodtrials_HC)]            
+h = barwitherr(errY2, y_pitch2);% Plot with errorbars
+set(gca,'XTickLabel',{'HCs','Patients'})
+ylabel('mean stdev of distance from low pass filt')
+set(h(1),'FaceColor','k');
+set(h(2),'FaceColor','w');
+title(sprintf('Group mean variability in pitch tracking'));
+axis([0 3 ymin ymax])
+goodplot
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/meanstdvaribility.pdf');
+
+
+
+
+
+
+
+
+
+
+
+
+% %check
+% HC_WT_STD_var(1).data(1).data(1)
+% should be same as
+% nanstd(DATA(17).distfromlowasspass(1).sorted_data(1).goodpitchdata_difflowpassfilt(1,:))
+
+
+HC_clear=[HC_WT_STD_var(1).data(icond).data HC_WT_STD_var(2).data(icond).data HC_WT_STD_var(3).data(icond).data HC_WT_STD_var(4).data(icond).data HC_WT_STD_var(5).data(icond).data];
+HC_noise=[HC_WT_STD_var(6).data(icond).data HC_WT_STD_var(7).data(icond).data HC_WT_STD_var(8).data(icond).data HC_WT_STD_var(9).data(icond).data HC_WT_STD_var(10).data(icond).data];
+Pat_clear=[PAT_WT_STD_var(1).data(icond).data PAT_WT_STD_var(2).data(icond).data PAT_WT_STD_var(3).data(icond).data PAT_WT_STD_var(4).data(icond).data PAT_WT_STD_var(5).data(icond).data];
+Pat_noise=[PAT_WT_STD_var(6).data(icond).data PAT_WT_STD_var(7).data(icond).data PAT_WT_STD_var(8).data(icond).data PAT_WT_STD_var(9).data(icond).data PAT_WT_STD_var(10).data(icond).data];
+
+y_pitch2=[nanmean(HC_clear) nanmean(HC_noise); ...
+          nanmean(Pat_clear) nanmean(Pat_noise)]
+errY2 = [nanstd(HC_clear)/sqrt(goodtrials_HC) nanstd(HC_noise)/sqrt(goodtrials_HC); ...
+          nanstd(Pat_clear)/sqrt(goodtrials_HC) nanstd(Pat_noise)/sqrt(goodtrials_HC)]            
+h = barwitherr(errY2, y_pitch2);% Plot with errorbars
+set(gca,'XTickLabel',{'HCs','Patients'})
+ylabel('mean stdev of distance from low pass filt')
+set(h(1),'FaceColor','k');
+set(h(2),'FaceColor','w');
+title(sprintf('Group mean variability in pitch tracking'));
+axis([0 3 ymin ymax])
+goodplot
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/meanstdvaribility.pdf');
+
+
+
+
+
+
 
 for cond=1:10
 Pat_data_distlowpass(cond).data=vertcat( ...
@@ -132,15 +335,22 @@ HC_data_distlowpass(cond).data=vertcat( ...
 end
 
 % how many are all nan trials
-HC_alltrials=vertcat(...
+HC_alltrials_clear=vertcat(...
     HC_data_distlowpass(1).data, HC_data_distlowpass(2).data, HC_data_distlowpass(3).data, HC_data_distlowpass(4).data, ...
-    HC_data_distlowpass(5).data, HC_data_distlowpass(6).data, HC_data_distlowpass(7).data, HC_data_distlowpass(8).data, ...
-    HC_data_distlowpass(9).data, HC_data_distlowpass(1).data, HC_data_distlowpass(10).data);
+    HC_data_distlowpass(5).data);
 
-PAT_alltrials=vertcat(...
+HC_alltrials_noise=vertcat(...
+    HC_data_distlowpass(6).data, HC_data_distlowpass(7).data, HC_data_distlowpass(8).data, ...
+    HC_data_distlowpass(9).data, HC_data_distlowpass(9).data, HC_data_distlowpass(10).data);
+
+PAT_alltrials_clear=vertcat(...
     Pat_data_distlowpass(1).data, Pat_data_distlowpass(2).data, Pat_data_distlowpass(3).data, Pat_data_distlowpass(4).data, ...
     Pat_data_distlowpass(5).data, Pat_data_distlowpass(6).data, Pat_data_distlowpass(7).data, Pat_data_distlowpass(8).data, ...
-    Pat_data_distlowpass(9).data, Pat_data_distlowpass(1).data, Pat_data_distlowpass(10).data);
+    Pat_data_distlowpass(9).data, Pat_data_distlowpass(9).data, Pat_data_distlowpass(10).data);
+
+
+
+
 
 %% ZED - do this for each cond and for all clear trials it's wrong right now
 %%
@@ -530,6 +740,97 @@ ttest(Pats_groupstdev_clear, Pats_groupstdev_noise)
 ttest2(HCs_groupstdev_clear, Pats_groupstdev_clear)
 ttest2(HCs_groupstdev_noise, Pats_groupstdev_noise)
 
+
+figure
+subplot(221)
+plot(frame_taxis_to_use(1:751), Pats_groupstdev_clear, 'b','LineWidth',1.2,'Color',[patient_colour]);
+axis([0 2.5 0 100])
+title('Patients (clear)')
+xlabel('Time (s)')
+ylabel('Var (cents)')
+goodplot
+
+subplot(222)
+plot(frame_taxis_to_use(1:751),Pats_groupstdev_noise, 'b','LineWidth',1.2,'Color',[patient_colour]);
+axis([0 2.5 0 100])
+title('Patients (noise)')
+xlabel('Time (s)')
+ylabel('Var (cents)')
+goodplot
+
+subplot(223)
+plot(frame_taxis_to_use(1:751),HCs_groupstdev_clear, 'b','LineWidth',1.2,'Color',[HC_colour]);
+axis([0 2.5 0 100])
+title('HCs (clear)')
+xlabel('Time (s)')
+ylabel('Var (cents)')
+goodplot
+
+subplot(224)
+plot(frame_taxis_to_use(1:751),HCs_groupstdev_noise, 'b','LineWidth',1.2,'Color',[HC_colour]);
+axis([0 2.5 0 100])
+title('HCs (noise)')
+xlabel('Time (s)')
+ylabel('Var (cents)')
+goodplot
+
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/Stdev_distancefromlowpass.pdf');
+
+
+
+
+
+figure
+subplot(211)
+title('Healthy controls')
+bar(1, nanmean(HCs_groupstdev_clear), 'k')
+hold on
+bar(2, nanmean(HCs_groupstdev_noise), 'k')
+axis([0 3 0 35])
+goodplot
+
+sem=HCs_groupstdev_clear/sqrt(goodtrials_HC)
+
+ttest(HCs_groupstdev_clear, HCs_groupstdev_noise)
+
+subplot(212)
+title('Patients')
+bar(1, mean(Pats_groupstdev_clear), 'w')
+hold on
+bar(2, mean(Pats_groupstdev_noise), 'w')
+axis([0 3 0 35])
+goodplot
+ttest(Pats_groupstdev_clear, Pats_groupstdev_noise)
+
+figure
+y_pitch2=[nanmean(HCs_groupstdev_clear) nanmean(HCs_groupstdev_noise); ...
+          nanmean(Pats_groupstdev_clear) nanmean(Pats_groupstdev_noise)]
+errY2 = [nanstd(HCs_groupstdev_clear)/sqrt(goodtrials_HC) nanstd(HCs_groupstdev_noise)/sqrt(goodtrials_HC); ...
+          nanstd(Pats_groupstdev_clear)/sqrt(goodtrials_pat) nanstd(Pats_groupstdev_noise)/sqrt(goodtrials_pat) ]            
+h = barwitherr(errY2, y_pitch2);% Plot with errorbars
+set(gca,'XTickLabel',{'HCs','Patients'})
+ylabel('mean stdev of distance from low pass filt')
+set(h(1),'FaceColor','k');
+set(h(2),'FaceColor','w');
+title(sprintf('Group mean variability in pitch tracking'));
+axis([0 3 ymin ymax])
+goodplot
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/meanstdvaribility.pdf');
+
+
+% 
+% 
+% y_pitch2=[GroupMeans.HC_ALLCONDS.pre_pitchWTstdev_clear GroupMeans.pat_ALLCONDS.pre_pitchWTstdev_clear; ...
+%           GroupMeans.HC_ALLCONDS.pre_pitchWTstdev_noise GroupMeans.pat_ALLCONDS.pre_pitchWTstdev_noise]
+% errY2 = [ GroupSEM.HC_ALLCONDS.pre_pitchWTstdev_clear GroupSEM.pat_ALLCONDS.pre_pitchWTstdev_clear; ...
+%           GroupSEM.HC_ALLCONDS.pre_pitchWTstdev_noise GroupSEM.pat_ALLCONDS.pre_pitchWTstdev_noise]            
+% h = barwitherr(errY2, y_pitch2);% Plot with errorbars
+% set(gca,'XTickLabel',{'clear','noise'})
+% ylabel('mean stdev of pitch')
+% set(h(1),'FaceColor','k');
+% set(h(2),'FaceColor','w');
+% title(sprintf('Pre Step'));
+% axis([0 3 ymin ymax])
 
 
 

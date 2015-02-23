@@ -205,6 +205,7 @@ forstdev_HCs=numHCs*8;
 forstdev_PATs=numpats*8;
 
 %% for ploting graphs
-patient_colour=[.49 1 .63];
+%patient_colour=[.49 1 .63];
+patient_colour='k'
 HC_colour=[.4 .4 .4]
 sig_colour=[.3 .3 .8];

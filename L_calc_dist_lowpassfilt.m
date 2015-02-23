@@ -1,4 +1,4 @@
-%% this script takes the group mean responses for each condition, low pass filters each one and compares the distance between the mean responses and the filtered data.
+% this script takes the group mean responses for each condition, low pass filters each one and compares the distance between the mean responses and the filtered data.
 %% ZKA Jan 2015
 clear all
 close all
@@ -8,6 +8,7 @@ cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data/';
 cd(cerebellar_data_rootdir)
 %load DATA.mat % from
 load GROUPDATA
+
 
 %group_cond1_pats_to_use_mean
 trialdata_pats(1,:)=group_cond1_pats_to_use_mean(250:1300);
@@ -36,15 +37,11 @@ for icond=1:10
     PATs(icond,:).smoothedtrialdata=smooth_line(trialdata_pats(icond,:), 20);
     PATs(icond,:).lowpassdata=lowpass(trialdata_pats(icond,:), 0.01, 3);
     HCs(icond,:).smoothedtrialdata=smooth_line(trialdata_HCs(icond,:), 20);
-    HCs(icond,:).lowpassdata=lowpass(trialdata_HCs(icond,:), 0.01, 3);
-    
+    HCs(icond,:).lowpassdata=lowpass(trialdata_HCs(icond,:), 0.01, 3);    
     PATs(icond).smoothed_diff=calc_distance(trialdata_pats(icond,:), PATs(icond,:).smoothedtrialdata);
-    PATs(icond).filtered_diff=calc_distance(trialdata_pats(icond,:), PATs(icond,:).lowpassdata);
-    
+    PATs(icond).filtered_diff=calc_distance(trialdata_pats(icond,:), PATs(icond,:).lowpassdata);    
     HCs(icond).smoothed_diff=calc_distance(trialdata_HCs(icond,:), HCs(icond,:).smoothedtrialdata);
-    HCs(icond).filtered_diff=calc_distance(trialdata_HCs(icond,:), HCs(icond,:).lowpassdata);
-    
-    
+    HCs(icond).filtered_diff=calc_distance(trialdata_HCs(icond,:), HCs(icond,:).lowpassdata);    
 end
 
 fig1=figure
@@ -60,6 +57,30 @@ end
 
 saveas(fig1, 'GroupData/MeanDistancefromFiltered.jpg')
 
+%% STDEV distances
+
+fig2=figure;
+ymin=-25;
+ymax=45;
+for icond=1:10
+    cond(icond,:)=[std(PATs(icond).filtered_diff); std(HCs(icond).filtered_diff)];
+    errY2(icond,:) = [std(PATs(icond).filtered_diff)/sqrt(numpats); std(HCs(icond).filtered_diff)/sqrt(numHCs)];
+    subplot(2,5, icond)
+    h(icond) = barwitherr(errY2(icond,:), cond(icond,:));% Plot with errorbars
+    set(gca,'XTickLabel',{'Pats','HCs'})
+    ylabel('variability');
+    goodplot
+    if icond==1|3|5|7|9
+    set(h(icond),'FaceColor','k');
+    else
+    set(h(icond),'FaceColor','w');
+    end
+    title(sprintf('Condition'));
+    axis([0 3 ymin ymax])
+    
+end
+
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/stdev_var.pdf');
 
 
 
@@ -67,7 +88,7 @@ saveas(fig1, 'GroupData/MeanDistancefromFiltered.jpg')
 
 
 
-
+%% MEANS
 %create matrix for plotting mean disntance from smooth line and plot that
 %as bar graph
 fig2=figure;
@@ -139,6 +160,9 @@ anovandata=[PATs(1).filtered_diff PATs(2).filtered_diff PATs(3).filtered_diff ..
 test=ones(1,10510);
 test2=test*2;
 subjectgroup=[test test2];
+
+%subjects = [1 :27 cooper]; % Assuming that subjects 1-4 were in group 1 and 5-8 were in group 2
+
 
 %create condition group
 cond_length=length(PATs(1).filtered_diff)*5;

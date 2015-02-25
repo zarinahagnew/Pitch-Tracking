@@ -118,22 +118,22 @@ for each_subject = 1:npatients
     line_counter9=1;
     line_counter10=1;
     
-    % preallocation
+%    preallocation
     for q=1:10
-        A=zeros(8, nframes_to_use);
-        A(:,:) = (NaN);
-        B=length(gooddata.prestep(1,1).data(1,:));
+%         A=zeros(8, nframes_to_use);
+%         A(:,:) = (NaN);
+%         B=length(gooddata.prestep(1,1).data(1,:));
         %data_6.poststep(each_block).data(d,:)
-        sorted_data(q).wholetrial=[zeros(8,nframes_to_use)];
-        sorted_data(q).prestep=[zeros(8,B)];
-        sorted_data(q).poststep=[zeros(8,B)];
-        sorted_data(q).ampsig=A;
-        sorted_data(q).audiodata=[zeros(8,44096)];
-        sorted_data(q).finalpitch_ampthresh={zeros(8,3000)};
+%         sorted_data(q).wholetrial=[zeros(8,nframes_to_use)];
+%         sorted_data(q).prestep=[zeros(8,B)];
+%         sorted_data(q).poststep=[zeros(8,B)];
+%         sorted_data(q).ampsig=A;
+%         sorted_data(q).audiodata=[zeros(8,44096)];
+%         sorted_data(q).finalpitch_ampthresh={zeros(8,3000)};
         sorted_data(q).pertresp={zeros(8,3000)};
-        sorted_data(q).AMP_wholetrial=zeros(8,nframes_to_use);
-        sorted_data(q).AMP_prestep=zeros(8,B);
-        sorted_data(q).AMP_poststep=zeros(8,B);
+        %sorted_data(q).AMP_wholetrial=zeros(8,nframes_to_use);
+        %sorted_data(q).AMP_prestep=zeros(8,B);
+        %sorted_data(q).AMP_poststep=zeros(8,B);
     end
     
     %looks at the trial order and writes each trial type to a different matrix
@@ -188,8 +188,30 @@ for each_subject = 1:npatients
 %        saveas(fig1, 'sorted_trials.jpg')
     
     %pause
+    
+    
+    % calculate how many nan trials
+    
+    
+for cond=1:10
+goodtrial_counter(cond)=0    
+    for itrial=1:8
+        if sum(isnan(sorted_data(cond).wholetrial(itrial,:)))<1360
+            goodtrial_counter(cond)=goodtrial_counter(cond)+1;
+        end
+    end
+end
+
+sub_total_goodtrial(each_subject)=sum(goodtrial_counter)
+    
     clc
     display('dont be fooled by thinking this is wrong before checking the Y axis..')
     save sorted_data sorted_data
     cd(cerebellar_data_rootdir)
+    total_trials_included=sum(sub_total_goodtrial)
+    save sub_total_goodtrial sub_total_goodtrial
+    save total_trials_included total_trials_included
+    
 end
+
+

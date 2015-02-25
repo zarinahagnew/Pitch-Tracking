@@ -148,428 +148,16 @@ HC_data_distlowpass(cond).data=vertcat( ...
 end
 
 cd(cerebellar_data_rootdir)
-
+cd calc
 save DATA DATA
 
+countgdtrials;
 
+calc_mean_AcT_clear_noise;
 
+calc_stdev_AcT_clear_noise;
 
-
-
-
-
-
-%% calculate how many are all nan trials
-HC_alltrials_clear=vertcat(...
-    HC_data_distlowpass(1).data, HC_data_distlowpass(2).data, HC_data_distlowpass(3).data, HC_data_distlowpass(4).data, ...
-    HC_data_distlowpass(5).data);
-
-HC_alltrials_noise=vertcat(...
-    HC_data_distlowpass(6).data, HC_data_distlowpass(7).data, HC_data_distlowpass(8).data, ...
-    HC_data_distlowpass(9).data, HC_data_distlowpass(9).data, HC_data_distlowpass(10).data);
-
-PAT_alltrials_clear=vertcat(...
-    Pat_data_distlowpass(1).data, Pat_data_distlowpass(2).data, Pat_data_distlowpass(3).data, Pat_data_distlowpass(4).data, ...
-    Pat_data_distlowpass(5).data);
-
-PAT_alltrials_noise=vertcat(...
-    Pat_data_distlowpass(6).data, Pat_data_distlowpass(7).data, Pat_data_distlowpass(8).data, ...
-    Pat_data_distlowpass(9).data, Pat_data_distlowpass(9).data, Pat_data_distlowpass(10).data);
-
-%%
-pat_clear_goodtrial_counter=0;
-for itrial=1:size(PAT_alltrials_clear,1)
-    if sum(isnan(PAT_alltrials_clear(itrial,:)))<size(PAT_alltrials_clear,2)-1
-        pat_clear_goodtrial_counter=pat_clear_goodtrial_counter+1;
-    end
-end
-fraction_gd_pats_clear=(pat_clear_goodtrial_counter/640)*100;
-goodtrials_pat_clear=pat_clear_goodtrial_counter; % use this as N for SEM
-
-
-pat_noise_goodtrial_counter=0;
-for itrial=1:size(PAT_alltrials_noise,1)
-    if sum(isnan(PAT_alltrials_noise(itrial,:)))<size(PAT_alltrials_noise,2)-1
-        pat_noise_goodtrial_counter=pat_noise_goodtrial_counter+1;
-    end
-end
-fraction_gd_pats_noise=(pat_noise_goodtrial_counter/768)*100;
-goodtrials_pat_noise=pat_noise_goodtrial_counter; % use this as N for SEM
-
-HC_clear_goodtrial_counter=0;
-for itrial=1:size(HC_alltrials_clear,1)
-    if sum(isnan(HC_alltrials_clear(itrial,:)))<size(HC_alltrials_clear,2)-1
-        HC_clear_goodtrial_counter=HC_clear_goodtrial_counter+1;
-    end
-end
-fraction_gd_HCs_clear=(HC_clear_goodtrial_counter/440)*100;
-goodtrials_HC_clear=HC_clear_goodtrial_counter; % use this as N for SEM
-
-
-HC_noise_goodtrial_counter=0;
-for itrial=1:size(HC_alltrials_noise,1)
-    if sum(isnan(HC_alltrials_noise(itrial,:)))<size(HC_alltrials_noise,2)-1
-        HC_noise_goodtrial_counter=HC_noise_goodtrial_counter+1;
-    end
-end
-fraction_gd_HCs_noise=(HC_noise_goodtrial_counter/528)*100;
-goodtrials_HC_noise=HC_noise_goodtrial_counter; % use this as N for SEM
-
-
-
-%% 1. calculate mean across trial dist for clear and noise trials
-GpMean_AcT.HC_clear=nanmean(HC_alltrials_clear);
-GpMean_AcT.HC_noise=nanmean(HC_alltrials_noise);
-GpMean_AcT.PAT_clear=nanmean(PAT_alltrials_clear);
-GpMean_AcT.PAT_noise=nanmean(PAT_alltrials_noise);
-
-figure
-subplot(211)
-plot(GpMean_AcT.HC_clear)
-hold on
-plot(GpMean_AcT.HC_noise, 'm')
-axis([0 800 -100 50])
-title('HCs - Mean Distance AcT')
-goodplot
-% ttest(GpMean_AcT.HC_clear, GpMean_AcT.HC_noise)
-% ttest(GpMean_AcT.PAT_clear, GpMean_AcT.PAT_noise)
-
-subplot(212)
-plot(GpMean_AcT.PAT_clear)
-hold on
-plot(GpMean_AcT.PAT_noise, 'm')
-axis([0 800 -100 50])
-title('Patients - Mean Distance AcT')
-goodplot
-
-%anova
-GpMean_AcT.HC_clear_horz=horzcat(...
-    nanmean(HC_data_distlowpass(1).data), nanmean(HC_data_distlowpass(2).data), nanmean(HC_data_distlowpass(3).data), ...
-    nanmean(HC_data_distlowpass(4).data), nanmean(HC_data_distlowpass(5).data));
-
-GpMean_AcT.HC_noise_horz=horzcat(...
-    nanmean(HC_data_distlowpass(6).data), nanmean(HC_data_distlowpass(7).data), nanmean(HC_data_distlowpass(8).data), ...
-    nanmean(HC_data_distlowpass(9).data), nanmean(HC_data_distlowpass(10).data));
-
-GpMean_AcT.PAC_clear_horz=horzcat(...
-    nanmean(Pat_data_distlowpass(1).data), nanmean(Pat_data_distlowpass(2).data), nanmean(Pat_data_distlowpass(3).data), ...
-    nanmean(Pat_data_distlowpass(4).data), nanmean(Pat_data_distlowpass(5).data));
-
-GpMean_AcT.PAC_noise_horz=horzcat(...
-    nanmean(Pat_data_distlowpass(6).data), nanmean(Pat_data_distlowpass(7).data), nanmean(Pat_data_distlowpass(8).data), ...
-    nanmean(Pat_data_distlowpass(9).data), nanmean(Pat_data_distlowpass(10).data));
-
-
-anovadata_GpMean_AcT=[GpMean_AcT.HC_clear_horz GpMean_AcT.HC_noise_horz GpMean_AcT.PAC_clear_horz GpMean_AcT.PAC_noise_horz];
-
-%create subject group
-test=ones(1,3755*2);
-test2=test*2;
-subjectgroup=[test test2];
-
-%create condition group
-condition = cell(1,3755*4);
-for i=1:3755
-    condition{i}='clear';
-end
-for i=3756:3755*2
-    condition{i}='noise';
-end
-for i=7511:3755*3
-    condition{i}='clear';
-end
-for i=11266:3755*4
-    condition{i}='noise';
-end
-condition=condition';
-
-group1=[subjectgroup];
-group2=[condition];
-
-% not significant
-%[~,~,stats] = anovan(anovadata_GpMean_AcT,{group1 group2},'model','interaction','varnames',{'subjectgroup' 'condition'});
-% significant
-%[pvals,tbl,stats] = anovan(anova_data_WTstdev,{group1 group2}, 'model','interaction','varnames',{'subjectgroup' 'condition'});
-STATS.anova_data_AcTmean = anovan(anovadata_GpMean_AcT,{group1 group2},'random',1, 'model','interaction','varnames',{'subjectgroup' 'condition'});
-
-%% 2. calculate stdev across trial dist for clear and noise trials
-GpStd_AcT.HC_clear=nanstd(HC_alltrials_clear);
-GpStd_AcT.HC_noise=nanstd(HC_alltrials_noise);
-GpStd_AcT.PAT_clear=nanstd(PAT_alltrials_clear);
-GpStd_AcT.PAT_noise=nanstd(PAT_alltrials_noise);
-
-figure
-subplot(211)
-plot(GpStd_AcT.HC_clear)
-hold on
-plot(GpStd_AcT.HC_noise, 'm')
-axis([0 800 -100 50])
-title('HCs - Stdev Distance AcT')
-goodplot
-% ttest(GpStd_AcT.HC_clear, GpStd_AcT.HC_noise)
-% ttest(GpStd_AcT.PAT_clear, GpStd_AcT.PAT_noise)
-
-subplot(212)
-plot(GpStd_AcT.PAT_clear)
-hold on
-plot(GpStd_AcT.PAT_noise, 'm')
-axis([0 800 -100 50])
-title('Patients - Stdev Distance AcT')
-goodplot
-
-%anova
-GpStd_AcT.HC_clear_horz=horzcat(...
-    nanstd(HC_data_distlowpass(1).data), nanstd(HC_data_distlowpass(2).data), nanstd(HC_data_distlowpass(3).data), ...
-    nanstd(HC_data_distlowpass(4).data), nanstd(HC_data_distlowpass(5).data));
-
-GpStd_AcT.HC_noise_horz=horzcat(...
-    nanstd(HC_data_distlowpass(6).data), nanstd(HC_data_distlowpass(7).data), nanstd(HC_data_distlowpass(8).data), ...
-    nanstd(HC_data_distlowpass(9).data), nanstd(HC_data_distlowpass(10).data));
-
-GpStd_AcT.PAC_clear_horz=horzcat(...
-    nanstd(Pat_data_distlowpass(1).data), nanstd(Pat_data_distlowpass(2).data), nanstd(Pat_data_distlowpass(3).data), ...
-    nanstd(Pat_data_distlowpass(4).data), nanstd(Pat_data_distlowpass(5).data));
-
-GpStd_AcT.PAC_noise_horz=horzcat(...
-    nanstd(Pat_data_distlowpass(6).data), nanstd(Pat_data_distlowpass(7).data), nanstd(Pat_data_distlowpass(8).data), ...
-    nanstd(Pat_data_distlowpass(9).data), nanstd(Pat_data_distlowpass(10).data));
-
-
-anovadata_GpStd_AcT=[GpStd_AcT.HC_clear_horz GpStd_AcT.HC_noise_horz GpStd_AcT.PAC_clear_horz GpStd_AcT.PAC_noise_horz];
-
-%create subject group
-test=ones(1,3755*2);
-test2=test*2;
-subjectgroup=[test test2];
-
-%create condition group
-condition = cell(1,3755*4);
-for i=1:3755
-    condition{i}='clear';
-end
-for i=3756:3755*2
-    condition{i}='noise';
-end
-for i=7511:3755*3
-    condition{i}='clear';
-end
-for i=11266:3755*4
-    condition{i}='noise';
-end
-condition=condition';
-
-group1=[subjectgroup];
-group2=[condition];
-
-% not significant
-[~,~,stats] = anovan(anovadata_GpStd_AcT,{group1 group2}, 'model','interaction','varnames',{'subjectgroup' 'condition'});
-
-% significant
-%[~,~,stats] = anovan(anovadata_GpStd_AcT,{group1 group2},'random',1, 'model','interaction','varnames',{'subjectgroup' 'condition'});
-STATS.anova_data_AcTstd=anovan(anovadata_GpStd_AcT,{group1 group2},'random',1, 'model','interaction','varnames',{'subjectgroup' 'condition'});
-%% 3. WT mean and std
-
-for ipat=1:numpats
-    for icond=1:10
-        for itrial=1:8
-            GpStd_WT_PAT(ipat).data(icond).data(itrial)=nanstd(DATA(ipat).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt(itrial,:));
-            GpMean_WT_PAT(ipat).data(icond).data(itrial)=nanmean(DATA(ipat).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt(itrial,:));
-
-        end
-    end
-end
-
-for isub=1:numHCs
-    for icond=1:10
-        for itrial=1:8
-            GpStd_WT_HC(isub).data(icond).data(itrial)=nanstd(DATA(isub+numpats).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt(itrial,:));
-            GpMean_WT_HC(isub).data(icond).data(itrial)=nanmean(DATA(isub+numpats).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt(itrial,:));
-        end
-    end
-end
-
-for icond=1:5
-PatGp_WTstddev_clear(icond,:)=horzcat(...
-    GpStd_WT_PAT(1).data(icond).data, GpStd_WT_PAT(2).data(icond).data, ...
-    GpStd_WT_PAT(3).data(icond).data, GpStd_WT_PAT(4).data(icond).data, ...
-    GpStd_WT_PAT(5).data(icond).data, GpStd_WT_PAT(6).data(icond).data, ...
-    GpStd_WT_PAT(7).data(icond).data, GpStd_WT_PAT(8).data(icond).data, ...
-    GpStd_WT_PAT(9).data(icond).data, GpStd_WT_PAT(10).data(icond).data, ...
-    GpStd_WT_PAT(11).data(icond).data);
-%     , GpStd_WT_PAT(12).data(icond).data, ...
-%     GpStd_WT_PAT(13).data(icond).data, GpStd_WT_PAT(14).data(icond).data, ...
-%     GpStd_WT_PAT(15).data(icond).data, GpStd_WT_PAT(16).data(icond).data);
-PatGp_WT_meandev_clear(icond,:)=horzcat(...
-    GpStd_WT_PAT(1).data(icond).data, GpMean_WT_PAT(2).data(icond).data, ...
-    GpMean_WT_PAT(3).data(icond).data, GpMean_WT_PAT(4).data(icond).data, ...
-    GpMean_WT_PAT(5).data(icond).data, GpMean_WT_PAT(6).data(icond).data, ...
-    GpMean_WT_PAT(7).data(icond).data, GpMean_WT_PAT(8).data(icond).data, ...
-    GpMean_WT_PAT(9).data(icond).data, GpMean_WT_PAT(10).data(icond).data, ...
-    GpMean_WT_PAT(11).data(icond).data);
-end
-
-PatGp_WTstddev_clear_horz=horzcat(...
-    PatGp_WTstddev_clear(1,:), PatGp_WTstddev_clear (2,:), ...
-    PatGp_WTstddev_clear(3,:), PatGp_WTstddev_clear (4,:), ...
-    PatGp_WTstddev_clear(5,:));
-
-PatGp_WT_mean_clear_horz=horzcat(...
-    PatGp_WT_meandev_clear(1,:), PatGp_WT_meandev_clear (2,:), ...
-    PatGp_WT_meandev_clear(3,:), PatGp_WT_meandev_clear (4,:), ...
-    PatGp_WT_meandev_clear(5,:));
-
-for icond=1:5
-PatGp_WTstddev_noise(icond,:)=horzcat(...
-    GpStd_WT_PAT(1).data(icond+5).data, GpStd_WT_PAT(2).data(icond+5).data, ...
-    GpStd_WT_PAT(3).data(icond+5).data, GpStd_WT_PAT(4).data(icond+5).data, ...
-    GpStd_WT_PAT(5).data(icond+5).data, GpStd_WT_PAT(6).data(icond+5).data, ...
-    GpStd_WT_PAT(7).data(icond+5).data, GpStd_WT_PAT(8).data(icond+5).data, ...
-    GpStd_WT_PAT(9).data(icond+5).data, GpStd_WT_PAT(10).data(icond+5).data, ...
-    GpStd_WT_PAT(11).data(icond+5).data); 
-%     , GpStd_WT_PAT(12).data(icond+5).data, ...
-%     GpStd_WT_PAT(13).data(icond+5).data, GpStd_WT_PAT(14).data(icond+5).data, ...
-%     GpStd_WT_PAT(15).data(icond+5).data, GpStd_WT_PAT(16).data(icond+5).data);
-
-PatGp_WT_mean_noise(icond,:)=horzcat(...
-    GpMean_WT_PAT(1).data(icond+5).data, GpMean_WT_PAT(2).data(icond+5).data, ...
-    GpMean_WT_PAT(3).data(icond+5).data, GpMean_WT_PAT(4).data(icond+5).data, ...
-    GpMean_WT_PAT(5).data(icond+5).data, GpMean_WT_PAT(6).data(icond+5).data, ...
-    GpMean_WT_PAT(7).data(icond+5).data, GpMean_WT_PAT(8).data(icond+5).data, ...
-    GpMean_WT_PAT(9).data(icond+5).data, GpMean_WT_PAT(10).data(icond+5).data, ...
-    GpMean_WT_PAT(11).data(icond+5).data); 
-end
-
-PatGp_WTstddev_noise_horz=horzcat(...
-    PatGp_WTstddev_noise(1,:), PatGp_WTstddev_noise (2,:), ...
-    PatGp_WTstddev_noise(3,:), PatGp_WTstddev_noise (4,:), ...
-    PatGp_WTstddev_noise(5,:));
-
-PatGp_WT_mean_noise_horz=horzcat(...
-    PatGp_WT_mean_noise(1,:), PatGp_WT_mean_noise (2,:), ...
-    PatGp_WT_mean_noise(3,:), PatGp_WT_mean_noise (4,:), ...
-    PatGp_WT_mean_noise(5,:));
-
-
-for icond=1:5
-HCGp_WTstddev_clear(icond,:)=horzcat(...
-    GpStd_WT_HC(1).data(icond).data, GpStd_WT_HC(2).data(icond).data, ...
-    GpStd_WT_HC(3).data(icond).data, GpStd_WT_HC(4).data(icond).data);
-%     , ...
-%     GpStd_WT_HC(5).data(icond).data, GpStd_WT_HC(6).data(icond).data, ...
-%     GpStd_WT_HC(7).data(icond).data, GpStd_WT_HC(8).data(icond).data, ...
-%     GpStd_WT_HC(9).data(icond).data, GpStd_WT_HC(10).data(icond).data, ...
-%     GpStd_WT_HC(11).data(icond).data);
-HCGp_WT_mean_clear(icond,:)=horzcat(...
-    GpMean_WT_HC(1).data(icond).data, GpMean_WT_HC(2).data(icond).data, ...
-    GpMean_WT_HC(3).data(icond).data, GpMean_WT_HC(4).data(icond).data);
-
-end
-
-HCGp_WTstddev_clear_horz=horzcat(...
-    HCGp_WTstddev_clear(1,:), HCGp_WTstddev_clear (2,:), ...
-    HCGp_WTstddev_clear(3,:), HCGp_WTstddev_clear (4,:), ...
-    HCGp_WTstddev_clear(5,:));
-
-HCGp_WT_mean_clear_horz=horzcat(...
-    HCGp_WT_mean_clear(1,:), HCGp_WT_mean_clear (2,:), ...
-    HCGp_WT_mean_clear(3,:), HCGp_WT_mean_clear (4,:), ...
-    HCGp_WT_mean_clear(5,:));
-
-for icond=1:5
-HCGp_WTstddev_noise(icond,:)=horzcat(...
-    GpStd_WT_HC(1).data(icond+5).data, GpStd_WT_HC(2).data(icond+5).data, ...
-    GpStd_WT_HC(3).data(icond+5).data, GpStd_WT_HC(4).data(icond+5).data); 
-%     , ...
-%     GpStd_WT_HC(5).data(icond+5).data, GpStd_WT_HC(6).data(icond+5).data, ...
-%     GpStd_WT_HC(7).data(icond+5).data, GpStd_WT_HC(8).data(icond+5).data, ...
-%     GpStd_WT_HC(9).data(icond+5).data, GpStd_WT_HC(10).data(icond+5).data, ...
-%     GpStd_WT_HC(11).data(icond+5).data);
-HCGp_WT_mean_noise(icond,:)=horzcat(...
-    GpMean_WT_HC(1).data(icond+5).data, GpMean_WT_HC(2).data(icond+5).data, ...
-    GpMean_WT_HC(3).data(icond+5).data, GpMean_WT_HC(4).data(icond+5).data); 
-
-end
-
-HCGp_WTstddev_noise_horz=horzcat(...
-    HCGp_WTstddev_noise(1,:), HCGp_WTstddev_noise (2,:), ...
-    HCGp_WTstddev_noise(3,:), HCGp_WTstddev_noise (4,:), ...
-    HCGp_WTstddev_noise(5,:));
-
-HCGp_WT_mean_noise_horz=horzcat(...
-    HCGp_WT_mean_noise(1,:), HCGp_WT_mean_noise (2,:), ...
-    HCGp_WT_mean_noise(3,:), HCGp_WT_mean_noise (4,:), ...
-    HCGp_WT_mean_noise(5,:));
-
-% WT stdev anova
-anova_data_WTstdev=[HCGp_WTstddev_clear_horz, HCGp_WTstddev_noise_horz, PatGp_WTstddev_clear_horz, PatGp_WTstddev_noise_horz];
-anova_data_WTmean=[HCGp_WT_mean_clear_horz, HCGp_WT_mean_noise_horz, PatGp_WT_mean_clear_horz, PatGp_WT_mean_noise_horz];
-
-HC_gp=length(HCGp_WTstddev_clear_horz);
-PAT_gp=length(PatGp_WTstddev_clear_horz);
-%create subject group
-test=ones(1,HC_gp*2);
-test2=ones(1,PAT_gp*2);
-test2=test2*2;
-subjectgroup=[test test2];
-
-%create condition group
-condition = cell(1,length(anova_data_WTstdev));
-for i=1:HC_gp
-    condition{i}='clear';
-end
-for i=HC_gp+1:HC_gp*2
-    condition{i}='noise';
-end
-for i=HC_gp*2+1:HC_gp*2+PAT_gp
-    condition{i}='clear';
-end
-for i=HC_gp*2+PAT_gp+1:(HC_gp*2)+(PAT_gp*2)
-    condition{i}='noise';
-end
-condition=condition';
-
-group1=[subjectgroup];
-group2=[condition];
-
-% p= anovan(anova_data_WTstdev,{group1 group2},'model','interaction')
-% [pvals,tbl,stats] = anovan(anova_data_WTstdev,{group1 group2},'random',1, 'model','interaction','varnames',{'subjectgroup' 'condition'});
-% [pvals,tbl,stats] = anovan(anova_data_WTstdev,{group1 group2}, 'model','interaction','varnames',{'subjectgroup' 'condition'});
-
-
-STATS.anova_data_WTstdev= anovan(anova_data_WTstdev,{group1 group2},'random',1, 'model','interaction','varnames',{'subjectgroup' 'condition'});
-STATS.anova_data_WTmean= anovan(anova_data_WTmean,{group1 group2},'random',1, 'model','interaction','varnames',{'subjectgroup' 'condition'});
-
-
-
-%% ttests
-ttest(HCGp_WTstddev_clear_horz, HCGp_WTstddev_noise_horz)
-ttest(PatGp_WTstddev_clear_horz, PatGp_WTstddev_noise_horz)
-ttest2(HCGp_WTstddev_clear_horz, PatGp_WTstddev_clear_horz)
-ttest2(HCGp_WTstddev_noise_horz, PatGp_WTstddev_noise_horz)
-
-%plot this:
-figure
-y_pitch2=[nanmean(HCGp_WTstddev_clear_horz) nanmean(HCGp_WTstddev_noise_horz); ...
-          nanmean(PatGp_WTstddev_clear_horz) nanmean(PatGp_WTstddev_noise_horz)];
-errY2 = [nanstd(HCGp_WTstddev_clear_horz)/sqrt(goodtrials_HC_clear) nanstd(HCGp_WTstddev_noise_horz)/sqrt(goodtrials_HC_noise); ...
-          nanstd(PatGp_WTstddev_clear_horz)/sqrt(goodtrials_pat_clear) nanstd(PatGp_WTstddev_noise_horz)/sqrt(goodtrials_pat_noise)];            
-h = barwitherr(errY2, y_pitch2);% Plot with errorbars
-set(gca,'XTickLabel',{'HCs','Patients'})
-ylabel('mean stdev of distance from low pass filt')
-set(h(1),'FaceColor','k');
-set(h(2),'FaceColor','w');
-title(sprintf('Group mean variability in pitch tracking'));
-axis([0 3 0 35])
-legend('clear', 'noise')
-goodplot
-print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/meanstdvaribility.pdf');
-
-
-% GpStd_WT_HC(1).data(1).data
-% HCGp_WTstddev_clear_horz(1:8)
-
-
-
+calc_stdev_WT_clear_noise;
 
 
 
@@ -773,89 +361,94 @@ anovadata=[anovadata_HCs_cond1 anovadata_HCs_cond2 anovadata_HCs_cond3 ...
            anovadata_pats_cond3 anovadata_pats_cond4 anovadata_pats_cond5 ...
            anovadata_pats_cond6 anovadata_pats_cond7 anovadata_pats_cond8 ... 
            anovadata_pats_cond9 anovadata_pats_cond10];
-% 
-% %create subject group
-% test=ones(1,82610);
-% test2=ones(1,120160);
-% test2=test2*2;
-% subjectgroup=[test test2];
-% 
-% %create condition group
+
+HC=8261;
+PAT=12016;
+%create subject group
+test=ones(1,HC*10);
+test2=ones(1,PAT*10);
+test2=test2*2;
+subjectgroup=[test test2];
+
+%create condition group
 % cond_length_HC=41305;
 % cond_length_pat=60080;
-% condition = cell(1,202770);
-% for i=1:8261
-%     condition{i}='cond1';
-% end
-% for i=8262:165220
-%     condition{i}='cond2';
-% end
-% for i=165221:8261*3
-%     condition{i}='cond3';
-% end
-% for i=24784:8261*4
-%     condition{i}='cond4';
-% end
-% for i=33044:8261*5
-%     condition{i}='cond5';
-% end
-% for i=41306:8261*6
-%     condition{i}='cond6';
-% end
-% for i=49567:8261*7
-%     condition{i}='cond7';
-% end
-% for i=57828:8261*8
-%     condition{i}='cond8';
-% end
-% for i=66089:8261*9
-%     condition{i}='cond7';
-% end
-% for i=74350:8261*10
-%     condition{i}='cond8';
-% end
-% 
-% 
-% 
-% 
-% for i=82611:94626
-%     condition{i}='cond1';
-% end
-% for i=94627:94626+12016
-%     condition{i}='cond2';
-% end
-% for i=106643:106642+12016
-%     condition{i}='cond3';
-% end
-% for i=24784:12016
-%     condition{i}='cond4';
-% end
-% for i=33044:12016
-%     condition{i}='cond5';
-% end
-% for i=41306:12016
-%     condition{i}='cond6';
-% end
-% for i=49567:12016
-%     condition{i}='cond7';
-% end
-% for i=57828:12016
-%     condition{i}='cond8';
-% end
-% for i=66089:8261*9
-%     condition{i}='cond7';
-% end
-% for i=74350:8261*10
-%     condition{i}='cond8';
-% end
-% 
-% 
-% 
-% condition=condition';
-% 
-% group1=[subjectgroup];
-% group2=[condition];
-% p = anovan(anovadata,{group1 group2},'model','interaction')
+condition = cell(1,202770);
+for i=1:HC
+    condition{i}='cond1';
+end
+for i=HC+1:HC*2
+    condition{i}='cond2';
+end
+for i=HC*2+1:HC*3
+    condition{i}='cond3';
+end
+for i=HC*3+1:HC*4
+    condition{i}='cond4';
+end
+for i=HC*4+1:HC*5
+    condition{i}='cond5';
+end
+for i=HC*5+1:HC*6
+    condition{i}='cond6';
+end
+for i=HC*6+1:HC*7
+    condition{i}='cond7';
+end
+for i=HC*7+1:HC*8
+    condition{i}='cond8';
+end
+for i=HC*8+1:HC*9
+    condition{i}='cond9';
+end
+for i=HC*9+1:HC*10
+    condition{i}='cond10';
+end
+
+Pat_start=HC*10;
+
+for i=Pat_start+1:Pat_start+PAT
+    condition{i}='cond1';
+end
+for i=Pat_start+PAT+1:Pat_start+(PAT*2)
+    condition{i}='cond2';
+end
+for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
+    condition{i}='cond3';
+end
+for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
+    condition{i}='cond4';
+end
+for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
+    condition{i}='cond5';
+end
+for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
+    condition{i}='cond6';
+end
+for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
+    condition{i}='cond7';
+end
+for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
+    condition{i}='cond8';
+end
+for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
+    condition{i}='cond9';
+end
+for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
+    condition{i}='cond10';
+end
+for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
+    condition{i}='cond9';
+end
+for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
+    condition{i}='cond10';
+end
+
+condition=condition';
+
+group1=[subjectgroup];
+group2=[condition];
+p = anovan(anovadata,{group1 group2},'model','interaction')
 
 
 

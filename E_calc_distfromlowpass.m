@@ -148,17 +148,21 @@ HC_data_distlowpass(cond).data=vertcat( ...
 end
 
 cd(cerebellar_data_rootdir)
-cd calc
-save DATA DATA
+save /Users/zagnew/Cereb_data/data/GroupData/distancefromtarg/DATA DATA
 
 countgdtrials;
 
+% all these use individial trial data and model subject as random factor. 
 calc_mean_AcT_clear_noise;
 
 calc_stdev_AcT_clear_noise;
 
+%
 calc_stdev_WT_clear_noise;
 
+calc_mean_AcT_allcondssep;
+
+% perform stats on each subject mean data
 
 
 
@@ -169,550 +173,271 @@ calc_stdev_WT_clear_noise;
 
 
 
-
-
-
-
-%% *WT* trial mean and stdev
-
-
-
-%% All conditions separately
-% ACROSS TRIAL: calulate and plot means - all conditions separately
-for icond=1:10
-    pat_goodtrial_counter(icond)=0;
-    for itrial=1:size(Pat_data_distlowpass(icond).data,1)
-        if sum(isnan(Pat_data_distlowpass(icond).data(itrial,:)))<750
-            pat_goodtrial_counter(icond)=pat_goodtrial_counter(icond)+1;
-        end
-    end
-end
-
-for icond=1:10
-    HC_goodtrial_counter(icond)=0;
-    for itrial=1:size(HC_data_distlowpass(icond).data,1)
-        if sum(isnan(HC_data_distlowpass(icond).data(itrial,:)))<750
-            HC_goodtrial_counter(icond)=HC_goodtrial_counter(icond)+1;
-        end
-    end
-end
-
-for icond=1:10
-    fraction_gd_pats(icond)=(pat_goodtrial_counter(icond)/(numpats*8))*100;
-    goodtrials_pat(icond)=pat_goodtrial_counter(icond); % use this as N for SEM
-    fraction_gd_HCs(icond)=(HC_goodtrial_counter(icond)/(numHCs*8))*100;
-    goodtrials_HC(icond)=HC_goodtrial_counter(icond); % use this as N for SEM
-end
-
-% ACROSS TRIAL mean, std and SEMs by condition
-for cond=1:10
-    Pats_groupmean(cond).data=nanmean(Pat_data_distlowpass(cond).data);
-    Pats_groupstd(cond).data=nanstd(Pat_data_distlowpass(cond).data);
-    Pats_groupSEM(cond).data=Pats_groupstd(cond).data/sqrt(goodtrials_pat(cond));
-    Pats_groupSEM_forplot_pos(cond).data=Pats_groupmean(cond).data+Pats_groupSEM(cond).data;
-    Pats_groupSEM_forplot_neg(cond).data=Pats_groupmean(cond).data-Pats_groupSEM(cond).data;
-    
-    HCs_groupmean(cond).data=nanmean(HC_data_distlowpass(cond).data);
-    HCs_groupstd(cond).data=nanstd(HC_data_distlowpass(cond).data);
-    HCs_groupSEM(cond).data=HCs_groupstd(cond).data/sqrt(goodtrials_HC(cond));
-    HCs_groupSEM_forplot_pos(cond).data=HCs_groupmean(cond).data+HCs_groupSEM(cond).data;
-    HCs_groupSEM_forplot_neg(cond).data=HCs_groupmean(cond).data-HCs_groupSEM(cond).data;
-end
-
-% plot with SEM also
-figure
-for cond=1:10
-    subplot(2,5, cond)
-    plot(frame_taxis_to_use(1:751), Pats_groupSEM_forplot_pos(cond).data,'k', 'LineWidth',0.5)
-%     hold on
-%     plot(frame_taxis_to_use(1:751), Pats_groupSEM_forplot_pos(cond).data,'k', 'LineWidth',0.5)
-%     plot(frame_taxis_to_use(1:751), Pats_groupmean(cond).data, ...
-%         'b','LineWidth',1,'Color',[patient_colour]);
-    axis([0 3 -40 40])
-    goodplot_wide
-end
-
-print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/Fig4e.pdf');
-
-
-figure
-for cond=1:10
-    subplot(2,5, cond)
-    plot(frame_taxis_to_use(1:751), HCs_groupSEM_forplot_pos(cond).data,'k', 'LineWidth',0.5)
-    hold on
-    plot(frame_taxis_to_use(1:751), HCs_groupSEM_forplot_pos(cond).data,'k', 'LineWidth',0.5)
-    plot(frame_taxis_to_use(1:751), HCs_groupmean(cond).data, ...
-        'b','LineWidth',1,'Color',[HC_colour]);
-    axis([0 3 -20 20])
-    goodplot_wide
-end
-print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/Fig4f.pdf');
-
-% plot patients and HCs on same graph
-figure
-for cond=1:10
-subplot(2,5, cond)
-plot(frame_taxis_to_use(1:751), HCs_groupmean(cond).data, ...
-    'b','LineWidth',1,'Color',[HC_colour]);
-%    'b','LineWidth',1,'Color',[HC_colour],'LineStyle','--');
-hold
-plot(frame_taxis_to_use(1:751), HCs_groupmean(cond).data, ...
-    'b','LineWidth',1,'Color',[HC_colour]);
-
-ylabel('Variability (cents)');
-xlabel('Time (seconds)');
-axis([0 2.5 -100 50])
-goodplot_wide
-end
-print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/Fig4a.pdf');
-
-
-figure
-for cond=1:10
-subplot(2,5, cond)
-plot(frame_taxis_to_use(1:751), Pats_groupstd(cond).data,'b','LineWidth',1,'Color',[patient_colour]);
-hold on
-plot(frame_taxis_to_use(1:751), HCs_groupstd(cond).data, 'b','LineWidth',1,'Color',[HC_colour]);
-ylabel('Variability (cents)');
-xlabel('Time (seconds)');
-axis([0 2.5 -50 200])
-goodplot_wide
-end
-print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/Fig4b.pdf');
-
-% reshape data for anova
-%horzcat(Pat_data_distlowpass(cond).data(1,:)
-
-anovadata_pats_cond1=Pat_data_distlowpass(1).data(1,:);
-anovadata_pats_cond2=Pat_data_distlowpass(2).data(1,:);
-anovadata_pats_cond3=Pat_data_distlowpass(3).data(1,:);
-anovadata_pats_cond4=Pat_data_distlowpass(4).data(1,:);
-anovadata_pats_cond5=Pat_data_distlowpass(5).data(1,:);
-anovadata_pats_cond6=Pat_data_distlowpass(6).data(1,:);
-anovadata_pats_cond7=Pat_data_distlowpass(7).data(1,:);
-anovadata_pats_cond8=Pat_data_distlowpass(8).data(1,:);
-anovadata_pats_cond9=Pat_data_distlowpass(9).data(1,:);
-anovadata_pats_cond10=Pat_data_distlowpass(10).data(1,:);
-
-for i = 2:16 %length(patients_included)
-        dataToAppend_cond1 = Pat_data_distlowpass(1).data(i,:);
-        dataToAppend_cond2 = Pat_data_distlowpass(2).data(i,:);
-        dataToAppend_cond3 = Pat_data_distlowpass(3).data(i,:);
-        dataToAppend_cond4 = Pat_data_distlowpass(4).data(i,:);
-        dataToAppend_cond5 = Pat_data_distlowpass(5).data(i,:);
-        dataToAppend_cond6 = Pat_data_distlowpass(6).data(i,:);
-        dataToAppend_cond7 = Pat_data_distlowpass(7).data(i,:);
-        dataToAppend_cond8 = Pat_data_distlowpass(8).data(i,:);
-        dataToAppend_cond9 = Pat_data_distlowpass(9).data(i,:);
-        dataToAppend_cond10 = Pat_data_distlowpass(10).data(i,:);
-        anovadata_pats_cond1 = [anovadata_pats_cond1 dataToAppend_cond1];
-        anovadata_pats_cond2 = [anovadata_pats_cond2 dataToAppend_cond2];
-        anovadata_pats_cond3 = [anovadata_pats_cond3 dataToAppend_cond3];
-        anovadata_pats_cond4 = [anovadata_pats_cond4 dataToAppend_cond4];
-        anovadata_pats_cond5 = [anovadata_pats_cond5 dataToAppend_cond5];
-        anovadata_pats_cond6 = [anovadata_pats_cond6 dataToAppend_cond6];
-        anovadata_pats_cond7 = [anovadata_pats_cond7 dataToAppend_cond7];
-        anovadata_pats_cond8 = [anovadata_pats_cond8 dataToAppend_cond8];
-        anovadata_pats_cond9 = [anovadata_pats_cond9 dataToAppend_cond9];
-        anovadata_pats_cond10 = [anovadata_pats_cond10 dataToAppend_cond10];
-        
-end
-
-anovadata_HCs_cond1=HC_data_distlowpass(1).data(1,:);
-anovadata_HCs_cond2=HC_data_distlowpass(2).data(1,:);
-anovadata_HCs_cond3=HC_data_distlowpass(3).data(1,:);
-anovadata_HCs_cond4=HC_data_distlowpass(4).data(1,:);
-anovadata_HCs_cond5=HC_data_distlowpass(5).data(1,:);
-anovadata_HCs_cond6=HC_data_distlowpass(6).data(1,:);
-anovadata_HCs_cond7=HC_data_distlowpass(7).data(1,:);
-anovadata_HCs_cond8=HC_data_distlowpass(8).data(1,:);
-anovadata_HCs_cond9=HC_data_distlowpass(9).data(1,:);
-anovadata_HCs_cond10=HC_data_distlowpass(10).data(1,:);
-
-for i = 2:11 %length(HCients_included)
-        dataToAppend_cond1 = HC_data_distlowpass(1).data(i,:);
-        dataToAppend_cond2 = HC_data_distlowpass(2).data(i,:);
-        dataToAppend_cond3 = HC_data_distlowpass(3).data(i,:);
-        dataToAppend_cond4 = HC_data_distlowpass(4).data(i,:);
-        dataToAppend_cond5 = HC_data_distlowpass(5).data(i,:);
-        dataToAppend_cond6 = HC_data_distlowpass(6).data(i,:);
-        dataToAppend_cond7 = HC_data_distlowpass(7).data(i,:);
-        dataToAppend_cond8 = HC_data_distlowpass(8).data(i,:);
-        dataToAppend_cond9 = HC_data_distlowpass(9).data(i,:);
-        dataToAppend_cond10 = HC_data_distlowpass(10).data(i,:);
-        anovadata_HCs_cond1 = [anovadata_HCs_cond1 dataToAppend_cond1];
-        anovadata_HCs_cond2 = [anovadata_HCs_cond2 dataToAppend_cond2];
-        anovadata_HCs_cond3 = [anovadata_HCs_cond3 dataToAppend_cond3];
-        anovadata_HCs_cond4 = [anovadata_HCs_cond4 dataToAppend_cond4];
-        anovadata_HCs_cond5 = [anovadata_HCs_cond5 dataToAppend_cond5];
-        anovadata_HCs_cond6 = [anovadata_HCs_cond6 dataToAppend_cond6];
-        anovadata_HCs_cond7 = [anovadata_HCs_cond7 dataToAppend_cond7];
-        anovadata_HCs_cond8 = [anovadata_HCs_cond8 dataToAppend_cond8];
-        anovadata_HCs_cond9 = [anovadata_HCs_cond9 dataToAppend_cond9];
-        anovadata_HCs_cond10 = [anovadata_HCs_cond10 dataToAppend_cond10];
-        
-end
-
-% anova conditions modeled separately
-anovadata=[anovadata_HCs_cond1 anovadata_HCs_cond2 anovadata_HCs_cond3 ...
-           anovadata_HCs_cond4 anovadata_HCs_cond5 anovadata_HCs_cond6 ...
-           anovadata_HCs_cond7 anovadata_HCs_cond8 anovadata_HCs_cond9 ...
-           anovadata_HCs_cond10 anovadata_pats_cond1 anovadata_pats_cond2 ...
-           anovadata_pats_cond3 anovadata_pats_cond4 anovadata_pats_cond5 ...
-           anovadata_pats_cond6 anovadata_pats_cond7 anovadata_pats_cond8 ... 
-           anovadata_pats_cond9 anovadata_pats_cond10];
-
-HC=8261;
-PAT=12016;
-%create subject group
-test=ones(1,HC*10);
-test2=ones(1,PAT*10);
-test2=test2*2;
-subjectgroup=[test test2];
-
-%create condition group
-% cond_length_HC=41305;
-% cond_length_pat=60080;
-condition = cell(1,202770);
-for i=1:HC
-    condition{i}='cond1';
-end
-for i=HC+1:HC*2
-    condition{i}='cond2';
-end
-for i=HC*2+1:HC*3
-    condition{i}='cond3';
-end
-for i=HC*3+1:HC*4
-    condition{i}='cond4';
-end
-for i=HC*4+1:HC*5
-    condition{i}='cond5';
-end
-for i=HC*5+1:HC*6
-    condition{i}='cond6';
-end
-for i=HC*6+1:HC*7
-    condition{i}='cond7';
-end
-for i=HC*7+1:HC*8
-    condition{i}='cond8';
-end
-for i=HC*8+1:HC*9
-    condition{i}='cond9';
-end
-for i=HC*9+1:HC*10
-    condition{i}='cond10';
-end
-
-Pat_start=HC*10;
-
-for i=Pat_start+1:Pat_start+PAT
-    condition{i}='cond1';
-end
-for i=Pat_start+PAT+1:Pat_start+(PAT*2)
-    condition{i}='cond2';
-end
-for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
-    condition{i}='cond3';
-end
-for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
-    condition{i}='cond4';
-end
-for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
-    condition{i}='cond5';
-end
-for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
-    condition{i}='cond6';
-end
-for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
-    condition{i}='cond7';
-end
-for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
-    condition{i}='cond8';
-end
-for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
-    condition{i}='cond9';
-end
-for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
-    condition{i}='cond10';
-end
-for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
-    condition{i}='cond9';
-end
-for i=Pat_start+(PAT*2)+1:Pat_start+(PAT*3)
-    condition{i}='cond10';
-end
-
-condition=condition';
-
-group1=[subjectgroup];
-group2=[condition];
-p = anovan(anovadata,{group1 group2},'model','interaction')
-
-
-
-%% clear v noise trials
+% 
+% 
+% 
+% 
+% % clear v noise trials
 % calulate and plot means - lumped into clear and noise conds
-Pats_groupmean_clear1=vertcat(Pat_data_distlowpass(1).data, Pat_data_distlowpass(2).data, Pat_data_distlowpass(3).data, Pat_data_distlowpass(4).data, Pat_data_distlowpass(5).data);
-Pats_groupmean_noise1=vertcat(Pat_data_distlowpass(6).data, Pat_data_distlowpass(7).data, Pat_data_distlowpass(8).data, Pat_data_distlowpass(9).data, Pat_data_distlowpass(10).data);
-HCs_groupmean_clear1=vertcat(HC_data_distlowpass(1).data, HC_data_distlowpass(2).data, HC_data_distlowpass(3).data, HC_data_distlowpass(4).data, HC_data_distlowpass(5).data);
-HCs_groupmean_noise1=vertcat(HC_data_distlowpass(6).data, HC_data_distlowpass(7).data, HC_data_distlowpass(8).data, HC_data_distlowpass(9).data, HC_data_distlowpass(10).data);
-
-Pats_groupmean_clear=nanmean(Pats_groupmean_clear1);
-Pats_groupstdev_clear=nanstd(Pats_groupmean_clear1);
-Pats_groupSEM_clear=Pats_groupstdev_clear/sqrt(sum(goodtrials_pat(1:5)));
-
-Pats_groupmean_noise=nanmean(Pats_groupmean_noise1);
-Pats_groupstdev_noise=nanstd(Pats_groupmean_noise1);
-Pats_groupSEM_noise=Pats_groupstdev_noise/sqrt(sum(goodtrials_pat(6:10)));
-
-HCs_groupmean_clear=nanmean(HCs_groupmean_clear1);
-HCs_groupstdev_clear=nanstd(HCs_groupmean_clear1);
-HCs_groupSEM_clear=HCs_groupstdev_clear/sqrt(sum(goodtrials_HC(1:5)));
-
-HCs_groupmean_noise=nanmean(HCs_groupmean_noise1);
-HCs_groupstdev_noise=nanstd(HCs_groupmean_noise1);
-HCs_groupSEM_noise=HCs_groupstdev_noise/sqrt(sum(goodtrials_HC(6:10)));
-
-figure
-subplot(221)
-plot(frame_taxis_to_use(1:751), Pats_groupmean_clear, 'b','LineWidth',1.2,'Color',[patient_colour]);
-axis([0 2.5 -50 50])
-title('Patients (clear)')
-xlabel('Time (s)')
-ylabel('Var (cents)')
-goodplot
-
-subplot(222)
-plot(frame_taxis_to_use(1:751),Pats_groupmean_noise, 'b','LineWidth',1.2,'Color',[patient_colour]);
-axis([0 2.5 -50 50])
-title('Patients (noise)')
-xlabel('Time (s)')
-ylabel('Var (cents)')
-goodplot
-
-subplot(223)
-plot(frame_taxis_to_use(1:751),HCs_groupmean_clear, 'b','LineWidth',1.2,'Color',[HC_colour]);
-axis([0 2.5 -50 50])
-title('HCs (clear)')
-xlabel('Time (s)')
-ylabel('Var (cents)')
-goodplot
-
-subplot(224)
-plot(frame_taxis_to_use(1:751),HCs_groupmean_noise, 'b','LineWidth',1.2,'Color',[HC_colour]);
-axis([0 2.5 -50 50])
-title('HCs (noise)')
-xlabel('Time (s)')
-ylabel('Var (cents)')
-goodplot
-
-print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/Fig4c.pdf');
-
-
-figure
-subplot(211)
-bar(1, mean(HCs_groupmean_clear), 'm')
-hold
-bar(2, mean(HCs_groupmean_noise))
-axis([0 3 -1 0])
-
-subplot(212)
-bar(1, mean(Pats_groupmean_clear))
-hold
-bar(2, mean(Pats_groupmean_noise))
-axis([0 3 -1 0])
-
-
-
-%% clear vs noise conditions - stdev of distance from low pass data
-
+% Pats_groupmean_clear1=vertcat(Pat_data_distlowpass(1).data, Pat_data_distlowpass(2).data, Pat_data_distlowpass(3).data, Pat_data_distlowpass(4).data, Pat_data_distlowpass(5).data);
+% Pats_groupmean_noise1=vertcat(Pat_data_distlowpass(6).data, Pat_data_distlowpass(7).data, Pat_data_distlowpass(8).data, Pat_data_distlowpass(9).data, Pat_data_distlowpass(10).data);
+% HCs_groupmean_clear1=vertcat(HC_data_distlowpass(1).data, HC_data_distlowpass(2).data, HC_data_distlowpass(3).data, HC_data_distlowpass(4).data, HC_data_distlowpass(5).data);
+% HCs_groupmean_noise1=vertcat(HC_data_distlowpass(6).data, HC_data_distlowpass(7).data, HC_data_distlowpass(8).data, HC_data_distlowpass(9).data, HC_data_distlowpass(10).data);
+% 
+% Pats_groupmean_clear=nanmean(Pats_groupmean_clear1);
+% Pats_groupstdev_clear=nanstd(Pats_groupmean_clear1);
+% Pats_groupSEM_clear=Pats_groupstdev_clear/sqrt(sum(goodtrials_pat(1:5)));
+% 
+% Pats_groupmean_noise=nanmean(Pats_groupmean_noise1);
+% Pats_groupstdev_noise=nanstd(Pats_groupmean_noise1);
+% Pats_groupSEM_noise=Pats_groupstdev_noise/sqrt(sum(goodtrials_pat(6:10)));
+% 
+% HCs_groupmean_clear=nanmean(HCs_groupmean_clear1);
+% HCs_groupstdev_clear=nanstd(HCs_groupmean_clear1);
+% HCs_groupSEM_clear=HCs_groupstdev_clear/sqrt(sum(goodtrials_HC(1:5)));
+% 
+% HCs_groupmean_noise=nanmean(HCs_groupmean_noise1);
+% HCs_groupstdev_noise=nanstd(HCs_groupmean_noise1);
+% HCs_groupSEM_noise=HCs_groupstdev_noise/sqrt(sum(goodtrials_HC(6:10)));
+% 
+% figure
+% subplot(221)
+% plot(frame_taxis_to_use(1:751), Pats_groupmean_clear, 'b','LineWidth',1.2,'Color',[patient_colour]);
+% axis([0 2.5 -50 50])
+% title('Patients (clear)')
+% xlabel('Time (s)')
+% ylabel('Var (cents)')
+% goodplot
+% 
+% subplot(222)
+% plot(frame_taxis_to_use(1:751),Pats_groupmean_noise, 'b','LineWidth',1.2,'Color',[patient_colour]);
+% axis([0 2.5 -50 50])
+% title('Patients (noise)')
+% xlabel('Time (s)')
+% ylabel('Var (cents)')
+% goodplot
+% 
+% subplot(223)
+% plot(frame_taxis_to_use(1:751),HCs_groupmean_clear, 'b','LineWidth',1.2,'Color',[HC_colour]);
+% axis([0 2.5 -50 50])
+% title('HCs (clear)')
+% xlabel('Time (s)')
+% ylabel('Var (cents)')
+% goodplot
+% 
+% subplot(224)
+% plot(frame_taxis_to_use(1:751),HCs_groupmean_noise, 'b','LineWidth',1.2,'Color',[HC_colour]);
+% axis([0 2.5 -50 50])
+% title('HCs (noise)')
+% xlabel('Time (s)')
+% ylabel('Var (cents)')
+% goodplot
+% 
+% print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/Fig4c.pdf');
+% 
+% 
+% figure
+% subplot(211)
+% bar(1, mean(HCs_groupmean_clear), 'm')
+% hold
+% bar(2, mean(HCs_groupmean_noise))
+% axis([0 3 -1 0])
+% 
+% subplot(212)
+% bar(1, mean(Pats_groupmean_clear))
+% hold
+% bar(2, mean(Pats_groupmean_noise))
+% axis([0 3 -1 0])
+% 
+% 
+% 
+% % clear vs noise conditions - stdev of distance from low pass data
+% 
 % Pats_groupstdev_clear
 % Pats_groupstdev_noise
 % 
 % HCs_groupstdev_clear
 % HCs_groupstdev_noise
 % 
-
-anovadata_stdev=[HCs_groupstdev_clear HCs_groupstdev_noise Pats_groupstdev_clear Pats_groupstdev_noise];
-
-%create subject group
-test=ones(1,751);
-test2=ones(1,751);
-test2=test2*2;
-subjectgroup=[test test test2 test2];
-
-%create condition group
-condition = cell(1,3004);
-for i=1:715
-    condition{i}='clear';
-end
-for i=716:1502
-    condition{i}='noise';
-end
-for i=1503:2253
-    condition{i}='clear';
-end
-for i=2254:3004
-    condition{i}='noise';
-end
-condition=condition';
-
-group1=[subjectgroup];
-group2=[condition];
-p = anovan(anovadata_stdev,{group1 group2},'model','interaction');
-
-ttest(HCs_groupstdev_clear, HCs_groupstdev_noise)
-ttest(Pats_groupstdev_clear, Pats_groupstdev_noise)
-ttest2(HCs_groupstdev_clear, Pats_groupstdev_clear)
-ttest2(HCs_groupstdev_noise, Pats_groupstdev_noise)
-
-
-figure
-subplot(221)
-plot(frame_taxis_to_use(1:751), Pats_groupstdev_clear, 'b','LineWidth',1.2,'Color',[patient_colour]);
-axis([0 2.5 0 100])
-title('Patients (clear)')
-xlabel('Time (s)')
-ylabel('Var (cents)')
-goodplot
-
-subplot(222)
-plot(frame_taxis_to_use(1:751),Pats_groupstdev_noise, 'b','LineWidth',1.2,'Color',[patient_colour]);
-axis([0 2.5 0 100])
-title('Patients (noise)')
-xlabel('Time (s)')
-ylabel('Var (cents)')
-goodplot
-
-subplot(223)
-plot(frame_taxis_to_use(1:751),HCs_groupstdev_clear, 'b','LineWidth',1.2,'Color',[HC_colour]);
-axis([0 2.5 0 100])
-title('HCs (clear)')
-xlabel('Time (s)')
-ylabel('Var (cents)')
-goodplot
-
-subplot(224)
-plot(frame_taxis_to_use(1:751),HCs_groupstdev_noise, 'b','LineWidth',1.2,'Color',[HC_colour]);
-axis([0 2.5 0 100])
-title('HCs (noise)')
-xlabel('Time (s)')
-ylabel('Var (cents)')
-goodplot
-
-print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/Stdev_distancefromlowpass.pdf');
-
-
-
-
-
-figure
-subplot(211)
-title('Healthy controls')
-bar(1, nanmean(HCs_groupstdev_clear), 'k')
-hold on
-bar(2, nanmean(HCs_groupstdev_noise), 'k')
-axis([0 3 0 35])
-goodplot
-
-sem=HCs_groupstdev_clear/sqrt(sum(goodtrials_HC(1:5)));
-
-ttest(HCs_groupstdev_clear, HCs_groupstdev_noise)
-
-subplot(212)
-title('Patients')
-bar(1, mean(Pats_groupstdev_clear), 'w')
-hold on
-bar(2, mean(Pats_groupstdev_noise), 'w')
-axis([0 3 0 35])
-goodplot
-ttest(Pats_groupstdev_clear, Pats_groupstdev_noise)
-
-figure
-y_pitch2=[nanmean(HCs_groupstdev_clear) nanmean(HCs_groupstdev_noise); ...
-          nanmean(Pats_groupstdev_clear) nanmean(Pats_groupstdev_noise)];
-errY2 = [nanstd(HCs_groupstdev_clear)/sqrt(goodtrials_HC_clear) nanstd(HCs_groupstdev_noise)/sqrt(goodtrials_HC_noise); ...
-          nanstd(Pats_groupstdev_clear)/sqrt(goodtrials_pat_clear) nanstd(Pats_groupstdev_noise)/sqrt(goodtrials_pat_noise) ];            
-h = barwitherr(errY2, y_pitch2);% Plot with errorbars
-set(gca,'XTickLabel',{'HCs','Patients'})
-ylabel('mean stdev of distance from low pass filt')
-set(h(1),'FaceColor','k');
-set(h(2),'FaceColor','w');
-title(sprintf('Group mean variability in pitch tracking'));
-axis([0 3 0 40])
-goodplot
-print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/meanstdvaribility.pdf');
-
-
-HC_clear=[anovadata_HCs_cond1 anovadata_HCs_cond2 anovadata_HCs_cond3 ...
-           anovadata_HCs_cond4 anovadata_HCs_cond5];
-HC_noise=[anovadata_HCs_cond6 anovadata_HCs_cond7 anovadata_HCs_cond8 ...
-            anovadata_HCs_cond9 anovadata_HCs_cond10];
-       
-PAT_clear=[anovadata_pats_cond1 anovadata_pats_cond2 anovadata_pats_cond3 ...
-            anovadata_pats_cond4 anovadata_pats_cond5];
-PAT_noise=[anovadata_pats_cond6 anovadata_pats_cond7 anovadata_pats_cond8 ... 
-           anovadata_pats_cond9 anovadata_pats_cond10];
-
-             
+% 
+% anovadata_stdev=[HCs_groupstdev_clear HCs_groupstdev_noise Pats_groupstdev_clear Pats_groupstdev_noise];
+% 
+% create subject group
+% test=ones(1,751);
+% test2=ones(1,751);
+% test2=test2*2;
+% subjectgroup=[test test test2 test2];
+% 
+% create condition group
+% condition = cell(1,3004);
+% for i=1:715
+%     condition{i}='clear';
+% end
+% for i=716:1502
+%     condition{i}='noise';
+% end
+% for i=1503:2253
+%     condition{i}='clear';
+% end
+% for i=2254:3004
+%     condition{i}='noise';
+% end
+% condition=condition';
+% 
+% group1=[subjectgroup];
+% group2=[condition];
+% p = anovan(anovadata_stdev,{group1 group2},'model','interaction');
+% 
+% ttest(HCs_groupstdev_clear, HCs_groupstdev_noise)
+% ttest(Pats_groupstdev_clear, Pats_groupstdev_noise)
+% ttest2(HCs_groupstdev_clear, Pats_groupstdev_clear)
+% ttest2(HCs_groupstdev_noise, Pats_groupstdev_noise)
+% 
+% 
+% figure
+% subplot(221)
+% plot(frame_taxis_to_use(1:751), Pats_groupstdev_clear, 'b','LineWidth',1.2,'Color',[patient_colour]);
+% axis([0 2.5 0 100])
+% title('Patients (clear)')
+% xlabel('Time (s)')
+% ylabel('Var (cents)')
+% goodplot
+% 
+% subplot(222)
+% plot(frame_taxis_to_use(1:751),Pats_groupstdev_noise, 'b','LineWidth',1.2,'Color',[patient_colour]);
+% axis([0 2.5 0 100])
+% title('Patients (noise)')
+% xlabel('Time (s)')
+% ylabel('Var (cents)')
+% goodplot
+% 
+% subplot(223)
+% plot(frame_taxis_to_use(1:751),HCs_groupstdev_clear, 'b','LineWidth',1.2,'Color',[HC_colour]);
+% axis([0 2.5 0 100])
+% title('HCs (clear)')
+% xlabel('Time (s)')
+% ylabel('Var (cents)')
+% goodplot
+% 
+% subplot(224)
+% plot(frame_taxis_to_use(1:751),HCs_groupstdev_noise, 'b','LineWidth',1.2,'Color',[HC_colour]);
+% axis([0 2.5 0 100])
+% title('HCs (noise)')
+% xlabel('Time (s)')
+% ylabel('Var (cents)')
+% goodplot
+% 
+% print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/Stdev_distancefromlowpass.pdf');
+% 
+% 
+% 
+% 
+% 
+% figure
+% subplot(211)
+% title('Healthy controls')
+% bar(1, nanmean(HCs_groupstdev_clear), 'k')
+% hold on
+% bar(2, nanmean(HCs_groupstdev_noise), 'k')
+% axis([0 3 0 35])
+% goodplot
+% 
+% sem=HCs_groupstdev_clear/sqrt(sum(goodtrials_HC(1:5)));
+% 
+% ttest(HCs_groupstdev_clear, HCs_groupstdev_noise)
+% 
+% subplot(212)
+% title('Patients')
+% bar(1, mean(Pats_groupstdev_clear), 'w')
+% hold on
+% bar(2, mean(Pats_groupstdev_noise), 'w')
+% axis([0 3 0 35])
+% goodplot
+% ttest(Pats_groupstdev_clear, Pats_groupstdev_noise)
+% 
+% figure
+% y_pitch2=[nanmean(HCs_groupstdev_clear) nanmean(HCs_groupstdev_noise); ...
+%           nanmean(Pats_groupstdev_clear) nanmean(Pats_groupstdev_noise)];
+% errY2 = [nanstd(HCs_groupstdev_clear)/sqrt(goodtrials_HC_clear) nanstd(HCs_groupstdev_noise)/sqrt(goodtrials_HC_noise); ...
+%           nanstd(Pats_groupstdev_clear)/sqrt(goodtrials_pat_clear) nanstd(Pats_groupstdev_noise)/sqrt(goodtrials_pat_noise) ];            
+% h = barwitherr(errY2, y_pitch2);% Plot with errorbars
+% set(gca,'XTickLabel',{'HCs','Patients'})
+% ylabel('mean stdev of distance from low pass filt')
+% set(h(1),'FaceColor','k');
+% set(h(2),'FaceColor','w');
+% title(sprintf('Group mean variability in pitch tracking'));
+% axis([0 3 0 40])
+% goodplot
+% print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/meanstdvaribility.pdf');
+% 
+% 
+% HC_clear=[anovadata_HCs_cond1 anovadata_HCs_cond2 anovadata_HCs_cond3 ...
+%            anovadata_HCs_cond4 anovadata_HCs_cond5];
+% HC_noise=[anovadata_HCs_cond6 anovadata_HCs_cond7 anovadata_HCs_cond8 ...
+%             anovadata_HCs_cond9 anovadata_HCs_cond10];
+%        
+% PAT_clear=[anovadata_pats_cond1 anovadata_pats_cond2 anovadata_pats_cond3 ...
+%             anovadata_pats_cond4 anovadata_pats_cond5];
+% PAT_noise=[anovadata_pats_cond6 anovadata_pats_cond7 anovadata_pats_cond8 ... 
+%            anovadata_pats_cond9 anovadata_pats_cond10];
+% 
+%              
 % anova  - all clear and noise conds together
-anovadata=[anovadata_HCs_cond1 anovadata_HCs_cond2 anovadata_HCs_cond3 ...
-           anovadata_HCs_cond4 anovadata_HCs_cond5 anovadata_HCs_cond6 ...
-           anovadata_HCs_cond7 anovadata_HCs_cond8 anovadata_HCs_cond9 ...
-           anovadata_HCs_cond10 anovadata_pats_cond1 anovadata_pats_cond2 ...
-           anovadata_pats_cond3 anovadata_pats_cond4 anovadata_pats_cond5 ...
-           anovadata_pats_cond6 anovadata_pats_cond7 anovadata_pats_cond8 ... 
-           anovadata_pats_cond9 anovadata_pats_cond10];
-
-%create subject group
-test=ones(1,82610);
-test2=ones(1,120160);
-test2=test2*2;
-subjectgroup=[test test2];
-
-%create condition group
-cond_length_HC=41305;
-cond_length_pat=60080;
-condition = cell(1,202770);
-for i=1:41305
-    condition{i}='clear';
-end
-for i=41306:82610
-    condition{i}='noise';
-end
-for i=82611:142690
-    condition{i}='clear';
-end
-for i=142691:202770
-    condition{i}='noise';
-end
-condition=condition';
-
-group1=[subjectgroup];
-group2=[condition];
-p = anovan(anovadata,{group1 group2},'model','interaction');
-
-%ttests
-ttest(HC_clear, HC_noise)
-ttest(PAT_clear, PAT_noise)
-ttest2(HC_clear, PAT_clear)
-ttest2(HC_noise, PAT_noise)
-
-%% CHECK
-
-
-
+% anovadata=[anovadata_HCs_cond1 anovadata_HCs_cond2 anovadata_HCs_cond3 ...
+%            anovadata_HCs_cond4 anovadata_HCs_cond5 anovadata_HCs_cond6 ...
+%            anovadata_HCs_cond7 anovadata_HCs_cond8 anovadata_HCs_cond9 ...
+%            anovadata_HCs_cond10 anovadata_pats_cond1 anovadata_pats_cond2 ...
+%            anovadata_pats_cond3 anovadata_pats_cond4 anovadata_pats_cond5 ...
+%            anovadata_pats_cond6 anovadata_pats_cond7 anovadata_pats_cond8 ... 
+%            anovadata_pats_cond9 anovadata_pats_cond10];
+% 
+% create subject group
+% test=ones(1,82610);
+% test2=ones(1,120160);
+% test2=test2*2;
+% subjectgroup=[test test2];
+% 
+% create condition group
+% cond_length_HC=41305;
+% cond_length_pat=60080;
+% condition = cell(1,202770);
+% for i=1:41305
+%     condition{i}='clear';
+% end
+% for i=41306:82610
+%     condition{i}='noise';
+% end
+% for i=82611:142690
+%     condition{i}='clear';
+% end
+% for i=142691:202770
+%     condition{i}='noise';
+% end
+% condition=condition';
+% 
+% group1=[subjectgroup];
+% group2=[condition];
+% p = anovan(anovadata,{group1 group2},'model','interaction');
+% 
+% ttests
+% ttest(HC_clear, HC_noise)
+% ttest(PAT_clear, PAT_noise)
+% ttest2(HC_clear, PAT_clear)
+% ttest2(HC_noise, PAT_noise)
+% 
+% % CHECK
+% 
+% 
+% 
 % why are these all the same?
 % DATA(1).distfromlowasspass(1).sorted_data(1).goodpitchdata_difflowpassfilt
-%and:- 
-DATA(2).distfromlowasspass(1).sorted_data(4).goodpitchdata_difflowpassfilt(6,:)
-DATA(2).distfromlowasspass(1).sorted_data(4).goodpitchdata_difflowpassfilt(8,:)
-for cond=1:5
-nanmean(DATA(1).distfromlowasspass(1).sorted_data(1).goodpitchdata_difflowpassfilt);
-end
-
+% and:- 
+% DATA(2).distfromlowasspass(1).sorted_data(4).goodpitchdata_difflowpassfilt(6,:)
+% DATA(2).distfromlowasspass(1).sorted_data(4).goodpitchdata_difflowpassfilt(8,:)
+% for cond=1:5
+% nanmean(DATA(1).distfromlowasspass(1).sorted_data(1).goodpitchdata_difflowpassfilt);
+% end
+% 
 % cd (cerebellar_data_rootdir)
 % load SUB01/expr2014.03.21.T10.46.03_mainrun/speak/sorted_data.mat
 % figure; 
@@ -720,8 +445,8 @@ end
 % plot(nanmean(DATA(1).distfromlowasspass(1).sorted_data(4).goodpitchdata_difflowpassfilt))
 % subplot(212);
 % plot(nanmean(sorted_data(4).goodpitchdata_difflowpassfilt), 'm')
-
-
+% 
+% 
 % 
 % figure; subplot(211); plot(DATA(2).distfromlowasspass(1).sorted_data(4).goodpitchdata_difflowpassfilt(6,:))
 % subplot(212);plot(nanmean(sorted_data(4).goodpitchdata_difflowpassfilt), 'm')

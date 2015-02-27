@@ -315,78 +315,88 @@ annotation('textbox', [0 0.9 1 0.1], ...
     'HorizontalAlignment', 'center')
 
 subplot(2,2,1)
-% plot(group_cond1_HCs_to_use_mean, 'b','LineWidth',1.3);
-% hold all
-% plot(group_cond2_HCs_to_use_mean, 'c','LineWidth',1.3);
-% plot(group_cond3_HCs_to_use_mean, 'k','LineWidth',1.3);
-% plot(group_cond4_HCs_to_use_mean, 'y','LineWidth',1.3);
-% plot(group_cond5_HCs_to_use_mean, 'r','LineWidth',1.3);
-
-
-plot(group_cond1_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.5);
+plot(frame_taxis_to_use, group_cond1_HCs_to_use_mean, 'b','LineWidth',1.3);
 hold all
-plot(group_cond2_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.5);
-plot(group_cond3_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.5);
-plot(group_cond4_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.5);
-plot(group_cond5_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.5);
+plot(frame_taxis_to_use,group_cond2_HCs_to_use_mean, 'c','LineWidth',1.3);
+plot(frame_taxis_to_use,group_cond3_HCs_to_use_mean, 'k','LineWidth',1.3);
+plot(frame_taxis_to_use,group_cond4_HCs_to_use_mean, 'y','LineWidth',1.3);
+plot(frame_taxis_to_use,group_cond5_HCs_to_use_mean, 'r','LineWidth',1.3);
+
+% plot(frame_taxis_to_use,group_cond1_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.5);
+% hold all
+% plot(frame_taxis_to_use,group_cond2_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.5);
+% plot(frame_taxis_to_use,group_cond3_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.5);
+% plot(frame_taxis_to_use,group_cond4_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.5);
+% plot(frame_taxis_to_use,group_cond5_HCs_to_use_mean, 'Color',[HC_colour],'LineWidth',1.5);
 
 
-%plot(windowplot, 'm','LineWidth',1.3);
-axis([0 1400 ymin ymax])
+%plot(frame_taxis_to_use,windowplot, 'm','LineWidth',1.3);
+axis([0 4 ymin ymax])
+ylabel('Pitch (cents)')
+xlabel('Time (s)')
 title(sprintf('HC clear trials'));
-rectangle('Position',[T1_HC,boxmin,T2_HC-T1_HC,boxmax],...
-    'LineWidth',2,'LineStyle','--')
-rectangle('Position',[T3_HC,boxmin,T4_HC-T3_HC,boxmax],...    
-    'LineWidth',2,'LineStyle','--')
+goodplot
+
+% rectangle('Position',[T1_HC,boxmin,T2_HC-T1_HC,boxmax],...
+%     'LineWidth',2,'LineStyle','--')
+% rectangle('Position',[T3_HC,boxmin,T4_HC-T3_HC,boxmax],...    
+%     'LineWidth',2,'LineStyle','--')
 % patient_colour=[.49 1 .63];
 % HC_colour=[.4 .4 .4]
 
 
 subplot(2,2,2)
-plot(group_cond6_HCs_to_use_mean, 'b','LineWidth',1.3);
+plot(frame_taxis_to_use,group_cond6_HCs_to_use_mean, 'b','LineWidth',1.3);
 hold all
-plot(group_cond7_HCs_to_use_mean, 'c','LineWidth',1.3);
-plot(group_cond8_HCs_to_use_mean, 'k','LineWidth',1.3);
-plot(group_cond9_HCs_to_use_mean, 'y','LineWidth',1.3);
-plot(group_cond10_HCs_to_use_mean, 'r','LineWidth',1.3);
-axis([0 1400 ymin ymax])
+plot(frame_taxis_to_use,group_cond7_HCs_to_use_mean, 'c','LineWidth',1.3);
+plot(frame_taxis_to_use,group_cond8_HCs_to_use_mean, 'k','LineWidth',1.3);
+plot(frame_taxis_to_use,group_cond9_HCs_to_use_mean, 'y','LineWidth',1.3);
+plot(frame_taxis_to_use,group_cond10_HCs_to_use_mean, 'r','LineWidth',1.3);
+axis([0 4 ymin ymax])
+ylabel('Pitch (cents)')
+xlabel('Time (s)')
 title(sprintf('HC masked trials'));
-rectangle('Position',[T1_HC,boxmin,T2_HC-T1_HC,boxmax],...
-    'LineWidth',2,'LineStyle','--')
-rectangle('Position',[T3_HC,boxmin,T4_HC-T3_HC,boxmax],...    
-    'LineWidth',2,'LineStyle','--')
+% rectangle('Position',[T1_HC,boxmin,T2_HC-T1_HC,boxmax],...
+%     'LineWidth',2,'LineStyle','--')
+% rectangle('Position',[T3_HC,boxmin,T4_HC-T3_HC,boxmax],...    
+%     'LineWidth',2,'LineStyle','--')
+goodplot
 
 subplot(2,2,3)
-plot(group_cond1_pats_to_use_mean, 'b','LineWidth',1.3);
+plot(frame_taxis_to_use,group_cond1_pats_to_use_mean, 'b','LineWidth',1.3);
 hold all
-plot(group_cond2_pats_to_use_mean, 'c','LineWidth',1.3);
-plot(group_cond3_pats_to_use_mean, 'k','LineWidth',1.3);
-plot(group_cond4_pats_to_use_mean, 'y','LineWidth',1.3);
-plot(group_cond5_pats_to_use_mean, 'r','LineWidth',1.3);
-axis([0 1400 ymin ymax])
+plot(frame_taxis_to_use,group_cond2_pats_to_use_mean, 'c','LineWidth',1.3);
+plot(frame_taxis_to_use,group_cond3_pats_to_use_mean, 'k','LineWidth',1.3);
+plot(frame_taxis_to_use,group_cond4_pats_to_use_mean, 'y','LineWidth',1.3);
+plot(frame_taxis_to_use,group_cond5_pats_to_use_mean, 'r','LineWidth',1.3);
+axis([0 4 ymin ymax])
+ylabel('Pitch (cents)')
+xlabel('Time (s)')
 title(sprintf('Patients clear trials'));
-rectangle('Position',[T1_pat,boxmin,T2_pat-T1_pat,boxmax],...
-    'LineWidth',2,'LineStyle','--')
-rectangle('Position',[T3_pat,boxmin,T4_pat-T3_pat,boxmax],...    
-    'LineWidth',2,'LineStyle','--')
-
+% rectangle('Position',[T1_pat,boxmin,T2_pat-T1_pat,boxmax],...
+%     'LineWidth',2,'LineStyle','--')
+% rectangle('Position',[T3_pat,boxmin,T4_pat-T3_pat,boxmax],...    
+%     'LineWidth',2,'LineStyle','--')
+goodplot
 
 subplot(2,2,4)
-plot(group_cond6_pats_to_use_mean, 'b','LineWidth',1.3);
+plot(frame_taxis_to_use,group_cond6_pats_to_use_mean, 'b','LineWidth',1.3);
 hold all
-plot(group_cond7_pats_to_use_mean, 'c','LineWidth',1.3);
-plot(group_cond8_pats_to_use_mean, 'k','LineWidth',1.3);
-plot(group_cond9_pats_to_use_mean, 'y','LineWidth',1.3);
-plot(group_cond10_pats_to_use_mean, 'r','LineWidth',1.3);
-axis([0 1400 ymin ymax])
+plot(frame_taxis_to_use,group_cond7_pats_to_use_mean, 'c','LineWidth',1.3);
+plot(frame_taxis_to_use,group_cond8_pats_to_use_mean, 'k','LineWidth',1.3);
+plot(frame_taxis_to_use,group_cond9_pats_to_use_mean, 'y','LineWidth',1.3);
+plot(frame_taxis_to_use,group_cond10_pats_to_use_mean, 'r','LineWidth',1.3);
+axis([0 4 ymin ymax])
 title(sprintf('Patients masked trials'));
+ylabel('Pitch (cents)')
+xlabel('Time (s)')
+goodplot
+% rectangle('Position',[T1_pat,boxmin,T2_pat-T1_pat,boxmax],...
+%     'LineWidth',2,'LineStyle','--') 
+% rectangle('Position',[T3_pat,boxmin,T4_pat-T3_pat,boxmax],...
+%     'LineWidth',2,'LineStyle','--')
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/Mean responses by group.pdf');
 
-rectangle('Position',[T1_pat,boxmin,T2_pat-T1_pat,boxmax],...
-    'LineWidth',2,'LineStyle','--') 
-rectangle('Position',[T3_pat,boxmin,T4_pat-T3_pat,boxmax],...
-    'LineWidth',2,'LineStyle','--')
-
-saveas(fig1, 'Mean responses by group.jpg')
 
 %% (3) Normalise all trials to the mean pitch from previous experiment: subj_MP_allsubs
 for i=1:nframes_to_use
@@ -433,7 +443,7 @@ end
 %     'EdgeColor', 'none', ...
 %     'HorizontalAlignment', 'center')
 % 
-% P1=subplot(2,2,1);
+% P1=subplot(frame_taxis_to_use,2,2,1);
 % plot(frame_taxis_to_use, zscorenorm_GroupMean_HCs_cond1, 'b','LineWidth',1.3);
 % hold all
 % plot(frame_taxis_to_use, zscorenorm_GroupMean_HCs_cond2, 'c','LineWidth',1.3);

@@ -1,5 +1,6 @@
 %% called from E_calcfromlowpass
-% 1. calculate mean across trial dist for clear and noise trials
+% 1. calculate mean across trial dist for clear and noise trials - on
+% individual trial
 
 
 GpMean_AcT.HC_clear=nanmean(HC_alltrials_clear);

@@ -164,9 +164,45 @@ calc_mean_AcT_allcondssep;
 
 % perform stats on each subject mean data
 
+%% calculate WT mean and ST on each subject mean
+for isub=1:length(allincluded)
+    for icond=1:10
+        eachsub_meandistFLP(isub).cond(icond,:)=nanmean(DATA(isub).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt)
+        eachsub_meanWT_distFLP(isub).cond(icond,:)=nanmean(eachsub_meandistFLP(isub).cond(icond,:))
+        eachsub_stdWT_distFLP(isub).cond(icond,:)=nanstd(eachsub_meandistFLP(isub).cond(icond,:))
+    end
+end
+
+% patients=eachsub_meanWT_distFLP(1:11)
+% HCs=eachsub_meanWT_distFLP(12:end)
+% eachsub_meandistFLP(1).cond
+
+% group mean by condition
+for icond=1:10
+gpmean_WTdist_LPF(icond)=nanmean(anova_data_meanWTdist(icond,:))
+end
+
+gpmean_WTdist_LPF_clear=nanmean(gpmean_WTdist_LPF(1:5))
+gpmean_WTdist_LPF_noise=nanmean(gpmean_WTdist_LPF(6:10))
 
 
 
+
+for icond=1:10
+anova_data_meanWTdist(icond,:)=[eachsub_meanWT_distFLP(1).cond(icond) eachsub_meanWT_distFLP(2).cond(icond) ...
+    eachsub_meanWT_distFLP(3).cond(icond) eachsub_meanWT_distFLP(4).cond(icond) ...
+    eachsub_meanWT_distFLP(5).cond(icond) eachsub_meanWT_distFLP(6).cond(icond) ...    
+    eachsub_meanWT_distFLP(7).cond(icond) eachsub_meanWT_distFLP(8).cond(icond) ...
+    eachsub_meanWT_distFLP(9).cond(icond) eachsub_meanWT_distFLP(10).cond(icond) ...    
+    eachsub_meanWT_distFLP(11).cond(icond)]
+
+anova_data_stdWTdist(icond,:)=[eachsub_stdWT_distFLP(1).cond(icond) eachsub_stdWT_distFLP(2).cond(icond) ...
+    eachsub_stdWT_distFLP(3).cond(icond) eachsub_stdWT_distFLP(4).cond(icond) ...
+    eachsub_stdWT_distFLP(5).cond(icond) eachsub_stdWT_distFLP(6).cond(icond) ...    
+    eachsub_stdWT_distFLP(7).cond(icond) eachsub_stdWT_distFLP(8).cond(icond) ...
+    eachsub_stdWT_distFLP(9).cond(icond) eachsub_stdWT_distFLP(10).cond(icond) ...    
+    eachsub_stdWT_distFLP(11).cond(icond)]
+end
 
 
 

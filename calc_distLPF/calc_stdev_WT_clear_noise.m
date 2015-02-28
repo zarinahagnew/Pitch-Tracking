@@ -1,5 +1,6 @@
 %% called from E_calcfromlowpass
-% 3. WT mean and std
+% 3. WT mean and std - calculates on each trial and takes the average of
+% that. 
 
 for ipat=1:numpats
     for icond=1:10

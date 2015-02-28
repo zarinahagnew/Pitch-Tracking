@@ -46,9 +46,9 @@ load /Users/zagnew/Dropbox/cerebellum_expr_devel/Zed/meanpitches/subj_MP_allsubs
 % patient_info{npats}.exprdir = 'SUB01/expr2014.03.21.T10.46.03_mainrun/speak/';
 % meanpitchtag(npats)=1; % keep this way so that this script works even if you're not running all 16 subjects
 
-npats = npats + 1;
-patient_info{npats}.exprdir = 'SUB02/expr2014.03.21.T12.33.58_mainrun/speak/';
-meanpitchtag(npats)=2;
+% npats = npats + 1;
+% patient_info{npats}.exprdir = 'SUB02/expr2014.03.21.T12.33.58_mainrun/speak/';
+% meanpitchtag(npats)=2;
 % 
 % npats = npats + 1;
 % patient_info{npats}.exprdir = 'SUB03/expr2014.03.21.T14.35.35_mainrun/speak/';

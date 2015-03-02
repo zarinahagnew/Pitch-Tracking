@@ -7,7 +7,6 @@ for ipat=1:numpats
         for itrial=1:8
             GpStd_WT_PAT(ipat).data(icond).data(itrial)=nanstd(DATA(ipat).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt(itrial,:));
             GpMean_WT_PAT(ipat).data(icond).data(itrial)=nanmean(DATA(ipat).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt(itrial,:));
-
         end
     end
 end

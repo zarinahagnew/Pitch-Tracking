@@ -74,9 +74,9 @@ load /Users/zagnew/Dropbox/cerebellum_expr_devel/Zed/meanpitches/subj_MP_allsubs
 % patient_info{npats}.exprdir = 'SUB08/expr2014.03.22.T14.01.48_mainrun/speak/';
 % meanpitchtag(npats)=8;
 % 
-% npats = npats + 1;
-% patient_info{npats}.exprdir = 'SUB09/expr2014.03.22.T15.52.01_mainrun/speak/';
-% meanpitchtag(npats)=9;
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB09/expr2014.03.22.T15.52.01_mainrun/speak/';
+meanpitchtag(npats)=9;
 % 
 % npats = npats + 1;
 % patient_info{npats}.exprdir = 'SUB10/expr2014.03.22.T16.37.44_mainrun/speak/';
@@ -479,6 +479,40 @@ close all
 cd ..
 
 
+% sanity check
+
+
+
+
+
+%load /Users/zagnew/Cereb_data/data/SUB01/expr2014.03.21.T10.46.03_mainrun/speak/gooddata.mat;
+% load /Users/zagnew/Cereb_data/data/SUB02/expr2014.03.21.T12.33.58_mainrun/speak/gooddata.mat;
+% load /Users/zagnew/Cereb_data/data/SUB03/expr2014.03.21.T14.35.35_mainrun/speak/gooddata.mat;
+% load /Users/zagnew/Cereb_data/data/SUB04/expr2014.03.21.T17.20.11_mainrun/speak/gooddata.mat;
+% load /Users/zagnew/Cereb_data/data/SUB05/expr2014.03.21.T18.50.52_mainrun/speak/gooddata.mat;
+% % load /Users/zagnew/Cereb_data/data/SUB06/expr2014.03.22.T11.05.45_mainrun/speak/gooddata.mat;
+% % load /Users/zagnew/Cereb_data/data/SUB07/expr2014.03.22.T12.15.42_mainrun/speak/gooddata.mat;
+% % load /Users/zagnew/Cereb_data/data/SUB08/expr2014.03.22.T14.01.48_mainrun/speak/gooddata.mat;
+%  load /Users/zagnew/Cereb_data/data/SUB09/expr2014.03.22.T15.52.01_mainrun/speak/gooddata.mat;
+% % load /Users/zagnew/Cereb_data/data/SUB10/expr2014.03.22.T16.37.44_mainrun/speak/gooddata.mat;
+% % load /Users/zagnew/Cereb_data/data/SUB11/expr2014.03.22.T18.46.44_mainrun/speak/gooddata.mat;
+% % load /Users/zagnew/Cereb_data/data/SUB12/expr2014.03.23.T11.03.52_mainrun/speak/gooddata.mat;
+% % load /Users/zagnew/Cereb_data/data/SUB13/expr2014.03.23.T13.47.01_mainrun/speak/gooddata.mat;
+% % load /Users/zagnew/Cereb_data/data/SUB14/expr2014.03.23.T15.21.00_mainrun/speak/gooddata.mat;
+% % load /Users/zagnew/Cereb_data/data/SUB15/expr2014.03.23.T16.32.53_mainrun/speak/gooddata.mat;
+% % load /Users/zagnew/Cereb_data/data/SUB16/expr2014.03.23.T18.16.58_mainrun/speak/gooddata.mat;
+% patients_included
+% 
+% for each_block=1:8
+%     gooddata(1).goodpitch_difflowpassfilt(each_block).data
+%     pause    
+%     clc
+% end
+% 
+% 
+% % take the mean pitch for each subject and conditions, create the LFP data
+% % and the distance for 
+% 
 
 
 

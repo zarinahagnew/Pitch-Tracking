@@ -1,5 +1,8 @@
-% this script takes the *group mean responses* for each condition, low pass filters each one and compares the distance between the mean responses and the filtered data.
+% this script takes the *group mean responses* for each condition
+% low pass filters each one and compares the distance between the
+% mean responses and the filtered data.
 %% ZKA Jan 2015
+
 clear all
 close all
 

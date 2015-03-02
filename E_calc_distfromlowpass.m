@@ -241,9 +241,6 @@ for icond=1:10
 end
 
 
-
-
-
 for isub=1:length(allincluded)
     for icond=1:10
         eachsub_meandistFLP(isub).cond(icond,:)=nanmean(DATA(isub).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt)
@@ -267,6 +264,7 @@ end
 %check
 nanmean(eachsub_meandistFLP(12).cond(1,:))
 eachsub_meanWT_distFLP_HC(1).cond(1)
+
 % sep patients and HCs
 patients_meandistFLP=eachsub_meanWT_distFLP(1:11)
 HCs_meandistFLP=eachsub_meanWT_distFLP(12:15)
@@ -274,7 +272,7 @@ patients_std_distFLP=eachsub_stdWT_distFLP(1:11)
 HCs_std_distFLP=eachsub_stdWT_distFLP(12:15)
 
 
-% group mean by condition
+% calc group mean by condition
 for icond=1:10
 gpmean_meanWTdist_LPF_pats(icond)=nanmean(anova_data_meanWTdist_pats(icond,:))
 gpmean_stdWTdist_LPF_pats(icond)=nanmean(anova_data_meanWTdist_pats(icond,:))
@@ -284,7 +282,6 @@ end
 
 ttest2(gpmean_meanWTdist_LPF_pats,gpmean_meanWTdist_LPF_HCs)
 ttest2(gpmean_stdWTdist_LPF_pats,gpmean_stdWTdist_LPF_HCs)
-
 ttest(gpmean_meanWTdist_LPF_pats(1:5),gpmean_meanWTdist_LPF_pats(6:10))
 ttest(gpmean_stdWTdist_LPF_HCs(1:5),gpmean_stdWTdist_LPF_HCs(6:10))
 
@@ -309,6 +306,9 @@ title('WT mean variability-HCs')
 xlabel('conditions 1:10')
 axis([0 11 0 25])
 goodplot
+
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/gpmean_meanWTdist_LPF_pats.pdf');
+
 
 
 

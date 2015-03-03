@@ -164,6 +164,9 @@ for isubj=1:15
 end
 
 
+
+
+
 two=nanmean(DATA(4).distfromlowasspass(1).sorted_data(3).goodpitchdata_difflowpassfilt)
 one=nanmean(DATA(4).distfromlowasspass(1).sorted_data(5).goodpitchdata_difflowpassfilt)
 

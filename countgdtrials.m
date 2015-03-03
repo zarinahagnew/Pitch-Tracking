@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 %% calculate how many are all nan trials
 HC_alltrials_clear=vertcat(...
     HC_data_distlowpass(1).data, HC_data_distlowpass(2).data, HC_data_distlowpass(3).data, HC_data_distlowpass(4).data, ...

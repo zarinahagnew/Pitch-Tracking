@@ -56,6 +56,7 @@ group2=[condition];
 % significant
 %[pvals,tbl,stats] = anovan(anova_data_WTstdev,{group1 group2}, 'model','interaction','varnames',{'subjectgroup' 'condition'});
 STATS.anova_data_AcTmean = anovan(anovadata_GpMean_AcT,{group1 group2},'random',1, 'model','interaction','varnames',{'subjectgroup' 'condition'});
+STATS.anova_data_AcTmean = anovan(anovadata_GpMean_AcT,{group1 group2}, 'model','interaction','varnames',{'subjectgroup' 'condition'});
 
 
 figure

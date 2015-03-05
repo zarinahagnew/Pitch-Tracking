@@ -42,69 +42,69 @@ set(0,'DefaultFigureWindowStyle','docked')
 load /Users/zagnew/Dropbox/cerebellum_expr_devel/Zed/meanpitches/subj_MP_allsubs
 
  npats = 0;
-% npats = npats + 1;
-% patient_info{npats}.exprdir = 'SUB01/expr2014.03.21.T10.46.03_mainrun/speak/';
-% meanpitchtag(npats)=1; % keep this way so that this script works even if you're not running all 16 subjects
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB01/expr2014.03.21.T10.46.03_mainrun/speak/';
+meanpitchtag(npats)=1; % keep this way so that this script works even if you're not running all 16 subjects
 
-% npats = npats + 1;
-% patient_info{npats}.exprdir = 'SUB02/expr2014.03.21.T12.33.58_mainrun/speak/';
-% meanpitchtag(npats)=2;
-% 
-% npats = npats + 1;
-% patient_info{npats}.exprdir = 'SUB03/expr2014.03.21.T14.35.35_mainrun/speak/';
-% meanpitchtag(npats)=3;
-% 
-% npats = npats + 1;
-% patient_info{npats}.exprdir = 'SUB04/expr2014.03.21.T17.20.11_mainrun/speak/';
-% meanpitchtag(npats)=4;
-% 
-% npats = npats + 1;
-% patient_info{npats}.exprdir = 'SUB05/expr2014.03.21.T18.50.52_mainrun/speak/';
-% meanpitchtag(npats)=5;
-% 
-% npats = npats + 1;
-% patient_info{npats}.exprdir = 'SUB06/expr2014.03.22.T11.05.45_mainrun/speak/';
-% meanpitchtag(npats)=6;
-% 
-% npats = npats + 1;
-% patient_info{npats}.exprdir = 'SUB07/expr2014.03.22.T12.15.42_mainrun/speak/';
-% meanpitchtag(npats)=7;
-% 
-% npats = npats + 1;
-% patient_info{npats}.exprdir = 'SUB08/expr2014.03.22.T14.01.48_mainrun/speak/';
-% meanpitchtag(npats)=8;
-% 
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB02/expr2014.03.21.T12.33.58_mainrun/speak/';
+meanpitchtag(npats)=2;
+
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB03/expr2014.03.21.T14.35.35_mainrun/speak/';
+meanpitchtag(npats)=3;
+
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB04/expr2014.03.21.T17.20.11_mainrun/speak/';
+meanpitchtag(npats)=4;
+
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB05/expr2014.03.21.T18.50.52_mainrun/speak/';
+meanpitchtag(npats)=5;
+
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB06/expr2014.03.22.T11.05.45_mainrun/speak/';
+meanpitchtag(npats)=6;
+
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB07/expr2014.03.22.T12.15.42_mainrun/speak/';
+meanpitchtag(npats)=7;
+
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB08/expr2014.03.22.T14.01.48_mainrun/speak/';
+meanpitchtag(npats)=8;
+
 npats = npats + 1;
 patient_info{npats}.exprdir = 'SUB09/expr2014.03.22.T15.52.01_mainrun/speak/';
 meanpitchtag(npats)=9;
-% 
-% npats = npats + 1;
-% patient_info{npats}.exprdir = 'SUB10/expr2014.03.22.T16.37.44_mainrun/speak/';
-% meanpitchtag(npats)=10;
-% 
-% npats = npats + 1;
-% patient_info{npats}.exprdir = 'SUB11/expr2014.03.22.T18.46.44_mainrun/speak/';
-% meanpitchtag(npats)=11;
-% 
-% npats = npats + 1;
-% patient_info{npats}.exprdir = 'SUB12/expr2014.03.23.T11.03.52_mainrun/speak/';
-% meanpitchtag(npats)=12;
-% 
-% npats = npats + 1;
-% patient_info{npats}.exprdir = 'SUB13/expr2014.03.23.T13.47.01_mainrun/speak/';
-% meanpitchtag(npats)=13; 
-% 
-% npats = npats + 1;
-% patient_info{npats}.exprdir = 'SUB14/expr2014.03.23.T15.21.00_mainrun/speak/';
-% meanpitchtag(npats)=14;
-% 
-% npats = npats + 1;
-% patient_info{npats}.exprdir = 'SUB15/expr2014.03.23.T16.32.53_mainrun/speak/';
-% meanpitchtag(npats)=15;
-% 
-% npats = npats + 1;
-% patient_info{npats}.exprdir = 'SUB16/expr2014.03.23.T18.16.58_mainrun/speak/';
-% meanpitchtag(npats)=16;
+
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB10/expr2014.03.22.T16.37.44_mainrun/speak/';
+meanpitchtag(npats)=10;
+
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB11/expr2014.03.22.T18.46.44_mainrun/speak/';
+meanpitchtag(npats)=11;
+
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB12/expr2014.03.23.T11.03.52_mainrun/speak/';
+meanpitchtag(npats)=12;
+
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB13/expr2014.03.23.T13.47.01_mainrun/speak/';
+meanpitchtag(npats)=13; 
+
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB14/expr2014.03.23.T15.21.00_mainrun/speak/';
+meanpitchtag(npats)=14;
+
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB15/expr2014.03.23.T16.32.53_mainrun/speak/';
+meanpitchtag(npats)=15;
+
+npats = npats + 1;
+patient_info{npats}.exprdir = 'SUB16/expr2014.03.23.T18.16.58_mainrun/speak/';
+meanpitchtag(npats)=16;
 
 
 originalFolder = pwd;
@@ -450,6 +450,7 @@ end
                 else
                     lowpassdata(1).goodpitchdata(each_block).data(itrial,:)=lowpass(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata), 0.01, 3);
                     gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:)=calc_distance(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata), lowpassdata(1).goodpitchdata(each_block).data(itrial,:))
+                    gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:)=abs(gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:));
                 end
             end
         end

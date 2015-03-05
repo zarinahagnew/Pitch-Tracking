@@ -5,8 +5,8 @@
 for ipat=1:numpats
     for icond=1:10
         for itrial=1:8
-            GpStd_WT_PAT(ipat).data(icond).data(itrial)=nanstd(DATA(ipat).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt(itrial,:));
-            GpMean_WT_PAT(ipat).data(icond).data(itrial)=nanmean(DATA(ipat).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt(itrial,:));
+            GpStd_WT_PAT(ipat).data(icond).data(itrial)=nanstd(DATA_DIST(ipat).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt(itrial,:));
+            GpMean_WT_PAT(ipat).data(icond).data(itrial)=nanmean(DATA_DIST(ipat).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt(itrial,:));
         end
     end
 end
@@ -14,8 +14,8 @@ end
 for isub=1:numHCs
     for icond=1:10
         for itrial=1:8
-            GpStd_WT_HC(isub).data(icond).data(itrial)=nanstd(DATA(isub+numpats).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt(itrial,:));
-            GpMean_WT_HC(isub).data(icond).data(itrial)=nanmean(DATA(isub+numpats).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt(itrial,:));
+            GpStd_WT_HC(isub).data(icond).data(itrial)=nanstd(DATA_DIST(isub+numpats).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt(itrial,:));
+            GpMean_WT_HC(isub).data(icond).data(itrial)=nanmean(DATA_DIST(isub+numpats).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt(itrial,:));
         end
     end
 end

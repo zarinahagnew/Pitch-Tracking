@@ -42,46 +42,46 @@ load /Users/zagnew/Dropbox/cerebellum_expr_devel/Zed/meanpitches/subj_MP_allsubs
 subj_MP_allsubs_HC=subj_MP_allsubs(17:end);
 
 nHCs=0
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC01/expr2014.05.06.T12.36.43_mainrun/speak/';
-% meanpitchtag(nHCs)=1;
-% %
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC02/expr2014.06.17.T12.53.53_mainrun/speak/';
-% meanpitchtag(nHCs)=2;
-% 
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC03/expr2014.06.17.T13.50.36_mainrun/speak/';
-% meanpitchtag(nHCs)=3;
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC04/expr2014.06.17.T16.22.20_mainrun/speak/';
-% meanpitchtag(nHCs)=4;
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC05/expr2014.06.18.T15.14.02_mainrun/speak/';
-% meanpitchtag(nHCs)=5;
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC06/expr2014.06.18.T16.18.27_mainrun/speak/';
-% meanpitchtag(nHCs)=6;
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC07/expr2014.07.25.T10.29.55_mainrun/speak/';
-% meanpitchtag(nHCs)=7;
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC08/expr2014.08.14.T15.57.52_mainrun/speak/';
-% meanpitchtag(nHCs)=8;
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC09/expr2014.09.21.T14.17.36_mainrun/speak/';
-% meanpitchtag(nHCs)=9;
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC10/expr2014.09.21.T15.35.54_JL_mainrun/speak/';
-% meanpitchtag(nHCs)=10;
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC01/expr2014.05.06.T12.36.43_mainrun/speak/';
+meanpitchtag(nHCs)=1;
+%
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC02/expr2014.06.17.T12.53.53_mainrun/speak/';
+meanpitchtag(nHCs)=2;
+
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC03/expr2014.06.17.T13.50.36_mainrun/speak/';
+meanpitchtag(nHCs)=3;
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC04/expr2014.06.17.T16.22.20_mainrun/speak/';
+meanpitchtag(nHCs)=4;
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC05/expr2014.06.18.T15.14.02_mainrun/speak/';
+meanpitchtag(nHCs)=5;
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC06/expr2014.06.18.T16.18.27_mainrun/speak/';
+meanpitchtag(nHCs)=6;
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC07/expr2014.07.25.T10.29.55_mainrun/speak/';
+meanpitchtag(nHCs)=7;
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC08/expr2014.08.14.T15.57.52_mainrun/speak/';
+meanpitchtag(nHCs)=8;
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC09/expr2014.09.21.T14.17.36_mainrun/speak/';
+meanpitchtag(nHCs)=9;
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC10/expr2014.09.21.T15.35.54_JL_mainrun/speak/';
+meanpitchtag(nHCs)=10;
 
 nHCs = nHCs + 1;
 patient_info{nHCs}.exprdir = 'HC11/expr2014.09.23.t15.27.32_sn_mainrun/speak/';
@@ -437,8 +437,6 @@ for isubj = 1:nHCs
         end
         
         % write out difference between each trial and low pass filtered
-        % version
-        
         gooddata=gooddata2;
         trialdata=250:1000;
         numframes_data=length(trialdata);
@@ -450,6 +448,7 @@ for isubj = 1:nHCs
                 else
                     lowpassdata(1).goodpitchdata(each_block).data(itrial,:)=lowpass(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata), 0.01, 3);
                     gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:)=calc_distance(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata), lowpassdata(1).goodpitchdata(each_block).data(itrial,:))
+                    gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:)=abs(gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:));
                     
                 end
             end

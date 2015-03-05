@@ -104,22 +104,22 @@ for isubj = 1:npatients
     DATA_ALLSUBS(isubj).distfromlowasspass= load (sprintf('%ssorted_data.mat',patient_info{isubj}.exprdir));  
 end
 
-DATA=DATA_ALLSUBS(allincluded);
+DATA_DIST=DATA_ALLSUBS(allincluded);
 
 %% put all data into one matrix
 for cond=1:10
 Pat_data_distlowpass(cond).data=vertcat( ...
-    DATA(1).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(2).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(3).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(4).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(5).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(6).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(7).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(8).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(9).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(10).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(11).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt); 
+    DATA_DIST(1).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA_DIST(2).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA_DIST(3).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA_DIST(4).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA_DIST(5).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA_DIST(6).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA_DIST(7).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA_DIST(8).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA_DIST(9).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA_DIST(10).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA_DIST(11).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt); 
 %     DATA(12).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
 %     DATA(13).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
 %     DATA(14).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
@@ -127,10 +127,10 @@ Pat_data_distlowpass(cond).data=vertcat( ...
 %     DATA(16).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt);
 
 HC_data_distlowpass(cond).data=vertcat( ...
-    DATA(12).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(13).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(14).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
-    DATA(15).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt); 
+    DATA_DIST(12).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA_DIST(13).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA_DIST(14).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
+    DATA_DIST(15).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt); 
 %     DATA(16).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt);
 %     
 %     DATA(17).distfromlowasspass(1).sorted_data(cond).goodpitchdata_difflowpassfilt, ...
@@ -147,14 +147,12 @@ HC_data_distlowpass(cond).data=vertcat( ...
 
 end
 
-
-
 %plot all conds per subject
 for isubj=1:15
     figure
     for icond=1:10
         subplot(5, 2, icond)
-        plot(nanmean(DATA(isubj).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt), 'k')
+        plot(nanmean(DATA_DIST(isubj).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt), 'k')
         axis([0 1000 -150 150])
         goodplot
     end
@@ -163,175 +161,177 @@ for isubj=1:15
     % pause
 end
 
-
-
-
-
-two=nanmean(DATA(4).distfromlowasspass(1).sorted_data(3).goodpitchdata_difflowpassfilt)
-one=nanmean(DATA(4).distfromlowasspass(1).sorted_data(5).goodpitchdata_difflowpassfilt)
-
-
-
-
-
-%
-% 
-% 
-% 
-% for i = 1:10
-%   figure;
-%   plot(i, i)
-%   filename = sprintf('test_image_%d.png', i);
-%   saveas(gcf, filename, 'png')
-% end
-
-% 
-% 
-% 
-% test=1:10
-% save(['myfile',num2str(icond)],'test');
-
-
-for i = 1:10
-    a = i^2;
-    save(['myfile',num2str(i)],'a');
-end
-
-
+% ZED issue
+two=nanmean(DATA_DIST(4).distfromlowasspass(1).sorted_data(3).goodpitchdata_difflowpassfilt);
+one=nanmean(DATA_DIST(4).distfromlowasspass(1).sorted_data(5).goodpitchdata_difflowpassfilt);
 
 cd(cerebellar_data_rootdir)
-save /Users/zagnew/Cereb_data/data/GroupData/distancefromtarg/DATA DATA
+save /Users/zagnew/Cereb_data/data/GroupData/distancefromtarg/DATA_DIST DATA_DIST
 
 countgdtrials;
 
 % all these use individial trial data and model subject as random factor. 
-calc_mean_AcT_clear_noise;
+% calc_mean_AcT_clear_noise;
+% 
+% calc_stdev_AcT_clear_noise;
+% 
+% calc_stdev_WT_clear_noise;
+% 
 
-calc_stdev_AcT_clear_noise;
 
-%
-calc_stdev_WT_clear_noise;
-
+% this looks at distance from LPF from each individual trial. In the end
+% there were too many nan trials so I decided on the next approach. 
 calc_mean_AcT_allcondssep;
 
-% perform stats on each subject mean data
-
-%% calculate WT mean and ST on each subject mean
-
-% for anova
-
-
-for icond=1:10
-    anova_data_meanWTdist_pats(icond,:)=[eachsub_meanWT_distFLP(1).cond(icond) eachsub_meanWT_distFLP(2).cond(icond) ...
-        eachsub_meanWT_distFLP(3).cond(icond) eachsub_meanWT_distFLP(4).cond(icond) ...
-        eachsub_meanWT_distFLP(5).cond(icond) eachsub_meanWT_distFLP(6).cond(icond) ...
-        eachsub_meanWT_distFLP(7).cond(icond) eachsub_meanWT_distFLP(8).cond(icond) ...
-        eachsub_meanWT_distFLP(9).cond(icond) eachsub_meanWT_distFLP(10).cond(icond) ...
-        eachsub_meanWT_distFLP(11).cond(icond)]
-    
-    anova_data_meanWTdist_HCs(icond,:)=[eachsub_meanWT_distFLP(12).cond(icond) eachsub_meanWT_distFLP(13).cond(icond) ...
-        eachsub_meanWT_distFLP(14).cond(icond) eachsub_meanWT_distFLP(15).cond(icond)];
-    
-    anova_data_stdWTdist_pats(icond,:)=[eachsub_stdWT_distFLP(1).cond(icond) eachsub_stdWT_distFLP(2).cond(icond) ...
-        eachsub_stdWT_distFLP(3).cond(icond) eachsub_stdWT_distFLP(4).cond(icond) ...
-        eachsub_stdWT_distFLP(5).cond(icond) eachsub_stdWT_distFLP(6).cond(icond) ...
-        eachsub_stdWT_distFLP(7).cond(icond) eachsub_stdWT_distFLP(8).cond(icond) ...
-        eachsub_stdWT_distFLP(9).cond(icond) eachsub_stdWT_distFLP(10).cond(icond) ...
-        eachsub_stdWT_distFLP(11).cond(icond)]
-    
-    anova_data_meanWTdist_HCs(icond,:)=[eachsub_stdWT_distFLP(12).cond(icond) eachsub_stdWT_distFLP(13).cond(icond) ...
-        eachsub_stdWT_distFLP(14).cond(icond) eachsub_stdWT_distFLP(15).cond(icond)];    
-end
-
-
-for isub=1:length(allincluded)
-    for icond=1:10
-        eachsub_meandistFLP(isub).cond(icond,:)=nanmean(DATA(isub).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt)
-    end
-end
-for isub=1:numpats
-    for icond=1:10
-        eachsub_meanWT_distFLP_pat(isub).cond(icond,:)=nanmean(eachsub_meandistFLP(isub).cond(icond,:))
-        eachsub_stdWT_distFLP_pat(isub).cond(icond,:)=nanstd(eachsub_meandistFLP(isub).cond(icond,:))
-    end
-end
-
-for isub=1:numHCs
-    for icond=1:10
-        eachsub_meanWT_distFLP_HC(isub).cond(icond,:)=nanmean(eachsub_meandistFLP(isub+numpats).cond(icond,:))
-        eachsub_stdWT_distFLP_HC(isub).cond(icond,:)=nanstd(eachsub_meandistFLP(isub+numpats).cond(icond,:))
-    end
-end
-
-
-%check
-nanmean(eachsub_meandistFLP(12).cond(1,:))
-eachsub_meanWT_distFLP_HC(1).cond(1)
-
-% sep patients and HCs
-patients_meandistFLP=eachsub_meanWT_distFLP(1:11)
-HCs_meandistFLP=eachsub_meanWT_distFLP(12:15)
-patients_std_distFLP=eachsub_stdWT_distFLP(1:11)
-HCs_std_distFLP=eachsub_stdWT_distFLP(12:15)
-
-
-% calc group mean by condition
-for icond=1:10
-gpmean_meanWTdist_LPF_pats(icond)=nanmean(anova_data_meanWTdist_pats(icond,:))
-gpmean_stdWTdist_LPF_pats(icond)=nanmean(anova_data_meanWTdist_pats(icond,:))
-gpmean_meanWTdist_LPF_HCs(icond)=nanmean(anova_data_meanWTdist_HCs(icond,:))
-gpmean_stdWTdist_LPF_HCs(icond)=nanmean(anova_data_meanWTdist_HCs(icond,:))
-end
-
-ttest2(gpmean_meanWTdist_LPF_pats,gpmean_meanWTdist_LPF_HCs)
-ttest2(gpmean_stdWTdist_LPF_pats,gpmean_stdWTdist_LPF_HCs)
-ttest(gpmean_meanWTdist_LPF_pats(1:5),gpmean_meanWTdist_LPF_pats(6:10))
-ttest(gpmean_stdWTdist_LPF_HCs(1:5),gpmean_stdWTdist_LPF_HCs(6:10))
-
-anova_data=[gpmean_stdWTdist_LPF_HCs gpmean_meanWTdist_LPF_pats]
-
-
-figure
-subplot(211)
-bar(1:5,gpmean_meanWTdist_LPF_pats(1:5), 'k')
-hold on
-bar(6:10, gpmean_meanWTdist_LPF_pats(6:10), 'w')
-title('WT mean variability-pats')
-xlabel('conditions 1:10')
-axis([0 11 0 25])
-goodplot
-
-subplot(212)
-bar(1:5,gpmean_meanWTdist_LPF_HCs(1:5), 'k')
-hold on
-bar(6:10, gpmean_meanWTdist_LPF_HCs(6:10), 'w')
-title('WT mean variability-HCs')
-xlabel('conditions 1:10')
-axis([0 11 0 25])
-goodplot
-
-print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/gpmean_meanWTdist_LPF_pats.pdf');
+% this was the one that finally worked. I realised that by merging all
+% conditions toegether i might be loosing some result. This script takes
+% the mean pitch track for each subject, for each condition, calcs the LPF
+% version, and the distance between the two. It makes all the negative
+% distance values positive, then looks at the across trial mean and stdev,
+% and the within trial mean and standard dev. 
+calc_by_cond_frommeantrack;
 
 
 
 
 
-
-ttest(gpmean_meanWTdist_LPF(1:5), gpmean_meanWTdist_LPF(6:10))
-ttest(gpmean_stdWTdist_LPF(1:5), gpmean_stdWTdist_LPF(6:10))
-
-subplot(212)
-bar(1:5,gpmean_stdWTdist_LPF(1:5), 'k')
-hold on
-bar(6:10, gpmean_stdWTdist_LPF(6:10), 'w')
-title('WT stdev variability')
-ylabel('                                 distance from LPF (cents)')
-xlabel('conditions 1:10')
-goodplot
-
-gpmean_WTdist_LPF_clear=nanmean(gpmean_WTdist_LPF(1:5))
-gpmean_WTdist_LPF_noise=nanmean(gpmean_WTdist_LPF(6:10))
-
-
+% 
+% 
+% % perform stats on each subject mean data
+% 
+% %% calculate WT mean and ST on each subject mean
+% 
+% 
+% 
+% 
+% %% calcluate AcT mean and stdev
+% for isub=1:length(allincluded)
+%     for icond=1:10
+%         eachsub_meandistFLP(isub).cond(icond,:)=nanmean(DATA_DIST(isub).distfromlowasspass(1).sorted_data(icond).goodpitchdata_difflowpassfilt);
+%     end
+% end
+% 
+% %separate into patients and HCs
+% for isub=1:numpats
+%     for icond=1:10
+%         eachsub_meanWT_distFLP_pat(isub).cond(icond,:)=nanmean(eachsub_meandistFLP(isub).cond(icond,:));
+%         eachsub_stdWT_distFLP_pat(isub).cond(icond,:)=nanstd(eachsub_meandistFLP(isub).cond(icond,:));
+%     end
+% end
+% 
+% for isub=1:numHCs
+%     for icond=1:10
+%         eachsub_meanWT_distFLP_HC(isub).cond(icond,:)=nanmean(eachsub_meandistFLP(isub+numpats).cond(icond,:));
+%         eachsub_stdWT_distFLP_HC(isub).cond(icond,:)=nanstd(eachsub_meandistFLP(isub+numpats).cond(icond,:));
+%     end
+% end
+% 
+% % for anova
+% for icond=1:10
+%     anova_data_meanWTdist_pats(icond,:)=[eachsub_meanWT_distFLP_pat(1).cond(icond) eachsub_meanWT_distFLP_pat(2).cond(icond) ...
+%         eachsub_meanWT_distFLP_pat(3).cond(icond) eachsub_meanWT_distFLP_pat(4).cond(icond) ...
+%         eachsub_meanWT_distFLP_pat(5).cond(icond) eachsub_meanWT_distFLP_pat(6).cond(icond) ...
+%         eachsub_meanWT_distFLP_pat(7).cond(icond) eachsub_meanWT_distFLP_pat(8).cond(icond) ...
+%         eachsub_meanWT_distFLP_pat(9).cond(icond) eachsub_meanWT_distFLP_pat(10).cond(icond) ...
+%         eachsub_meanWT_distFLP_pat(11).cond(icond)];
+%     
+%     anova_data_meanWTdist_HCs(icond,:)=[eachsub_meanWT_distFLP_HC(1).cond(icond) eachsub_meanWT_distFLP_HC(2).cond(icond) ...
+%         eachsub_meanWT_distFLP_HC(3).cond(icond) eachsub_meanWT_distFLP_HC(4).cond(icond)];
+%     
+%     anova_data_stdWTdist_pats(icond,:)=[eachsub_stdWT_distFLP_pat(1).cond(icond) eachsub_stdWT_distFLP_pat(2).cond(icond) ...
+%         eachsub_stdWT_distFLP_pat(3).cond(icond) eachsub_stdWT_distFLP_pat(4).cond(icond) ...
+%         eachsub_stdWT_distFLP_pat(5).cond(icond) eachsub_stdWT_distFLP_pat(6).cond(icond) ...
+%         eachsub_stdWT_distFLP_pat(7).cond(icond) eachsub_stdWT_distFLP_pat(8).cond(icond) ...
+%         eachsub_stdWT_distFLP_pat(9).cond(icond) eachsub_stdWT_distFLP_pat(10).cond(icond) ...
+%         eachsub_stdWT_distFLP_pat(11).cond(icond)];
+%     
+%     anova_data_meanWTdist_HCs(icond,:)=[eachsub_stdWT_distFLP_HC(1).cond(icond) eachsub_stdWT_distFLP_HC(2).cond(icond) ...
+%         eachsub_stdWT_distFLP_HC(3).cond(icond) eachsub_stdWT_distFLP_HC(4).cond(icond)];    
+% end
+% 
+% %check
+% nanmean(eachsub_meandistFLP(12).cond(1,:))
+% eachsub_meanWT_distFLP_HC(1).cond(1)
+% 
+% % sep patients and HCs
+% % patients_meandistFLP=eachsub_meanWT_distFLP(1:11);
+% % HCs_meandistFLP=eachsub_meanWT_distFLP(12:15);
+% % patients_std_distFLP=eachsub_stdWT_distFLP(1:11);
+% % HCs_std_distFLP=eachsub_stdWT_distFLP(12:15);
+% 
+% 
+% % calc group mean by condition
+% for icond=1:10
+%     gpmean_meanWTdist_LPF_pats(icond)=nanmean(anova_data_meanWTdist_pats(icond,:));
+%     gpmean_stdWTdist_LPF_pats(icond)=nanmean(anova_data_meanWTdist_pats(icond,:));
+%     gpmean_meanWTdist_LPF_HCs(icond)=nanmean(anova_data_meanWTdist_HCs(icond,:));
+%     gpmean_stdWTdist_LPF_HCs(icond)=nanmean(anova_data_meanWTdist_HCs(icond,:));
+% end
+% 
+% % calculate SEM
+% gpmean_SEM_dist_LPF_pats=nanstd(anova_data_meanWTdist_pats(1,:))/sqrt
+% 
+% anova_data_meanWTdist_pats(icond,:)
+% 
+% ttest2(gpmean_meanWTdist_LPF_pats,gpmean_meanWTdist_LPF_HCs)
+% ttest2(gpmean_stdWTdist_LPF_pats,gpmean_stdWTdist_LPF_HCs)
+% ttest(gpmean_meanWTdist_LPF_pats(1:5),gpmean_meanWTdist_LPF_pats(6:10))
+% ttest(gpmean_stdWTdist_LPF_HCs(1:5),gpmean_stdWTdist_LPF_HCs(6:10))
+% 
+% anova_data=[gpmean_stdWTdist_LPF_HCs gpmean_meanWTdist_LPF_pats];
+% 
+% 
+% 
+% 
+% nicebar(data_z, SEM_z, title_z)
+% 
+% data_z=[gpmean_meanWTdist_LPF_pats(1:5);gpmean_meanWTdist_LPF_pats(6:10)]
+% SEM_z
+% 
+% figure
+% subplot(211)
+% bar(1:5,gpmean_meanWTdist_LPF_pats(1:5), 'k')
+% hold on
+% bar(6:10, gpmean_meanWTdist_LPF_pats(6:10), 'w')
+% title('WT mean variability - pats')
+% xlabel('conditions 1:10')
+% axis([0 11 0 30])
+% goodplot
+% 
+% subplot(212)
+% bar(1:5,gpmean_meanWTdist_LPF_HCs(1:5), 'k')
+% hold on
+% bar(6:10, gpmean_meanWTdist_LPF_HCs(6:10), 'w')
+% title('WT mean variability - HCs')
+% xlabel('conditions 1:10')
+% axis([0 11 0 30])
+% goodplot
+% 
+% print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/gpmean_meanWTdist_LPF_pats.pdf');
+% 
+% figure
+% subplot(211)
+% bar(1:5,gpmean_stdWTdist_LPF_pats(1:5), 'k')
+% hold on
+% bar(6:10, gpmean_stdWTdist_LPF_pats(6:10), 'w')
+% title('WT stdev variability - Pats')
+% ylabel('                                 distance from LPF (cents)')
+% xlabel('conditions 1:10')
+% axis([0 11 0 30])
+% 
+% goodplot
+% 
+% subplot(212)
+% bar(1:5,gpmean_stdWTdist_LPF_HCs(1:5), 'k')
+% hold on
+% bar(6:10, gpmean_stdWTdist_LPF_HCs(6:10), 'w')
+% title('WT stdev variability - HCs')
+% xlabel('conditions 1:10')
+% axis([0 11 0 30])
+% goodplot
+% 
+% print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/gpmean_stdWTdist_LPF_pats.pdf');
+% 
+% 
 
 

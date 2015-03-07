@@ -246,7 +246,7 @@ set(h(1),'FaceColor','k');
 set(h(2),'FaceColor','w');
 title(sprintf('Motor performance: pre and post windows'));
 goodplot;
-saveas(fig1, 'GroupData/distancefromtarg/meandistancefromtarg_pre_post.jpg')
+% saveas(fig1, 'GroupData/distancefromtarg/meandistancefromtarg_pre_post.jpg')
 % print(gcf, '-dpdf', '-r150', '/GroupData/distancefromtarg/meandistancefromtarg_pre_post.pdf');
 % print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/Fig4e.pdf');
 
@@ -402,218 +402,14 @@ PAT.cleartrials_groupmean=mean(PAT.meandist_from_targ(1:5,:));
 PAT.noisetrials_groupmean=mean(PAT.meandist_from_targ(6:10,:));
 HC.cleartrials_groupmean=mean(HC.meandist_from_targ(1:5,:));
 HC.noisetrials_groupmean=mean(HC.meandist_from_targ(6:10,:));
-
+edit
 
 % 5. plot this separately for patients and controls
-fig2=figure;
-title(sprintf('Motor performance: pre and post windows'));
-
-subplot(541)
-plot(group_cond1_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
-hold on
-plot(smallup,  'm', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-goodplot
-
-subplot(542)
-plot(HC.meandist_from_targ(1,:),  'k', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-goodplot
-
-subplot(545)
-plot(group_cond2_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
-hold on
-plot(bigup,  'm', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-goodplot
-
-subplot(546)
-plot(HC.meandist_from_targ(2,:),  'k', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-goodplot
+plotdistfromtarg.m;
 
 
-subplot(5, 4, 14)
-plot(HC.meandist_from_targ(4,:),  'k', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-goodplot
-
-subplot(5,4,17)
-plot(group_cond5_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
-hold on
-plot(bigdown,  'm', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-goodplot
-
-subplot(5,4,18)
-plot(HC.meandist_from_targ(5,:),  'k', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-goodplot
-
-subplot(543)
-plot(group_cond6_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
-hold on
-plot(smallup,  'm', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-goodplot
-
-subplot(544)
-plot(HC.meandist_from_targ(6,:),  'k', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-goodplot
-
-subplot(547)
-plot(group_cond7_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
-hold on
-plot(bigup,  'm', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-goodplot
-
-subplot(548)
-plot(HC.meandist_from_targ(7,:),  'k', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-goodplot
-
-subplot(5, 4, 11)
-plot(group_cond8_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
-hold on
-plot(nostep,  'm', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-goodplot
-
-subplot(5, 4, 12)
-plot(HC.meandist_from_targ(8,:),  'k', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-goodplot
-
-subplot(5,4,15)
-plot(group_cond9_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
-hold on
-plot(smalldown,  'm', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-goodplot
-
-subplot(5, 4, 16)
-plot(HC.meandist_from_targ(9,:),  'k', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-goodplot
-subplot(5,4,19)
-plot(group_cond10_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
-hold on
-plot(bigdown,  'm', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-goodplot
-
-subplot(5,4,20)
-plot(HC.meandist_from_targ(10,:),  'k', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-goodplot
-
-%patients
-fig3=figure;
-subplot(541)
-plot(group_cond1_pats_to_use_mean, 'k', 'LineWidth', 1.3)
-hold on
-plot(smallup,  'm', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-
-subplot(542)
-plot(PAT.meandist_from_targ(1,:),  'k', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-
-subplot(545)
-plot(group_cond2_pats_to_use_mean, 'k', 'LineWidth', 1.3)
-hold on
-plot(bigup,  'm', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-
-subplot(546)
-plot(PAT.meandist_from_targ(2,:),  'k', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-
-subplot(549)
-plot(group_cond3_pats_to_use_mean, 'k', 'LineWidth', 1.3)
-hold on
-plot(nostep,  'm', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-
-subplot(5, 4, 10)
-plot(PAT.meandist_from_targ(3,:),  'k', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-
-subplot(5,4,13)
-plot(group_cond4_pats_to_use_mean, 'k', 'LineWidth', 1.3)
-hold on
-plot(smalldown,  'm', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-
-subplot(5, 4, 14)
-plot(PAT.meandist_from_targ(4,:),  'k', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-
-subplot(5,4,17)
-plot(group_cond5_pats_to_use_mean, 'k', 'LineWidth', 1.3)
-hold on
-plot(bigdown,  'm', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-
-subplot(5,4,18)
-plot(PAT.meandist_from_targ(5,:),  'k', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-
-subplot(543)
-plot(group_cond6_pats_to_use_mean, 'k', 'LineWidth', 1.3)
-hold on
-plot(smallup,  'm', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-
-subplot(544)
-plot(PAT.meandist_from_targ(6,:),  'k', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-
-subplot(547)
-plot(group_cond7_pats_to_use_mean, 'k', 'LineWidth', 1.3)
-hold on
-plot(bigup,  'm', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-
-subplot(548)
-plot(PAT.meandist_from_targ(7,:),  'k', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-
-subplot(5, 4, 11)
-plot(group_cond8_pats_to_use_mean, 'k', 'LineWidth', 1.3)
-hold on
-plot(nostep,  'm', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-
-subplot(5, 4, 12)
-plot(PAT.meandist_from_targ(8,:),  'k', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-
-subplot(5,4,15)
-plot(group_cond9_pats_to_use_mean, 'k', 'LineWidth', 1.3)
-hold on
-plot(smalldown,  'm', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-
-subplot(5, 4, 16)
-plot(PAT.meandist_from_targ(9,:),  'k', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-
-subplot(5,4,19)
-plot(group_cond10_pats_to_use_mean, 'k', 'LineWidth', 1.3)
-hold on
-plot(bigdown,  'm', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
-
-subplot(5,4,20)
-plot(PAT.meandist_from_targ(10,:),  'k', 'LineWidth', 1.3)
-axis([0 1400 -350 350])
 
 
-saveas(fig2, 'GroupData/distancefromtarg/meandistancefromtarg_HC_individualdata.jpg')
-saveas(fig3, 'GroupData/distancefromtarg/meandistancefromtarg_PAT_individualdata.jpg')
 
 %% good from here
 %plot distance (clear v noise)
@@ -622,14 +418,14 @@ for icond=1:5
 subplot(2,5,icond)
 plot(PAT.meandist_from_targ(icond,:), 'k', 'LineWidth', 1.3)
 hold
-plot(PAT.meandist_from_targ(icond+5,:), 'm', 'LineWidth', 1.3)
+plot(PAT.meandist_from_targ(icond+5,:), 'r', 'LineWidth', 1.3)
 end
 
 for icond=1:5
 subplot(2,5,icond+5)
 plot(HC.meandist_from_targ(icond,:), 'k', 'LineWidth', 1.3)
 hold
-plot(HC.meandist_from_targ(icond+5,:), 'm', 'LineWidth', 1.3)
+plot(HC.meandist_from_targ(icond+5,:), 'r', 'LineWidth', 1.3)
 end
 
 saveas(fig4, 'GroupData/distancefromtarg/meandistancefromtarg_clearVsnoise.jpg')
@@ -639,7 +435,7 @@ for icond=1:10
 subplot(2,5,icond)
 plot(PAT.meandist_from_targ(icond,:), 'k', 'LineWidth', 1.3)
 hold
-plot(HC.meandist_from_targ(icond,:), 'm', 'LineWidth', 1.3)
+plot(HC.meandist_from_targ(icond,:), 'r', 'LineWidth', 1.3)
 end
 saveas(fig5, 'GroupData/distancefromtarg/meandistancefromtarg_patsvshcs.jpg')
 
@@ -693,12 +489,12 @@ ttest2(clearconds, noiseconds)
 % subplot(211)
 % plot(PAT.cleartrials_groupmean, 'k', 'LineWidth', 1.3)
 % hold on
-% plot(PAT.noisetrials_groupmean, 'm', 'LineWidth', 1.3)
+% plot(PAT.noisetrials_groupmean, 'r', 'LineWidth', 1.3)
 % axis([0 1400 0 400])
 % subplot(212)
 % plot(HC.cleartrials_groupmean, 'k', 'LineWidth', 1.3)
 % hold on
-% plot(HC.noisetrials_groupmean, 'm', 'LineWidth', 1.3)
+% plot(HC.noisetrials_groupmean, 'r', 'LineWidth', 1.3)
 % axis([0 1400 0 400])
 % 
 % 
@@ -784,7 +580,7 @@ title(sprintf('Motor performance: pre and post windows'));
 subplot(541)
 plot(group_cond1_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(smallup,  'm', 'LineWidth', 1.3)
+plot(smallup,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(542)
@@ -794,7 +590,7 @@ axis([0 1400 -350 350])
 subplot(545)
 plot(group_cond2_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(bigup,  'm', 'LineWidth', 1.3)
+plot(bigup,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(546)
@@ -804,7 +600,7 @@ axis([0 1400 -350 350])
 subplot(549)
 plot(group_cond3_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(nostep,  'm', 'LineWidth', 1.3)
+plot(nostep,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(5, 4, 10)
@@ -814,7 +610,7 @@ axis([0 1400 -350 350])
 subplot(5,4,13)
 plot(group_cond4_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(smalldown,  'm', 'LineWidth', 1.3)
+plot(smalldown,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(5, 4, 14)
@@ -824,7 +620,7 @@ axis([0 1400 -350 350])
 subplot(5,4,17)
 plot(group_cond5_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(bigdown,  'm', 'LineWidth', 1.3)
+plot(bigdown,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(5,4,18)
@@ -834,7 +630,7 @@ axis([0 1400 -350 350])
 subplot(543)
 plot(group_cond6_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(smallup,  'm', 'LineWidth', 1.3)
+plot(smallup,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(544)
@@ -844,7 +640,7 @@ axis([0 1400 -350 350])
 subplot(547)
 plot(group_cond7_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(bigup,  'm', 'LineWidth', 1.3)
+plot(bigup,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(548)
@@ -854,7 +650,7 @@ axis([0 1400 -350 350])
 subplot(5, 4, 11)
 plot(group_cond8_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(nostep,  'm', 'LineWidth', 1.3)
+plot(nostep,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(5, 4, 12)
@@ -864,7 +660,7 @@ axis([0 1400 -350 350])
 subplot(5,4,15)
 plot(group_cond9_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(smalldown,  'm', 'LineWidth', 1.3)
+plot(smalldown,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(5, 4, 16)
@@ -874,19 +670,23 @@ axis([0 1400 -350 350])
 subplot(5,4,19)
 plot(group_cond10_HCs_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(bigdown,  'm', 'LineWidth', 1.3)
+plot(bigdown,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(5,4,20)
 plot(HC.meandist_from_targ_groupdata(10,:),  'k', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
+
+
+
+
 %patients
 figure;
 subplot(541)
 plot(group_cond1_pats_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(smallup,  'm', 'LineWidth', 1.3)
+plot(smallup,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(542)
@@ -896,7 +696,7 @@ axis([0 1400 -350 350])
 subplot(545)
 plot(group_cond2_pats_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(bigup,  'm', 'LineWidth', 1.3)
+plot(bigup,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(546)
@@ -906,7 +706,7 @@ axis([0 1400 -350 350])
 subplot(549)
 plot(group_cond3_pats_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(nostep,  'm', 'LineWidth', 1.3)
+plot(nostep,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(5, 4, 10)
@@ -916,7 +716,7 @@ axis([0 1400 -350 350])
 subplot(5,4,13)
 plot(group_cond4_pats_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(smalldown,  'm', 'LineWidth', 1.3)
+plot(smalldown,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(5, 4, 14)
@@ -926,7 +726,7 @@ axis([0 1400 -350 350])
 subplot(5,4,17)
 plot(group_cond5_pats_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(bigdown,  'm', 'LineWidth', 1.3)
+plot(bigdown,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(5,4,18)
@@ -936,7 +736,7 @@ axis([0 1400 -350 350])
 subplot(543)
 plot(group_cond6_pats_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(smallup,  'm', 'LineWidth', 1.3)
+plot(smallup,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(544)
@@ -946,7 +746,7 @@ axis([0 1400 -350 350])
 subplot(547)
 plot(group_cond7_pats_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(bigup,  'm', 'LineWidth', 1.3)
+plot(bigup,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(548)
@@ -956,7 +756,7 @@ axis([0 1400 -350 350])
 subplot(5, 4, 11)
 plot(group_cond8_pats_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(nostep,  'm', 'LineWidth', 1.3)
+plot(nostep,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(5, 4, 12)
@@ -966,7 +766,7 @@ axis([0 1400 -350 350])
 subplot(5,4,15)
 plot(group_cond9_pats_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(smalldown,  'm', 'LineWidth', 1.3)
+plot(smalldown,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(5, 4, 16)
@@ -976,7 +776,7 @@ axis([0 1400 -350 350])
 subplot(5,4,19)
 plot(group_cond10_pats_to_use_mean, 'k', 'LineWidth', 1.3)
 hold on
-plot(bigdown,  'm', 'LineWidth', 1.3)
+plot(bigdown,  'r', 'LineWidth', 1.3)
 axis([0 1400 -350 350])
 
 subplot(5,4,20)

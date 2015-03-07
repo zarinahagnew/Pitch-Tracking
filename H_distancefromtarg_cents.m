@@ -410,47 +410,6 @@ plotdistfromtarg.m;
 
 
 
-
-%% good from here
-%plot distance (clear v noise)
-fig4=figure;
-for icond=1:5
-subplot(2,5,icond)
-plot(PAT.meandist_from_targ(icond,:), 'k', 'LineWidth', 1.3)
-hold
-plot(PAT.meandist_from_targ(icond+5,:), 'r', 'LineWidth', 1.3)
-end
-
-for icond=1:5
-subplot(2,5,icond+5)
-plot(HC.meandist_from_targ(icond,:), 'k', 'LineWidth', 1.3)
-hold
-plot(HC.meandist_from_targ(icond+5,:), 'r', 'LineWidth', 1.3)
-end
-
-saveas(fig4, 'GroupData/distancefromtarg/meandistancefromtarg_clearVsnoise.jpg')
-
-fig5=figure;
-for icond=1:10
-subplot(2,5,icond)
-plot(PAT.meandist_from_targ(icond,:), 'k', 'LineWidth', 1.3)
-hold
-plot(HC.meandist_from_targ(icond,:), 'r', 'LineWidth', 1.3)
-end
-saveas(fig5, 'GroupData/distancefromtarg/meandistancefromtarg_patsvshcs.jpg')
-
-
-fig6=figure;
-for icond=1:10
-zee(icond,:)=calc_distance(HC.meandist_from_targ(icond,:), PAT.meandist_from_targ(icond,:));
-subplot(2,5,icond)
-plot(zee(icond,:), 'k', 'LineWidth', 1.3)
-axis([0 1400 0 400])
-end
-saveas(fig6, 'GroupData/distancefromtarg/difference_in_meandistancefromtarg_patsvshcs.jpg')
-
-
-
 %% anova on group data comparing the HC distance from target with patient distance from target
 anovadata=[zee(1,:) zee(2,:) zee(3,:) zee(4,:) zee(5,:) zee(6,:) zee(7,:) zee(8,:) zee(9,:) zee(10,:)];
   

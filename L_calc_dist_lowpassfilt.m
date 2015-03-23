@@ -48,17 +48,17 @@ for icond=1:10
 end
 
 fig1=figure
-title('patients and HCs: distance from low pass filtered track')
+%title('patients and HCs: distance from low pass filtered track')
 for iplot=1:10
     subplot(2,5, iplot)
     plot(PATs(iplot).filtered_diff,'k', 'Linewidth', 1.3)
     hold on
-    plot(HCs(iplot).filtered_diff,'m', 'Linewidth', 1.3)
+    plot(HCs(iplot).filtered_diff,'r', 'Linewidth', 1.3)
     axis([0 length(PATs(iplot).filtered_diff) -200 200])
-    goodplot
+    goodplot_wide
 end
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/MeanDistancefromFiltered.pdf');
 
-saveas(fig1, 'GroupData/MeanDistancefromFiltered.jpg')
 
 %% STDEV distances
 

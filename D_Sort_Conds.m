@@ -11,7 +11,7 @@
 clear all
 close all
 set_params;
-fig1=figure
+fig1=figure;
 
 npatients = 0;
 npatients = npatients + 1;
@@ -194,7 +194,7 @@ for each_subject = 1:npatients
     
     
 for cond=1:10
-goodtrial_counter(cond)=0    
+goodtrial_counter(cond)=0;    
     for itrial=1:8
         if sum(isnan(sorted_data(cond).wholetrial(itrial,:)))<1360
             goodtrial_counter(cond)=goodtrial_counter(cond)+1;
@@ -202,16 +202,17 @@ goodtrial_counter(cond)=0
     end
 end
 
-sub_total_goodtrial(each_subject)=sum(goodtrial_counter)
+sub_total_goodtrial(each_subject)=sum(goodtrial_counter);
     
     clc
     display('dont be fooled by thinking this is wrong before checking the Y axis..')
     save sorted_data sorted_data
     cd(cerebellar_data_rootdir)
-    total_trials_included=sum(sub_total_goodtrial)
+    total_trials_included=sum(sub_total_goodtrial);
     save sub_total_goodtrial sub_total_goodtrial
     save total_trials_included total_trials_included
     
 end
+
 
 

@@ -4,6 +4,7 @@
 set(0,'DefaultFigureWindowStyle','docked');
 cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data/';
 
+% load sub_total_goodtrial;
 %% EXP INFO
 fs = 11025;     
 data_size = 32; 
@@ -136,22 +137,23 @@ reactiontime_frames=200;
 % stdev_cutoff_wholetrial_amp_HCs= 500000000;
 
 
-stdev_cutoff_pre_pats =  87.5701;
-stdev_cutoff_post_pats =      81.0608;
-stdev_cutoff_wholetrial_pats =  233.5869; 
+stdev_cutoff_pre_pats =  62.9157;
+stdev_cutoff_post_pats =      57.7590;
+stdev_cutoff_wholetrial_pats =  220.3432;
 
-stdev_cutoff_pre_amp_pats=  2.1613e+08;
-stdev_cutoff_post_amp_pats= 1.6914e+08;
-stdev_cutoff_wholetrial_amp_pats= 8.9569e+07;
+stdev_cutoff_pre_amp_pats=  1.2451e+08;
+stdev_cutoff_post_amp_pats= 9.1693e+07;
+stdev_cutoff_wholetrial_amp_pats= 3.7081e+06;
 
-
-stdev_cutoff_pre_HCs =   28.9987;
-stdev_cutoff_post_HCs =   24.7198;
-stdev_cutoff_wholetrial_HCs = 138.8496; 
+stdev_cutoff_pre_HCs =   25.3077;
+stdev_cutoff_post_HCs =   22.7825;
+stdev_cutoff_wholetrial_HCs = 133.1304;
              
-stdev_cutoff_pre_amp_HCs=  1.6009e+08;
-stdev_cutoff_post_amp_HCs= 1.1635e+08;
-stdev_cutoff_wholetrial_amp_HCs=5.2952e+08;
+stdev_cutoff_pre_amp_HCs=  1.4719e+08;
+stdev_cutoff_post_amp_HCs= 8.5181e+07;
+stdev_cutoff_wholetrial_amp_HCs=5.5091e+08;
+
+
 
 perf_thresh_pos=100;
 perf_thresh_neg=-100;

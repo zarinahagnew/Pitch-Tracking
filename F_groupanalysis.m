@@ -933,6 +933,7 @@ set(h(1),'FaceColor','k');
 set(h(2),'FaceColor','w');
 title(sprintf('Pre Step'));
 axis([0 3 ymin ymax])
+goodplot
 
 % STATS.group_pre_clear_patsVhcs=ttest2(group_pat_pre_clear, group_HC_pre_clear)
 % STATS.group_pre_noise_patsVhcs=ttest2(group_pat_pre_noise, group_HC_pre_noise)
@@ -965,6 +966,7 @@ set(h(1),'FaceColor','k');
 set(h(2),'FaceColor','w');
 title(sprintf('Post Step'));
 axis([0 3 ymin ymax])
+goodplot
 
 subplot(2,2,3)
 % y_AMP_clear=[GroupMeans.pat_ALLCONDS.pre_AMP_WTstdev_clear  GroupMeans.HC_ALLCONDS.pre_AMP_clearWTstdev; ...
@@ -981,7 +983,7 @@ set(gca,'XTickLabel',{'clear','noise'})
 ylabel('mean stdev of amp')
 set(h(1),'FaceColor','k'); 
 set(h(2),'FaceColor','w');
-
+goodplot
 %amp
 subplot(2,2,4)
 % y_post_noise=[GroupMeans.pat_ALLCONDS.pre_post_WTstdev_noise  GroupMeans.HC_ALLCONDS.pre_post_noiseWTstdev; GroupMeans.pat_ALLCONDS.post_post_noiseWTstdev GroupMeans.HC_ALLCONDS.post_post_noiseWTstdev ]
@@ -996,6 +998,7 @@ set(gca,'XTickLabel',{'pre window','post window'})
 ylabel('mean stdev of amp')
 set(h(1),'FaceColor','k'); 
 set(h(2),'FaceColor','w');
+goodplot
 
 saveas(fig6, 'GROUP_meanstdev.jpg')
 

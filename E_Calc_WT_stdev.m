@@ -530,7 +530,6 @@ end
 cd(cerebellar_data_rootdir)
 
 %% (3) Write out only the subjects to use and save to DATA_TO_USE
-
 DATA_PATS=DATA(1:16);
 DATA_HCS=DATA(17:end);
 DATA_PATS_TO_USE=DATA(allincluded(1:numpats));

@@ -173,15 +173,10 @@ countgdtrials;
 % all these use individial trial data and model subject as random factor. 
 % calc_mean_AcT_clear_noise;
 % 
-% calc_stdev_AcT_clear_noise;
 % 
-% calc_stdev_WT_clear_noise;
-% 
+calc_stdev_AcT_clear_noise;
 
-
-% this looks at distance from LPF from each individual trial. In the end
-% there were too many nan trials so I decided on the next approach. 
-calc_mean_AcT_allcondssep;
+calc_stdev_WT_clear_noise;
 
 % this was the one that finally worked. I realised that by merging all
 % conditions toegether i might be loosing some result. This script takes
@@ -191,6 +186,9 @@ calc_mean_AcT_allcondssep;
 % and the within trial mean and standard dev. 
 calc_by_cond_frommeantrack;
 
+% this looks at distance from LPF from each individual trial. In the end
+% there were too many nan trials so I decided on the next approach. 
+calc_mean_AcT_allcondssep;
 
 
 

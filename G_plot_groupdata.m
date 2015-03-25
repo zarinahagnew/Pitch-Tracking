@@ -72,7 +72,7 @@ end
 
 group_cond1_HCs=group_cond1_HCs(17:27,:);
 group_cond1_HCs_pre=group_cond1_HCs_pre(17:27,:);
-group_cond1_HCs_to_use=group_cond1_HCs(subjects_included,:,:)
+group_cond1_HCs_to_use=group_cond1_HCs(subjects_included,:,:);
 group_cond1_HCs_to_use_mean=nanmean(group_cond1_HCs(subjects_included,:,:));
 group_cond1_HCs_to_use_pre=group_cond1_HCs_pre(subjects_included,:,:);
 group_cond1_HCs_to_use_pre_mean=nanmean(group_cond1_HCs_pre(subjects_included,:,:));
@@ -91,7 +91,7 @@ for ipat=1:16
 end
 group_cond2_pats=group_cond2_pats(1:16,:);
 group_cond2_pats_pre=group_cond2_pats_pre(1:16,:);  
-group_cond2_pats_to_use=group_cond2_pats(patients_included,:,:)
+group_cond2_pats_to_use=group_cond2_pats(patients_included,:,:);
 group_cond2_pats_to_use_mean=nanmean(group_cond2_pats(patients_included,:,:));
 group_cond2_pats_to_use_pre=group_cond2_pats_pre(patients_included,:,:);
 group_cond2_pats_to_use_pre_mean=nanmean(group_cond2_pats_pre(patients_included,:,:));
@@ -104,7 +104,7 @@ for isub=17:27
 end
 group_cond2_HCs=group_cond2_HCs(17:27,:);
 group_cond2_HCs_pre=group_cond2_HCs_pre(17:27,:);
-group_cond2_HCs_to_use=group_cond2_HCs(subjects_included,:,:)
+group_cond2_HCs_to_use=group_cond2_HCs(subjects_included,:,:);
 group_cond2_HCs_to_use_mean=nanmean(group_cond2_HCs(subjects_included,:,:));
 group_cond2_HCs_to_use_pre=group_cond2_HCs_pre(subjects_included,:,:);
 group_cond2_HCs_to_use_pre_mean=nanmean(group_cond2_HCs_pre(subjects_included,:,:));
@@ -116,7 +116,7 @@ for ipat=1:16
 end
 group_cond3_pats=group_cond3_pats(1:16,:);
 group_cond3_pats_pre=group_cond3_pats_pre(1:16,:);
-group_cond3_pats_to_use=group_cond3_pats(patients_included,:,:)
+group_cond3_pats_to_use=group_cond3_pats(patients_included,:,:);
 group_cond3_pats_to_use_mean=nanmean(group_cond3_pats(patients_included,:,:));
 group_cond3_pats_to_use_pre=group_cond3_pats_pre(patients_included,:,:);
 group_cond3_pats_to_use_pre_mean=nanmean(group_cond3_pats_pre(patients_included,:,:));
@@ -140,7 +140,7 @@ for ipat=1:16
 end
 group_cond4_pats=group_cond4_pats(1:16,:);
 group_cond4_pats_pre=group_cond4_pats_pre(1:16,:);
-group_cond4_pats_to_use=group_cond4_pats(patients_included,:,:)
+group_cond4_pats_to_use=group_cond4_pats(patients_included,:,:);
 group_cond4_pats_to_use_mean=nanmean(group_cond4_pats(patients_included,:,:));
 group_cond4_pats_to_use_pre=group_cond4_pats_pre(patients_included,:,:);
 group_cond4_pats_to_use_pre_mean=nanmean(group_cond4_pats_pre(patients_included,:,:));
@@ -151,7 +151,7 @@ for isub=17:27
 end
 group_cond4_HCs=group_cond4_HCs(17:27,:);
 group_cond4_HCs_pre=group_cond4_HCs_pre(17:27,:);
-group_cond4_HCs_to_use=group_cond4_HCs(subjects_included,:,:)
+group_cond4_HCs_to_use=group_cond4_HCs(subjects_included,:,:);
 group_cond4_HCs_to_use_mean=nanmean(group_cond4_HCs(subjects_included,:,:));
 group_cond4_HCs_to_use_pre=group_cond4_HCs_pre(subjects_included,:,:);
 group_cond4_HCs_to_use_pre_mean=nanmean(group_cond4_HCs_pre(subjects_included,:,:));
@@ -174,7 +174,7 @@ for isub=17:27
 end
 group_cond5_HCs=group_cond5_HCs(17:27,:);
 group_cond5_HCs_pre=group_cond5_HCs_pre(17:27,:);
-group_cond5_HCs_to_use=group_cond5_HCs(subjects_included,:,:)
+group_cond5_HCs_to_use=group_cond5_HCs(subjects_included,:,:);
 group_cond5_HCs_to_use_mean=nanmean(group_cond5_HCs(subjects_included,:,:));
 group_cond5_HCs_to_use_pre=group_cond5_HCs_pre(subjects_included,:,:);
 group_cond5_HCs_to_use_pre_mean=nanmean(group_cond5_HCs_pre(subjects_included,:,:));
@@ -220,7 +220,7 @@ for isub=17:27
 end
 group_cond7_HCs=group_cond7_HCs(17:27,:);
 group_cond7_HCs_pre=group_cond7_HCs_pre(17:27,:);
-group_cond7_HCs_to_use=group_cond7_HCs(subjects_included,:,:)
+group_cond7_HCs_to_use=group_cond7_HCs(subjects_included,:,:);
 group_cond7_HCs_to_use_mean=nanmean(group_cond7_HCs(subjects_included,:,:));
 group_cond7_HCs_to_use_pre=group_cond7_HCs_pre(subjects_included,:,:);
 group_cond7_HCs_to_use_pre_mean=nanmean(group_cond7_HCs_pre(subjects_included,:,:));
@@ -287,7 +287,7 @@ for isub=17:27
 end
 group_cond10_HCs=group_cond10_HCs(17:27,:);
 group_cond10_HCs_pre=group_cond10_HCs_pre(17:27,:);
-group_cond10_HCs_to_use=group_cond10_HCs(subjects_included,:,:)
+group_cond10_HCs_to_use=group_cond10_HCs(subjects_included,:,:);
 group_cond10_HCs_to_use_mean=nanmean(group_cond10_HCs(subjects_included,:,:));
 group_cond10_HCs_to_use_pre=group_cond10_HCs_pre(subjects_included,:,:);
 group_cond10_HCs_to_use_pre_mean=nanmean(group_cond10_HCs_pre(subjects_included,:,:));
@@ -295,7 +295,7 @@ group_cond10_HCs_to_use_pre_mean=nanmean(group_cond10_HCs_pre(subjects_included,
 
 %% make targets
 
-test=[zeros(1, stepframe) ones(1, 1360-stepframe)]
+test=[zeros(1, stepframe) ones(1, 1360-stepframe)];
 smallup=test*100;
 bigup=test*300;
 smalldown=test*-100;
@@ -654,7 +654,7 @@ end
 %% plot all conditions separately
 
 % ------
-fig2a=figure
+fig2a=figure;
 annotation('textbox', [0 0.9 1 0.1], ...
     'String', 'Mean responses', ...
     'EdgeColor', 'none', ...
@@ -686,10 +686,10 @@ title(sprintf('Condition 6 - noise'));
 % ------
 
  
-ymin=-400
-ymax=400
+ymin=-400;
+ymax=400;
 
-fig2b=figure
+fig2b=figure;
 annotation('textbox', [0 0.9 1 0.1], ...
     'String', 'Mean responses', ...
     'EdgeColor', 'none', ...
@@ -722,10 +722,10 @@ title(sprintf('Condition 7 - noise'));
 
 
  
-ymin=-400
-ymax=400
+ymin=-400;
+ymax=400;
 
-fig2c=figure
+fig2c=figure;
 annotation('textbox', [0 0.9 1 0.1], ...
     'String', 'Mean responses', ...
     'EdgeColor', 'none', ...
@@ -757,10 +757,10 @@ title(sprintf('Condition 8 - noise'));
 % -------
 
  
-ymin=-400
-ymax=400
+ymin=-400;
+ymax=400;
 
-fig2d=figure
+fig2d=figure;
 annotation('textbox', [0 0.9 1 0.1], ...
     'String', 'Mean responses', ...
     'EdgeColor', 'none', ...
@@ -791,10 +791,10 @@ title(sprintf('Condition 9 - noise'));
 % ------
 
  
-ymin=-400
-ymax=400
+ymin=-400;
+ymax=400;
 
-fig2e=figure
+fig2e=figure;
 annotation('textbox', [0 0.9 1 0.1], ...
     'String', 'Mean responses', ...
     'EdgeColor', 'none', ...
@@ -841,11 +841,11 @@ save('GROUPDATA')
 
 %% FINAL FIGURES
 
-fig1final=figure
+fig1final=figure;
 boxmin=-345;
 boxmax=690;
-ymin=-400
-ymax=400
+ymin=-400;
+ymax=400;
 
 annotation('textbox', [0 0.9 1 0.1], ...
     'String', 'Mean responses', ...

@@ -206,6 +206,7 @@ errY2= [pat_SEM_noise_group pat_SEM_clear_group; ...
         pat_SEM_noise_group_post pat_SEM_clear_group_post; ...
         HC_SEM_noise_group_post HC_SEM_clear_group_post];
 
+    
 fig1=figure;
 whitebg('white')
 h = barwitherr(errY2, distfromtarg_DATA_TO_USE);% Plot with errorbars
@@ -215,12 +216,11 @@ set(h(1),'FaceColor','k');
 set(h(2),'FaceColor','w');
 title(sprintf('Motor performance: pre and post windows'));
 goodplot;
-%print(gcf, '-dpdf', '-r150', '/final-figures/Meandistfromtarg.pdf');
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/dist_targ_prepost.pdf');
 
 %% anova (pre and post DATA_TO_USE)
 anovadata=[pat_mean_noise pat_mean_clear pat_mean_noise_post pat_mean_clear_post ...
            HC_mean_noise HC_mean_clear HC_mean_noise_post HC_mean_clear_post];  
-anovadata=abs(anovadata);
     
 PAT_size=length(pat_mean_noise);
 HC_size=length(HC_mean_noise);
@@ -370,12 +370,67 @@ PAT.noisetrials_groupmean=mean(PAT.meandist_from_targ(6:10,:));
 HC.cleartrials_groupmean=mean(HC.meandist_from_targ(1:5,:));
 HC.noisetrials_groupmean=mean(HC.meandist_from_targ(6:10,:));
 
+figure
+subplot(211)
+plot(PAT.cleartrials_groupmean, 'k', 'LineWidth', 2)
+hold on
+plot(PAT.noisetrials_groupmean, 'r', 'LineWidth', 2)
+axis([0 1500 0 300])
+goodplot
+
+subplot(212)
+plot(HC.cleartrials_groupmean, 'k', 'LineWidth', 2)
+hold on
+plot(HC.noisetrials_groupmean, 'r', 'LineWidth', 2)
+axis([0 1500 0 300])
+goodplot
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/distfromtarget.pdf');
+
+
 % 5. plot this separately for patients and controls
 plotdistfromtarg;
 
+% anova on whole trial disntance from target data
+anovadata=[...
+    HC.meandist_from_targ(1,:) HC.meandist_from_targ(2,:)  HC.meandist_from_targ(3,:)  HC.meandist_from_targ(4,:)  HC.meandist_from_targ(5,:) ...
+    HC.meandist_from_targ(6,:) HC.meandist_from_targ(7,:)  HC.meandist_from_targ(8,:)  HC.meandist_from_targ(9,:)  HC.meandist_from_targ(10,:) ...    
+    PAT.meandist_from_targ(1,:) PAT.meandist_from_targ(2,:)  PAT.meandist_from_targ(3,:)  PAT.meandist_from_targ(4,:)  PAT.meandist_from_targ(5,:) ...
+    PAT.meandist_from_targ(6,:) PAT.meandist_from_targ(7,:)  PAT.meandist_from_targ(8,:)  PAT.meandist_from_targ(9,:)  PAT.meandist_from_targ(10,:)]    
+
+anovalength=length(anovadata);
+anovalength/2
+anovalength/4
+%create subject group
+HCtest=ones(1,anovalength/2);
+pattest=ones(1,anovalength/2);
+test2=pattest*2;
+subjectgroup=[HCtest test2];
+
+%create condition group
+for i=1:6800
+    condition_1a{i}='clear';
+end
+
+for i=1:6800
+    condition_2a{i}='noise';
+end
+
+condition=[condition_1a condition_2a condition_1a condition_2a];
+condition=condition';
+
+group1=[subjectgroup];
+group2=[condition];
+p = anovan(anovadata,{group1 group2},'model','interaction');
+
+
+
+
+
+
+
 
 %% anova on group data comparing the HC distance from target with patient distance from target
- anovadata=[zee(1,:) zee(2,:) zee(3,:) zee(4,:) zee(5,:) zee(6,:) zee(7,:) zee(8,:) zee(9,:) zee(10,:)];
+anovadata=[zee(1,:) zee(2,:) zee(3,:) zee(4,:) zee(5,:) zee(6,:) zee(7,:) zee(8,:) zee(9,:) zee(10,:)];
   
 %create subject group
 pattest=ones(1,6800);
@@ -399,11 +454,47 @@ group1=[subjectgroup];
 group2=[condition];
 p = anovan(anovadata,{group1 group2},'model','interaction');
 
+
+figure
+annotation('textbox', [0 0.9 1 0.1], ...
+    'String', 'Difference in motor performance between patients and HCs', ...
+    'EdgeColor', 'none', ...
+    'HorizontalAlignment', 'center')
+
+for moo=1:5
+subplot(5,1, moo)
+plot(zee(moo,:),'k', 'LineWidth', 2);
+hold on
+plot(zee(moo+5,:),'r', 'LineWidth', 2);
+axis([0 1500, 0 500])
+goodplot_wide
+end
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/diff_groups_indistfromtarget.pdf');
+
+% difference between HC and patient motor performance
+% is greater
+% where the red is higher than the black is where the the difference 
+% between the groups is greater in noise
+
 %% ttests
 
 clearconds=[zee(1,:) zee(2,:) zee(3,:) zee(4,:) zee(5,:)];
 noiseconds=[zee(6,:) zee(7,:) zee(8,:) zee(9,:) zee(10,:)];
 ttest2(clearconds, noiseconds)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 %% Sanity check: plot the same based on the group means, not the individual data - this is totally redundanttttt 

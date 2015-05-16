@@ -3,8 +3,8 @@
 % ZKA August 2014
 
 clear all
-cd /Users/zagnew/Cereb_data/data/GroupData
-load /Users/zagnew/Cereb_data/data/GroupData/GroupData.mat
+cd /Users/zagnew/Cereb_data/data_final_run/GroupData
+load /Users/zagnew/Cereb_data/data_final_run/GroupData/GroupData.mat
 
 % only looks at the subjects included. this is created in the previous
 % script. (i.e. GroupData.WT_patC1_pre is only the good subs) 

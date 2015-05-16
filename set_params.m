@@ -125,36 +125,37 @@ totalHCs=11;
 
 %% THERSHOLDS AND ARTEFACT REMOVAL
 reactiontime_frames=200;
-% stdev_cutoff_pre_pats =       500;
-% stdev_cutoff_post_pats =      500;
-% stdev_cutoff_wholetrial_pats =  500; 
-% stdev_cutoff_pre_amp_pats=  500000000;
-% stdev_cutoff_post_amp_pats= 500000000;
-% stdev_cutoff_wholetrial_amp_pats= 500000000;
+
+stdev_cutoff_pre_pats =       500;
+stdev_cutoff_post_pats =      500;
+stdev_cutoff_wholetrial_pats =  500; 
+stdev_cutoff_pre_amp_pats=  500000000;
+stdev_cutoff_post_amp_pats= 500000000;
+stdev_cutoff_wholetrial_amp_pats= 500000000;
+
+stdev_cutoff_pre_HCs =       500;
+stdev_cutoff_post_HCs =      500;
+stdev_cutoff_wholetrial_HCs =  500; 
+stdev_cutoff_pre_amp_HCs=  500000000;
+stdev_cutoff_post_amp_HCs= 500000000;
+stdev_cutoff_wholetrial_amp_HCs= 500000000;
+
 % 
-% stdev_cutoff_pre_HCs =       500;
-% stdev_cutoff_post_HCs =      500;
-% stdev_cutoff_wholetrial_HCs =  500; 
-% stdev_cutoff_pre_amp_HCs=  500000000;
-% stdev_cutoff_post_amp_HCs= 500000000;
-% stdev_cutoff_wholetrial_amp_HCs= 500000000;
-
-
-stdev_cutoff_pre_pats =  62.9157;
-stdev_cutoff_post_pats =      57.7590;
-stdev_cutoff_wholetrial_pats =  220.3432;
-
-stdev_cutoff_pre_amp_pats=  1.2451e+08;
-stdev_cutoff_post_amp_pats= 9.1693e+07;
-stdev_cutoff_wholetrial_amp_pats= 3.7081e+06;
-
-stdev_cutoff_pre_HCs =   25.3077;
-stdev_cutoff_post_HCs =   22.7825;
-stdev_cutoff_wholetrial_HCs = 133.1304;
-             
-stdev_cutoff_pre_amp_HCs=  1.4719e+08;
-stdev_cutoff_post_amp_HCs= 8.5181e+07;
-stdev_cutoff_wholetrial_amp_HCs=5.5091e+08;
+% stdev_cutoff_pre_pats =  62.9157;
+% stdev_cutoff_post_pats =      57.7590;
+% stdev_cutoff_wholetrial_pats =  220.3432;
+% 
+% stdev_cutoff_pre_amp_pats=  1.2451e+08;
+% stdev_cutoff_post_amp_pats= 9.1693e+07;
+% stdev_cutoff_wholetrial_amp_pats= 3.7081e+06;
+% 
+% stdev_cutoff_pre_HCs =   25.3077;
+% stdev_cutoff_post_HCs =   22.7825;
+% stdev_cutoff_wholetrial_HCs = 133.1304;
+%              
+% stdev_cutoff_pre_amp_HCs=  1.4719e+08;
+% stdev_cutoff_post_amp_HCs= 8.5181e+07;
+% stdev_cutoff_wholetrial_amp_HCs=5.5091e+08;
 
 
 

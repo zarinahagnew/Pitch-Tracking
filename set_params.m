@@ -2,7 +2,7 @@
 
 % dock all figures
 set(0,'DefaultFigureWindowStyle','docked');
-cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data/';
+cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data_final_run/';
 
 % load sub_total_goodtrial;
 %% EXP INFO
@@ -37,6 +37,9 @@ framestoremove=50; % frames to remove after a break in voicing (used in B file)
 seconds_per_trial_req = 4.0;
 nframes_per_trial = round(seconds_per_trial_req*frame_rate);
 seconds_per_trial = nframes_per_trial/frame_rate;
+step_time=stepframe/frame_fs
+
+
 
 %% TIMINGS e.g. step occurs at 413 frames.
 % 
@@ -55,7 +58,7 @@ seconds_per_trial = nframes_per_trial/frame_rate;
 % T4secs=(T4)/frame_fs;
 % step_secs=(stepframe)/frame_fs;
 % T_gap=T3-T2;
-% 
+
 
 %% patients and HCs with separate time windows
 T1_HC= 250; %210;                          %frames

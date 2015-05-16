@@ -10,7 +10,6 @@ close all
 set_params;
 load /Users/zagnew/Dropbox/cerebellum_expr_devel/Zed/meanpitches/subj_MP_allsubs
 
-cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data/';
 npatients = 0;
 npatients = npatients + 1;
 patient_info{npatients}.exprdir = 'SUB01/expr2014.03.21.T10.46.03_mainrun/speak/';
@@ -68,7 +67,12 @@ npatients = npatients + 1;
 patient_info{npatients}.exprdir = 'HC10/expr2014.09.21.T15.35.54_JL_mainrun/speak/';
 npatients = npatients + 1;
 patient_info{npatients}.exprdir = 'HC11/expr2014.09.23.t15.27.32_sn_mainrun/speak/';
-
+npatients = npatients + 1;
+patient_info{npatients}.exprdir = 'HC12/expr2015.05.11.T11.18.14_mainrun/speak/';
+npatients = npatients + 1;
+patient_info{npatients}.exprdir = 'HC13/expr2015.05.11.T11.53.19_mainrun/speak/';
+npatients = npatients + 1;
+patient_info{npatients}.exprdir = 'HC14/expr2015.05.11.T12.28.56_mainrun/speak/';
 
 originalFolder = pwd;
 load /Users/zagnew/Dropbox/cerebellum_expr_devel/Zed/meanpitches/SubjectShiftsAllSubs
@@ -81,8 +85,9 @@ for each_subject = 1:npatients
     % load the shifted_block alt from each subjects' folder. this is *not*
     % actually shifted, it is the original pert resp. See previous script for details.
     load (sprintf('%sshifted_blockalt.mat',patient_info{each_subject}.exprdir));
-    load (sprintf('%svoiceonsetdata.mat',patient_info{each_subject}.exprdir));
-    
+    %load (sprintf('%svoiceonsetdata.mat',patient_info{each_subject}.exprdir));
+    load (sprintf('%svoiceonsetdata_fake.mat',patient_info{each_subject}.exprdir));
+
     %create empty variable for the good trials
     good_trial=NaN(8,10);
     curdir=cd;
@@ -146,7 +151,6 @@ for each_subject = 1:npatients
         
         clear pitchdatablock
         clear ampdatablock
-        
         
         for itrial = 1:ntrials
             % improved pitch tracking through get_sig_pitch6

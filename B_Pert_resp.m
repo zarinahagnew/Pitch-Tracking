@@ -13,7 +13,7 @@
 clear all;
 close all;
 
-cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data/';
+cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data_final_run/';
 set_params;
 set(0,'DefaultFigureWindowStyle','docked')
 npatients = 0;
@@ -73,6 +73,13 @@ npatients = npatients + 1;
 patient_info{npatients}.exprdir = 'HC10/expr2014.09.21.T15.35.54_JL_mainrun/speak/';
 npatients = npatients + 1;
 patient_info{npatients}.exprdir = 'HC11/expr2014.09.23.t15.27.32_sn_mainrun/speak/';
+npatients = npatients + 1;
+patient_info{npatients}.exprdir = 'HC12/expr2015.05.11.T11.18.14_mainrun/speak/';
+npatients = npatients + 1;
+patient_info{npatients}.exprdir = 'HC13/expr2015.05.11.T11.53.19_mainrun/speak/';
+npatients = npatients + 1;
+patient_info{npatients}.exprdir = 'HC14/expr2015.05.11.T12.28.56_mainrun/speak/';
+
 
 z=0
 
@@ -128,59 +135,58 @@ for each_subject = 1:npatients
 %             blockalt1=block.data(i,:,2);
 %             voiceframe(i);
 %             a=zeros(1,(voiceframe(i)));
-%             shifted_blockalt{i, each_block}=[a blockalt1];
-%             
+%             shifted_blockalt{i, each_block}=[a blockalt1];             
 %             voiceonsetdata{i, each_block}=voiceframe(i);
-%    
-%             
-%         end
-        
+%         end        
 
-        voiceframe_fake=ones(1,10);        % creates fake voice onset 
+        voiceframe_fake=ones(1,10);        
+        % creates fake voice onset 
         % becuase this was originally written to shift the pert_resp 
         % by the voice onset, but in the end I decided to do it 
-        % another way so this ia fake voice onset of '0'. 
+        % another way so this is a fake voice onset of '0'. 
         % URGH SORRY FUTURE ME. 
-        figure;
+        
+        %figure;
         for i=1:voiceonset.ntrials
             blockalt1=block.data(i,:,2); % pert resp
             shifted_blockalt{i, each_block}=blockalt1;                        
 
-% plot these out as you go            
-%             graph2=subplot(5,2,i);
-%             plot(block.data(i,:,2), '-g');
-%             hold;
-%             plot(shifted_blockalt{i, each_block}, '-r');
-
             
-%             trial=num2str(i);
-%             blockalt1=block.data(i,:,2); % pert resp
-%             voiceframe_fake(i);
-%             a=zeros(1,(voiceframe_fake(i)));
-%             shifted_blockalt{i, each_block}=[a blockalt1];
-%             voiceonsetdata_fake{i, each_block}=voiceframe_fake(i);
-%             voiceonsetdata{i, each_block}=voiceframe(i);
-%             
+            trial=num2str(i);
+            blockalt1=block.data(i,:,2); % pert resp
+            voiceframe_fake(i);
+            a=zeros(1,(voiceframe_fake(i)));
+            shifted_blockalt{i, each_block}=[a blockalt1];
+            voiceonsetdata_fake{i, each_block}=voiceframe_fake(i);
+            voiceonsetdata{i, each_block}=voiceframe(i);
+            
     
         end
         
         cd .. % into block parent ('speak') folder and save data there
         
         save shifted_blockalt shifted_blockalt
-        %save voiceonsetdata voiceonsetdata
-        
+        save voiceonsetdata voiceonsetdata
+        save voiceonsetdata_fake voiceonsetdata_fake
+
     end
     
     cd(cerebellar_data_rootdir); % go home ready for next subject
     close all;
 end
 
-clc
-fprintf(' \n \n \n \n \n \n Red lines show the shift so must come AFTER the green \n \n')
-
+fprintf(' \n \n \n \n \n \n \n \n \n \n \n \n Creates shifted_blockalt.mat');
 
 %% sanity check
-
 % % format is shifted_blockalt{trial, block}
-plot(shifted_blockalt{1,1}) % should be flat
-plot(shifted_blockalt{2,1}) % should be small down
+% shifted_blockalt - 10 down is the ten conditions
+% figure
+% subplot(211)
+% plot(shifted_blockalt{1,1}) % should be flat
+% axis([ 0 1500 -150 150])
+% subplot(212)
+% plot(shifted_blockalt{2,1}) % should be small down
+% axis([ 0 1500 -150 150])
+% 
+% 
+% fprintf(' \n \n \n \n \n \n \n \n \n \n \n \n Red lines show the shift so must come AFTER the green \n \n')

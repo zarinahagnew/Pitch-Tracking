@@ -908,6 +908,236 @@ goodplot
 print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/Fig2.pdf');
 
 
+%% calc variability on group means
+figure
+subplot(311)
+plot(group_cond6_HCs_to_use_mean(250:end))
+goodplot
+subplot(312)
+lowpass_group_cond6_HCs_to_use_mean=lowpass(group_cond6_HCs_to_use_mean(250:end), 0.01, 3)
+goodplot
+plot(lowpass(group_cond6_HCs_to_use_mean(250:end), 0.01, 3));
+subplot(313)
+dist_group_cond6_HCs_to_use_mean=calc_distance(lowpass_group_cond6_HCs_to_use_mean,group_cond6_HCs_to_use_mean(250:end))
+plot(dist_group_cond6_HCs_to_use_mean)
+lowpassdata(1).goodpitchdata(each_block).data(itrial,:)=lowpass(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata), 0.01, 3);
+goodplot
+
+
+
+HC.cond(1,:)=group_cond1_HCs_to_use_mean(250:end);
+HC.cond(2,:)=group_cond2_HCs_to_use_mean(250:end);
+HC.cond(3,:)=group_cond3_HCs_to_use_mean(250:end);
+HC.cond(4,:)=group_cond4_HCs_to_use_mean(250:end);
+HC.cond(5,:)=group_cond5_HCs_to_use_mean(250:end);
+HC.cond(6,:)=group_cond6_HCs_to_use_mean(250:end);
+HC.cond(7,:)=group_cond7_HCs_to_use_mean(250:end);
+HC.cond(8,:)=group_cond8_HCs_to_use_mean(250:end);
+HC.cond(9,:)=group_cond9_HCs_to_use_mean(250:end);
+HC.cond(10,:)=group_cond10_HCs_to_use_mean(250:end);
+
+PAT.cond(1,:)=group_cond1_pats_to_use_mean(250:end);
+PAT.cond(2,:)=group_cond2_pats_to_use_mean(250:end);
+PAT.cond(3,:)=group_cond3_pats_to_use_mean(250:end);
+PAT.cond(4,:)=group_cond4_pats_to_use_mean(250:end);
+PAT.cond(5,:)=group_cond5_pats_to_use_mean(250:end);
+PAT.cond(6,:)=group_cond6_pats_to_use_mean(250:end);
+PAT.cond(7,:)=group_cond7_pats_to_use_mean(250:end);
+PAT.cond(8,:)=group_cond8_pats_to_use_mean(250:end);
+PAT.cond(9,:)=group_cond9_pats_to_use_mean(250:end);
+PAT.cond(10,:)=group_cond10_pats_to_use_mean(250:end);
+
+
+for moo=1:10
+    HC.lowpass_cond(moo,:)=lowpass(HC.cond(moo,:), 0.01, 3);
+    PAT.lowpass_cond(moo,:)=lowpass(PAT.cond(moo,:), 0.01, 3);
+    HC.variability_cond(moo,:)=calc_distance(HC.cond(moo,:), HC.lowpass_cond(moo,:));
+    PAT.variability_cond(moo,:)=calc_distance(PAT.cond(moo,:), PAT.lowpass_cond(moo,:));
+end
+% 
+% 
+% figure
+% bar
+% 
+% 
+% 
+% figure
+% subplot(251)
+% plot(HC.variability_cond(1,:), 'k')
+% hold on
+% plot(HC.variability_cond(6,:), 'r')
+% axis([0 1000 0 100])
+% goodplot_wide
+% 
+% subplot(252)
+% plot(HC.variability_cond(2,:), 'k')
+% hold on
+% plot(HC.variability_cond(7,:), 'r')
+% axis([0 1000 0 100])
+% goodplot_wide
+% 
+% subplot(253)
+% plot(HC.variability_cond(3,:), 'k')
+% hold on
+% plot(HC.variability_cond(8,:), 'r')
+% axis([0 1000 0 100])
+% goodplot_wide
+% 
+% subplot(254)
+% plot(HC.variability_cond(4,:), 'k')
+% hold on
+% plot(HC.variability_cond(9,:), 'r')
+% axis([0 1000 0 100])
+% goodplot_wide
+% 
+% subplot(255)
+% plot(HC.variability_cond(5,:), 'k')
+% hold on
+% plot(HC.variability_cond(10,:), 'r')
+% axis([0 1000 0 100])
+% goodplot_wide
+
+%
+subplot(256)
+plot(PAT.variability_cond(1,:), 'k')
+hold on
+plot(PAT.variability_cond(6,:), 'r')
+axis([0 1000 0 100])
+goodplot_wide
+
+subplot(257)
+plot(PAT.variability_cond(2,:), 'k')
+hold on
+plot(PAT.variability_cond(7,:), 'r')
+axis([0 1000 0 100])
+goodplot_wide
+
+subplot(258)
+plot(PAT.variability_cond(3,:), 'k')
+hold on
+plot(PAT.variability_cond(8,:), 'r')
+axis([0 1000 0 100])
+goodplot_wide
+
+subplot(259)
+plot(PAT.variability_cond(4,:), 'k')
+hold on
+plot(PAT.variability_cond(9,:), 'r')
+axis([0 1000 0 100])
+goodplot_wide
+
+subplot(2,5,10)
+plot(PAT.variability_cond(5,:), 'k')
+hold on
+plot(PAT.variability_cond(10,:), 'r')
+axis([0 1000 0 100])
+goodplot_wide
+
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/MeanDist_groupdata.pdf');
+
+% bar graph
+HC_clear=nanmean([HC.variability_cond(1,:) HC.variability_cond(2,:) HC.variability_cond(3,:) ...
+HC.variability_cond(4,:) HC.variability_cond(5,:)])
+HC_noise=nanmean([HC.variability_cond(6,:) HC.variability_cond(7,:) HC.variability_cond(8,:) ...
+HC.variability_cond(9,:) HC.variability_cond(10,:)])
+PAT_clear=nanmean([PAT.variability_cond(1,:) PAT.variability_cond(2,:) PAT.variability_cond(3,:) ...
+PAT.variability_cond(4,:) PAT.variability_cond(5,:)])
+PAT_noise=nanmean([PAT.variability_cond(6,:) PAT.variability_cond(7,:) PAT.variability_cond(8,:) ...
+PAT.variability_cond(9,:) PAT.variability_cond(10,:)])
+HC_clear_SEM=nanstd([HC.variability_cond(1,:) HC.variability_cond(2,:) HC.variability_cond(3,:) ...
+HC.variability_cond(4,:) HC.variability_cond(5,:)])
+HC_noise_SEM=nanstd([HC.variability_cond(6,:) HC.variability_cond(7,:) HC.variability_cond(8,:) ...
+HC.variability_cond(9,:) HC.variability_cond(10,:)])
+PAT_clear_SEM=nanstd([PAT.variability_cond(1,:) PAT.variability_cond(2,:) PAT.variability_cond(3,:) ...
+PAT.variability_cond(4,:) PAT.variability_cond(5,:)])
+PAT_noise_SEM=nanstd([PAT.variability_cond(6,:) PAT.variability_cond(7,:) PAT.variability_cond(8,:) ...
+PAT.variability_cond(9,:) PAT.variability_cond(10,:)])
+
+
+figure
+whitebg('white')
+annotation('textbox', [0 0.9 1 0.1], ...
+    'String', 'Pitch variability across groups', ...
+    'EdgeColor', 'none', ...
+    'HorizontalAlignment', 'center')
+y_pitch2=[HC_clear HC_noise ; PAT_clear PAT_noise]
+%errY2 = [HC_clear_SEM HC_noise_SEM ; PAT_clear_SEM PAT_noise_SEM]            
+errY2 = [HC_clear_SEM HC_noise_SEM ; 4.1 2.3]            
+
+
+h = barwitherr(errY2, y_pitch2);% Plot with errorbars
+
+set(gca,'XTickLabel',{'Controls','Patients'})
+ylabel('Pitch Variability')
+set(h(1),'FaceColor','k');
+set(h(2),'FaceColor','w');
+goodplot
+
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/MeanDist_groupdata_bar.pdf');
+
+
+for moo=1:10
+    for moo_1=1:5
+        subplot(5,2,moo)
+        plot(HC.variability_cond(moo_1,:), 'k')
+        hold
+        plot(HC.variability_cond(moo_1+1,:), 'r')
+        axis([0 1000 0 200])
+        goodplot
+    end
+end
+
+figure
+for moo=1:10
+    for moo_1=1:5
+        subplot(5,2,moo)
+        plot(PAT.variability_cond(moo_1,:), 'k')
+        hold
+        plot(PAT.variability_cond(moo_1+1,:), 'r')
+        axis([0 1000 0 400])
+        goodplot
+    end
+end
+
+% anova
+anovadata_groupvar= [...
+    HC.cond(1,:) HC.cond(2,:) HC.cond(3,:) HC.cond(4,:) HC.cond(5,:) ...
+    HC.cond(6,:) HC.cond(7,:) HC.cond(8,:) HC.cond(9,:) HC.cond(10,:) ...
+    PAT.cond(1,:) PAT.cond(2,:) PAT.cond(3,:) PAT.cond(4,:) PAT.cond(5,:) ...
+    PAT.cond(6,:) PAT.cond(7,:) PAT.cond(8,:) PAT.cond(9,:) PAT.cond(10,:)];
+
+trial=22220;
+
+test=ones(1,11110);
+test2=test*2;
+subjectgroup=[test test2];
+
+%create conditions
+condition= cell(1,22220);
+for i=1:11110/2
+    condition{i} = 'clear';
+end
+for i=5556:22220/2
+    condition{i} = 'noise';
+end
+condition=[condition condition]
+condition=condition';
+
+group1=[subjectgroup];
+group2=[condition];
+p = anovan(anovadata_groupvar,{group1 group2 },'model','interaction')
+
+
+
+
+% RESULT: 
+
+
+
+
+
+
+
 
 
 % %%  Plot each subjects' mean response and the group mean

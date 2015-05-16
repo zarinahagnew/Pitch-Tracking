@@ -233,157 +233,60 @@ SEM_stdAcT_HC(8,:)=nanstd(HC_data_cond8)/sqrt(HC_goodtrial_counter_cond8);
 SEM_stdAcT_HC(9,:)=nanstd(HC_data_cond9)/sqrt(HC_goodtrial_counter_cond9);
 SEM_stdAcT_HC(10,:)=nanstd(HC_data_cond10)/sqrt(HC_goodtrial_counter_cond10);
 
-% plot figures
+
+
+%% SIGNIFICANT RESULTS
+%1. Mean AcT distance from LPF
+
 figure
 title('Mean AcT distance from LPF')
 for icond=1:10
-    subplot(5,2, icond)
-    plot(frame_taxis_to_use(1:981), MeanAcT_PAT(icond,:), 'm');
+    subplot(2,5, icond)
+    plot(frame_taxis_to_use(1:981), MeanAcT_PAT(icond,:), 'r', 'LineWidth', 1.5);
     hold on
-    plot(frame_taxis_to_use(1:981),MeanAcT_HC(icond,:), 'k')
-    axis([0 3 0 200])
+    plot(frame_taxis_to_use(1:981),MeanAcT_HC(icond,:), 'k', 'LineWidth', 1.5);
+    axis([0 3 0 160])
     xlabel('Time (s)')
-    goodplot
+    goodplot_wide
 end
 print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/AcT_Mean_bycond.pdf');
 
-
-
+% % the bar version
 figure
-title('Std AcT distance from LPF')
-for icond=1:10
-    subplot(5,2, icond)
-    plot(frame_taxis_to_use(1:981), stdAcT_PAT(icond,:), 'm');
-    hold on
-    plot(frame_taxis_to_use(1:981),stdAcT_HC(icond,:), 'k')
-    axis([0 3 0 160])
-    xlabel('Time (s)')
-    goodplot
-end
+y_pitch2=[...
+          nanmean(MeanAcT_HC(1,:)) nanmean(MeanAcT_PAT(1,:)); ...
+          nanmean(MeanAcT_HC(2,:)) nanmean(MeanAcT_PAT(2,:)); ...          
+          nanmean(MeanAcT_HC(3,:)) nanmean(MeanAcT_PAT(3,:)); ...
+          nanmean(MeanAcT_HC(4,:)) nanmean(MeanAcT_PAT(4,:)); ...
+          nanmean(MeanAcT_HC(5,:)) nanmean(MeanAcT_PAT(5,:)); ...          
+          nanmean(MeanAcT_HC(6,:)) nanmean(MeanAcT_PAT(6,:)); ...
+          nanmean(MeanAcT_HC(7,:)) nanmean(MeanAcT_PAT(7,:)); ...          
+          nanmean(MeanAcT_HC(8,:)) nanmean(MeanAcT_PAT(8,:)); ...
+          nanmean(MeanAcT_HC(9,:)) nanmean(MeanAcT_PAT(9,:)); ...
+          nanmean(MeanAcT_HC(10,:)) nanmean(MeanAcT_PAT(10,:))];
+          
+          
+errY2=[...
+          nanstd(MeanAcT_HC(1,:))/sqrt(10) nanstd(MeanAcT_PAT(1,:))/sqrt(10); ...
+          nanstd(MeanAcT_HC(2,:))/sqrt(10) nanstd(MeanAcT_PAT(2,:))/sqrt(10); ...          
+          nanstd(MeanAcT_HC(3,:))/sqrt(10) nanstd(MeanAcT_PAT(3,:))/sqrt(10); ...
+          nanstd(MeanAcT_HC(4,:))/sqrt(10) nanstd(MeanAcT_PAT(4,:))/sqrt(10); ...
+          nanstd(MeanAcT_HC(5,:))/sqrt(10) nanstd(MeanAcT_PAT(5,:))/sqrt(10); ...          
+          nanstd(MeanAcT_HC(6,:))/sqrt(10) nanstd(MeanAcT_PAT(6,:))/sqrt(10); ...
+          nanstd(MeanAcT_HC(7,:))/sqrt(10) nanstd(MeanAcT_PAT(7,:))/sqrt(10); ...          
+          nanstd(MeanAcT_HC(8,:))/sqrt(10) nanstd(MeanAcT_PAT(8,:))/sqrt(10); ...
+          nanstd(MeanAcT_HC(9,:))/sqrt(10) nanstd(MeanAcT_PAT(9,:))/sqrt(10); ...
+          nanstd(MeanAcT_HC(10,:))/sqrt(10) nanstd(MeanAcT_PAT(10,:))/sqrt(10)];
 
-print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/AcT_Stdev_bycond.pdf');
-
-% calculate significant difference along the time frame
-STATS.cond1_AcT=ttest2(patient_data_cond1, HC_data_cond1);
-STATS.cond2_AcT=ttest2(patient_data_cond2, HC_data_cond2);
-STATS.cond3_AcT=ttest2(patient_data_cond3, HC_data_cond3);
-STATS.cond4_AcT=ttest2(patient_data_cond4, HC_data_cond4);
-STATS.cond5_AcT=ttest2(patient_data_cond5, HC_data_cond5);
-STATS.cond6_AcT=ttest2(patient_data_cond6, HC_data_cond6);
-STATS.cond7_AcT=ttest2(patient_data_cond7, HC_data_cond7);
-STATS.cond8_AcT=ttest2(patient_data_cond8, HC_data_cond8);
-STATS.cond9_AcT=ttest2(patient_data_cond9, HC_data_cond9);
-STATS.cond10_AcT=ttest2(patient_data_cond10, HC_data_cond10);
-
-
-
-% a=ones(1,10)    % upper line
-% b=a*4           %bottom line
-% x=[1:10]        %frame_taxis
-% [ph,msg]=jbfill(x,a,b,rand(1,3),rand(1,3),0,rand(1,1))
-
-figure
-title('Mean AcT variability - patients')
-for icond=1:10
-    subplot(5,2, icond)
-    a=MeanAcT_PAT(icond,:)+SEM_AcT_PAT(icond,:);
-    b=MeanAcT_PAT(icond,:)-SEM_AcT_PAT(icond,:);
-    x=frame_taxis_to_use(1:981);
-    [ph,msg]=jbfill(x,a,b,'k','k',0,0.3)
-    hold on
-    plot(frame_taxis_to_use(1:981),MeanAcT_PAT(icond,:), 'k','LineWidth',1.1)
-    axis([0 3.5 0 200])
-    set(gca,'LineWidth',2.0)
-    goodplot
-end
-
-print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/AcT_Mean.pdf');
-
-
-figure
-clf
-for icond=1:10
-    subplot(5,2, icond)
-    a=MeanAcT_PAT(icond,:)+SEM_AcT_PAT(icond,:);
-    b=MeanAcT_PAT(icond,:)-SEM_AcT_PAT(icond,:);
-    x=frame_taxis_to_use(1:981);
-    [ph,msg]=jbfill(x,a,b,'k','w',0,0.3)
-    hold on
-    plot(frame_taxis_to_use(1:981),MeanAcT_PAT(icond,:), 'k','LineWidth',1.3)
-    axis([0 3 0 150])
-    goodplot
-    set(gca,'LineWidth',2.0)
-end
-print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/AcT_Mean_patients.pdf');
-
-figure
-for icond=1:10
-    subplot(5,2, icond)
-    a=MeanAcT_HC(icond,:)+SEM_AcT_HC(icond,:);
-    b=MeanAcT_HC(icond,:)-SEM_AcT_HC(icond,:);
-    x=frame_taxis_to_use(1:981);
-    [ph,msg]=jbfill(x,a,b,'k','w',0,0.3)
-    hold on
-    plot(frame_taxis_to_use(1:981),MeanAcT_HC(icond,:), 'k','LineWidth',1.3)
-    axis([0 3 0 150])
-    goodplot
-    set(gca,'LineWidth',2.0)
-end
-print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/AcT_Mean_HCs.pdf');
-
-
-figure
-for icond=1:10
-    subplot(5,2, icond)
-    a=stdAcT_PAT(icond,:)+SEM_AcT_PAT(icond,:);
-    b=stdAcT_PAT(icond,:)-SEM_AcT_PAT(icond,:);
-    x=frame_taxis_to_use(1:981);
-    [ph,msg]=jbfill(x,a,b,'k','w',0,0.3)
-    hold on
-    plot(frame_taxis_to_use(1:981),stdAcT_PAT(icond,:), 'k','LineWidth',1.3)
-    axis([0 3 0 180])
-    goodplot
-    set(gca,'LineWidth',2.0)
-end
-print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/AcT_stdev_patients.pdf');
-
-
-figure
-for icond=1:10
-    subplot(5,2, icond)
-    a=stdAcT_HC(icond,:)+SEM_AcT_HC(icond,:);
-    b=stdAcT_HC(icond,:)-SEM_AcT_HC(icond,:);
-    x=frame_taxis_to_use(1:981);
-    [ph,msg]=jbfill(x,a,b,'k','w',0,0.3)
-    hold on
-    plot(frame_taxis_to_use(1:981),stdAcT_HC(icond,:), 'k','LineWidth',1.3)
-    axis([0 3 0 180])
-    goodplot
-    set(gca,'LineWidth',2.0)
-end
-print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/AcT_stdev_HCs.pdf');
-
-
-
-
-
-
-
-
-goodplot
-figure
-title('Std AcT distance from LPF')
-for icond=1:10
-    subplot(5,2, icond)
-    plot(frame_taxis_to_use(1:981),stdAcT_PAT(icond,:), 'k')
-    hold on
-    plot(frame_taxis_to_use(1:981),stdAcT_HC(icond,:), 'm')
-    axis([0 3 -20 200])
-    xlabel('Time (s)')
-    goodplot
-end
-
-print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/AcT_Stddev.pdf');
+h = barwitherr(errY2, y_pitch2);% Plot with errorbars
+set(gca,'XTickLabel',{'clear','noise'})
+ylabel('Mean AT var (cents)')
+set(h(1),'FaceColor','k');
+set(h(2),'FaceColor','w');
+title(sprintf('Mean AT variability'));
+axis([0 11 0 40])
+goodplot_wide
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/AcT_Mean_bycond_bargraph.pdf');
 
 % stats for and plot stdev AcT 
 anova_data_MeanAcT=horzcat(...
@@ -457,6 +360,246 @@ anova_data_stdAcT=horzcat(...
 
 STATS.anova_data_MeanAcT = anovan(anova_data_MeanAcT,{group1 group2 },'model','interaction');
 STATS.anova_data_stdAcT = anovan(anova_data_stdAcT,{group1 group2 },'model','interaction');
+
+figure
+title('Std AcT distance from LPF')
+for icond=1:10
+    subplot(2,5, icond)
+    plot(frame_taxis_to_use(1:981), stdAcT_PAT(icond,:), 'r', 'LineWidth', 1.5);
+    hold on
+    plot(frame_taxis_to_use(1:981),stdAcT_HC(icond,:), 'k', 'LineWidth', 1.5);
+    axis([0 3 0 160])
+    xlabel('Time (s)')
+    goodplot_wide
+end
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/AcT_Stdev_bycond.pdf');
+
+% calculate significant difference along the time frame
+STATS.cond1_AcT=ttest2(patient_data_cond1, HC_data_cond1);
+STATS.cond2_AcT=ttest2(patient_data_cond2, HC_data_cond2);
+STATS.cond3_AcT=ttest2(patient_data_cond3, HC_data_cond3);
+STATS.cond4_AcT=ttest2(patient_data_cond4, HC_data_cond4);
+STATS.cond5_AcT=ttest2(patient_data_cond5, HC_data_cond5);
+STATS.cond6_AcT=ttest2(patient_data_cond6, HC_data_cond6);
+STATS.cond7_AcT=ttest2(patient_data_cond7, HC_data_cond7);
+STATS.cond8_AcT=ttest2(patient_data_cond8, HC_data_cond8);
+STATS.cond9_AcT=ttest2(patient_data_cond9, HC_data_cond9);
+STATS.cond10_AcT=ttest2(patient_data_cond10, HC_data_cond10);
+
+% do noise v clear
+
+figure
+title('Stdev AcT distance from LPF_noisevclear')
+subplot(211)
+plot(frame_taxis_to_use(1:981),nanmean(stdAcT_HC(1:5,:)), 'r', 'LineWidth', 1.5);
+hold on
+plot(frame_taxis_to_use(1:981),nanmean(stdAcT_HC(6:10,:)), 'k', 'LineWidth', 1.5);
+axis([0 3 0 80])
+goodplot
+
+subplot(212)
+plot(frame_taxis_to_use(1:981),nanmean(stdAcT_PAT(1:5,:)), 'r', 'LineWidth', 1.5);
+hold on
+plot(frame_taxis_to_use(1:981),nanmean(stdAcT_PAT(6:10,:)), 'k', 'LineWidth', 1.5);
+axis([0 3 0 80])
+goodplot
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/AcT_Stdev_clearvnoise.pdf');
+
+%bar
+      HC_clear=nanmean([stdAcT_HC(1,:) stdAcT_HC(2,:) stdAcT_HC(3,:) stdAcT_HC(4,:) stdAcT_HC(5,:)]);
+      HC_noise= nanmean([stdAcT_HC(6,:) stdAcT_HC(7,:) stdAcT_HC(8,:) stdAcT_HC(9,:) stdAcT_HC(10,:)]);
+      PAT_clear=nanmean([stdAcT_PAT(1,:) stdAcT_PAT(2,:) stdAcT_PAT(3,:) stdAcT_PAT(4,:) stdAcT_PAT(5,:)]);
+      PAT_noise= nanmean([stdAcT_PAT(6,:) stdAcT_PAT(7,:) stdAcT_PAT(8,:) stdAcT_PAT(9,:) stdAcT_PAT(10,:)]);      
+
+      HC_clear_stdev=nanstd([stdAcT_HC(1,:) stdAcT_HC(2,:) stdAcT_HC(3,:) stdAcT_HC(4,:) stdAcT_HC(5,:)]/sqrt(50));
+      HC_noise_stdev= nanstd([stdAcT_HC(6,:) stdAcT_HC(7,:) stdAcT_HC(8,:) stdAcT_HC(9,:) stdAcT_HC(10,:)]/sqrt(50));
+      PAT_clear_stdev=nanstd([stdAcT_PAT(1,:) stdAcT_PAT(2,:) stdAcT_PAT(3,:) stdAcT_PAT(4,:) stdAcT_PAT(5,:)]/sqrt(50));
+      PAT_noise_stdev= nanstd([stdAcT_PAT(6,:) stdAcT_PAT(7,:) stdAcT_PAT(8,:) stdAcT_PAT(9,:) stdAcT_PAT(10,:)]/sqrt(50));      
+
+figure
+y_pitch2=[HC_clear HC_noise; PAT_clear PAT_noise];
+errY2=[HC_clear_stdev HC_noise_stdev; PAT_clear_stdev PAT_noise_stdev];
+      
+h = barwitherr(errY2, y_pitch2);% Plot with errorbars
+set(gca,'XTickLabel',{'controls','patients'})
+ylabel('Mean AT var (cents)')
+set(h(1),'FaceColor','k');
+set(h(2),'FaceColor','w');
+title(sprintf('Across trial std in vocal variability'));
+axis([0 11 0 40])
+goodplot
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/AcT_Mean_bycond_bargraph.pdf');
+
+
+
+
+figure
+title('Mean AcT distance from LPF_noisevclear')
+subplot(211)
+plot(frame_taxis_to_use(1:981),nanmean(MeanAcT_HC(1:5,:)), 'r', 'LineWidth', 1.5);
+hold on
+plot(frame_taxis_to_use(1:981),nanmean(MeanAcT_HC(6:10,:)), 'k', 'LineWidth', 1.5);
+axis([0 3 0 60])
+goodplot
+
+subplot(212)
+plot(frame_taxis_to_use(1:981),nanmean(MeanAcT_PAT(1:5,:)), 'r', 'LineWidth', 1.5);
+hold on
+plot(frame_taxis_to_use(1:981),nanmean(MeanAcT_PAT(6:10,:)), 'k', 'LineWidth', 1.5);
+axis([0 3 0 60])
+goodplot
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/AcT_Mean_clearvnoise.pdf');
+
+
+
+
+
+
+%anova
+
+anovadata_meandist_clearnoise=[...
+    MeanAcT_HC(1,:) MeanAcT_HC(2,:) MeanAcT_HC(3,:) MeanAcT_HC(4,:) MeanAcT_HC(5,:) ...
+    MeanAcT_HC(6,:) MeanAcT_HC(7,:) MeanAcT_HC(8,:) MeanAcT_HC(9,:) MeanAcT_HC(10,:) ...    
+    MeanAcT_PAT(1,:) MeanAcT_PAT(2,:) MeanAcT_PAT(3,:) MeanAcT_PAT(4,:) MeanAcT_PAT(5,:) ...
+    MeanAcT_PAT(6,:) MeanAcT_PAT(7,:) MeanAcT_PAT(8,:) MeanAcT_PAT(9,:) MeanAcT_PAT(10,:)];    
+
+anovadata_stddist_clearnoise=[...
+    stdAcT_HC(1,:) stdAcT_HC(2,:) stdAcT_HC(3,:) stdAcT_HC(4,:) stdAcT_HC(5,:) ...
+    stdAcT_HC(6,:) stdAcT_HC(7,:) stdAcT_HC(8,:) stdAcT_HC(9,:) stdAcT_HC(10,:) ...    
+    stdAcT_PAT(1,:) stdAcT_PAT(2,:) stdAcT_PAT(3,:) stdAcT_PAT(4,:) stdAcT_PAT(5,:) ...
+    stdAcT_PAT(6,:) stdAcT_PAT(7,:) stdAcT_PAT(8,:) stdAcT_PAT(9,:) stdAcT_PAT(10,:)];    
+
+trial=4905;
+test=ones(1,19620/2);
+test2=test*2;
+subjectgroup=[test test2];
+
+%create conditions
+clear condition;
+for i=1:trial
+    condition{i} = 'clear';
+end
+for i=trial+1:trial*2
+    condition{i}='noise';
+end
+
+condition=[condition condition];
+condition=condition';
+
+group1=[subjectgroup];
+group2=[condition];
+
+STATS.anova_data_MeanAcT_clearnoise = anovan(anovadata_meandist_clearnoise,{group1 group2 },'model','interaction');
+STATS.anova_data_stdAcT_clearnoise = anovan(anovadata_stddist_clearnoise,{group1 group2 },'model','interaction');
+
+
+
+
+% a=ones(1,10)    % upper line
+% b=a*4           %bottom line
+% x=[1:10]        %frame_taxis
+% [ph,msg]=jbfill(x,a,b,rand(1,3),rand(1,3),0,rand(1,1))
+
+figure
+title('Mean AcT variability - patients')
+for icond=1:10
+    subplot(5,2, icond)
+    a=MeanAcT_PAT(icond,:)+SEM_AcT_PAT(icond,:);
+    b=MeanAcT_PAT(icond,:)-SEM_AcT_PAT(icond,:);
+    x=frame_taxis_to_use(1:981);
+    [ph,msg]=jbfill(x,a,b,'k','k',0,0.3)
+    hold on
+    plot(frame_taxis_to_use(1:981),MeanAcT_PAT(icond,:), 'k','LineWidth',1.1)
+    axis([0 3.5 0 200])
+    set(gca,'LineWidth',2.0)
+    goodplot
+end
+
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/AcT_Mean.pdf');
+
+
+% figure
+% for icond=1:10
+%     subplot(5,2, icond)
+%     a=MeanAcT_PAT(icond,:)+SEM_AcT_PAT(icond,:);
+%     b=MeanAcT_PAT(icond,:)-SEM_AcT_PAT(icond,:);
+%     x=frame_taxis_to_use(1:981);
+%     [ph,msg]=jbfill(x,a,b,'k','w',0,0.3)
+%     hold on
+%     plot(frame_taxis_to_use(1:981),MeanAcT_PAT(icond,:), 'k','LineWidth',1.3)
+%     axis([0 3 0 150])
+%     goodplot
+%     set(gca,'LineWidth',2.0)
+% end
+% print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/AcT_Mean_patients.pdf');
+
+figure
+for icond=1:10
+    subplot(5,2, icond)
+    a=MeanAcT_HC(icond,:)+SEM_AcT_HC(icond,:);
+    b=MeanAcT_HC(icond,:)-SEM_AcT_HC(icond,:);
+    x=frame_taxis_to_use(1:981);
+    [ph,msg]=jbfill(x,a,b,'k','w',0,0.3)
+    hold on
+    plot(frame_taxis_to_use(1:981),MeanAcT_HC(icond,:), 'k','LineWidth',1.3)
+    axis([0 3 0 50])
+    goodplot
+    set(gca,'LineWidth',2.0)
+end
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/AcT_Mean_HCs.pdf');
+
+
+figure
+for icond=1:10
+    subplot(5,2, icond)
+    a=stdAcT_PAT(icond,:)+SEM_AcT_PAT(icond,:);
+    b=stdAcT_PAT(icond,:)-SEM_AcT_PAT(icond,:);
+    x=frame_taxis_to_use(1:981);
+    [ph,msg]=jbfill(x,a,b,'k','w',0,0.3)
+    hold on
+    plot(frame_taxis_to_use(1:981),stdAcT_PAT(icond,:), 'k','LineWidth',1.3)
+    axis([0 3 0 180])
+    goodplot
+    set(gca,'LineWidth',2.0)
+end
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/AcT_stdev_patients.pdf');
+
+
+figure
+for icond=1:10
+    subplot(5,2, icond)
+    a=stdAcT_HC(icond,:)+SEM_AcT_HC(icond,:);
+    b=stdAcT_HC(icond,:)-SEM_AcT_HC(icond,:);
+    x=frame_taxis_to_use(1:981);
+    [ph,msg]=jbfill(x,a,b,'k','w',0,0.3)
+    hold on
+    plot(frame_taxis_to_use(1:981),stdAcT_HC(icond,:), 'k','LineWidth',1.3)
+    axis([0 3 0 180])
+    goodplot
+    set(gca,'LineWidth',2.0)
+end
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/AcT_stdev_HCs.pdf');
+
+
+
+
+
+
+
+
+figure
+title('Std AcT distance from LPF')
+for icond=1:10
+    subplot(5,2, icond)
+    plot(frame_taxis_to_use(1:981),stdAcT_PAT(icond,:), 'k')
+    hold on
+    plot(frame_taxis_to_use(1:981),stdAcT_HC(icond,:), 'm')
+    axis([0 3 -20 200])
+    xlabel('Time (s)')
+    goodplot
+end
+
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/AcT_Stddev.pdf');
 
 
 % calulate and plot WT mean and stdev

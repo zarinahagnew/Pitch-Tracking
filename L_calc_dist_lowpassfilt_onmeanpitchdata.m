@@ -6,7 +6,6 @@
 % calc FLP version and then distance
 % do stats
 
-
 %% ZKA Jan 2015
 
 clear all
@@ -15,6 +14,7 @@ close all
 set_params;
 
 cd(cerebellar_data_rootdir);
+load GroupData/distancefromtarg/DATA_DIST.mat;
 
 npatients = 0;
 npatients = npatients + 1;
@@ -102,12 +102,8 @@ end
 DATA=DATA_ALLSUBS(allincluded);
 
 
-
-calc_by_cond_frommeantrack.m;
-
-
-
-
+cd (cerebellar_data_rootdir)
+calc_by_cond_frommeantrack;
 
 
 %% is the distance from the mean different in patients and controls across clear and noise trials
@@ -137,32 +133,34 @@ HC_noise_dist_LPF=vertcat(eachsub_dist_LPF(12).cond(6:10,:),eachsub_dist_LPF(13)
 figure
 title('mean variability')
 subplot(221)
-plot(frame_taxis_to_use(1:981),nanmean(pat_clear_dist_LPF), 'k')
-axis([0 3 -50 50])
+plot(frame_taxis_to_use(1:981),nanmean(pat_clear_dist_LPF), 'k', 'LineWidth', 1.5)
+axis([0 3 0 60])
 goodplot
 xlabel('time (s)')
 ylabel('variability (cents)')
 
 subplot(222)
-plot(frame_taxis_to_use(1:981),nanmean(pat_noise_dist_LPF),'k')
-axis([0 3 -50 50])
+plot(frame_taxis_to_use(1:981),nanmean(pat_noise_dist_LPF),'k', 'LineWidth', 1.5)
+axis([0 3 0 60])
 xlabel('time (s)')
 ylabel('variability (cents)')
 goodplot
 
 subplot(223)
-plot(frame_taxis_to_use(1:981),nanmean(HC_clear_dist_LPF), 'm')
-axis([0 3 -50 50])
+plot(frame_taxis_to_use(1:981),nanmean(HC_clear_dist_LPF), 'r', 'LineWidth', 1.5)
+axis([0 3 0 60])
 xlabel('time (s)')
 ylabel('variability (cents)')
 goodplot
 
 subplot(224)
-plot(frame_taxis_to_use(1:981), nanmean(HC_noise_dist_LPF), 'm')
-axis([0 3 -50 50])
+plot(frame_taxis_to_use(1:981), nanmean(HC_noise_dist_LPF), 'r', 'LineWidth', 1.5)
+axis([0 3 0 60])
 xlabel('time (s)')
 ylabel('variability (cents)')
 goodplot
+
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Desktop/MeanDistfromLPF.pdf');
 
 %ttest
 ttest((HC_noise_dist_LPF),(HC_clear_dist_LPF))
@@ -204,15 +202,14 @@ for i=19620*2+53955+1:147150
     condition{i} = 'noise';
 end
 condition=condition';
-f
+
 group1=[subjectgroup];
 group2=[condition];
 p = anovan(anova_data_meandist_LFP,{group1 group2 },'model','interaction')
 
+% RESULT: patients are worse than controls but there is no interaction
 
 %% is the WT mean distance from the LPF different in patients and controls across clear and noise trials
-
-    
 pat_clear_dist_LPF_WTmean=vertcat(nanmean(eachsub_dist_LPF(1).cond(1:5,:)),nanmean(eachsub_dist_LPF(2).cond(1:5,:)),...
     nanmean(eachsub_dist_LPF(3).cond(1:5,:)),nanmean(eachsub_dist_LPF(4).cond(1:5,:)), ...
     nanmean(eachsub_dist_LPF(5).cond(1:5,:)),nanmean(eachsub_dist_LPF(6).cond(1:5,:)), ...
@@ -352,19 +349,5 @@ ttest(WTstd_clear_HC_anova, WTstd_noise_HC_anova)
 ttest(WTstd_clear_pat_anova, WTstd_noise_pat_anova)
 ttest2(WTstd_clear_HC_anova, WTstd_clear_pat_anova)
 ttest2(WTstd_noise_HC_anova, WTstd_noise_pat_anova)
-
-
-
-% 
-% figure
-% for icond=1:10
-%     subplot(5,2,icond)
-% %plot(frame_taxis_to_use, DATA(1).data(1).sorted_data(icond).wholetrial(220:end))
-% plot(frame_taxis_to_use, DATA(1).data(1).sorted_data(icond).wholetrial(220:end))
-% 
-% % hold on
-% % plot(nanmean(DATA(1).data(1).sorted_data(icond).wholetrial(:,220:end)), 'm')
-% %axis([])
-% end
 
 

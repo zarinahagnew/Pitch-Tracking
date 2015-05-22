@@ -61,8 +61,8 @@ step_time=stepframe/frame_fs
 
 
 %% patients and HCs with separate time windows
-T1_HC= 250; %210;                          %frames
-T2_HC= 450; %410; % 200 frames
+T1_HC= 220; %210;                          %frames
+T2_HC= 420; %410; % 200 frames
 T3_HC=1000;    %3789.5ms
 T4_HC=1200;    %4478.5ms
 
@@ -165,6 +165,8 @@ perf_thresh_neg=-100;
 perf_thresh_pos_cents=50;
 perf_thresh_neg_cents=-50;
 
+% perf_thresh_pos_cents=10;
+% perf_thresh_neg_cents=-10;
 
 %% for plotting
 nframes_to_plot= 1378-5;     %nframes_per_trial-5;

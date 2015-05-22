@@ -1,4 +1,3 @@
-
 %% Check stdev of grp for elimination of bad trials:------------------------
 % ZKA August 2014
 

@@ -1,10 +1,36 @@
-% wrapper script that runs the whole thing from start to finish
+%% Wrapper script that runs the whole thing from start to finish
+
+% ------
+% ZKA 2015
+% run this in this order!
 
 clear all
 close all
 set_params;
 
 disp('here we go.. ')
+
+RunPeceptTest;
+
+Pert_resp;
+
+WriteDataout;
+
+Outlier_thresholding;
+
+Calc_motor_errors
+
+Goodtrials_HCs;
+
+Goodtrials_PATs;
+
+Groupanalysis;
+
+Plot_groupdata;
+
+Plotsinglesubgraphs;
+
+
 
 B_fast;
 disp('good trials done!')

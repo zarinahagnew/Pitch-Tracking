@@ -6,9 +6,13 @@
 
 clear all
 close all
-set_params;
+clc
+
+set_params_pitchtracking;
 
 disp('here we go.. ')
+
+calctargets;
 
 RunPeceptTest;
 

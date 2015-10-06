@@ -1,17 +1,16 @@
 %% Checks the conditions against the pert responses
 % ZKA April 2014
-
 % plots each trial against the target sound. 
 % needs good data so that is run after scripts B and C are done. 
 
 clear all
 close all
-set_params;
+set_params_pitchtracking;
 
 npatients = 0;
 npatients = npatients + 1;
 patient_info{npatients}.exprdir = 'SUB01/expr2014.03.21.T10.46.03_mainrun/speak/';
-patientdir= '/Users/zagnew/Cereb_data/data/SUB01/expr2014.03.21.T10.46.03_mainrun/speak/';
+patientdir= '/Users/zagnew/Cereb_data/data_final_run/SUB01/expr2014.03.21.T10.46.03_mainrun/speak/';
 homedir='/Users/zagnew/Cereb_data/data/'
 cd(patientdir)
 

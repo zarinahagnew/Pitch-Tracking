@@ -28,25 +28,19 @@ Goodtrials_HCs;
 
 Goodtrials_PATs;
 
+Calc_WT_STDEV;
+% writes out patient_WTstdev_data.mat
+
+Calc_WT_STDEV_2;
+% writes out GroupData.mat
+
 Groupanalysis;
 
+
 Plot_groupdata;
+% plots group data
 
 Plotsinglesubgraphs;
+% plots each subjects data
 
-
-
-B_fast;
-disp('good trials done!')
-
-C_sort_conds;
-disp('conditions sorted!')
-
-D_calc_WT_stdev;
-disp('WT variability calculated')
-
-G_plot_groupdata;
-disp('plotting group data, wait for the pause')
-pause
-F_groupanalysis;
-disp('and the anova..')
+countgdtrials;

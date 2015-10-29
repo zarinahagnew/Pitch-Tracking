@@ -18,7 +18,7 @@ RunPeceptTest;
 
 Pert_resp;
 
-WriteDataout;
+WriteDataout; % writes the data out into the format that Goodtrials wants as ALLDATA.mat
 
 Outlier_thresholding;
 
@@ -28,11 +28,16 @@ Goodtrials_HCs;
 
 Goodtrials_PATs;
 
-Calc_WT_STDEV;
+sort_conds;
+
+% Calc_WT_STDEV;
 % writes out patient_WTstdev_data.mat
+% not really sure what this does..
 
 Calc_WT_STDEV_2;
-% writes out GroupData.mat
+% writes out GroupData.mat, DATA.mat and DATA_TO_USE.mat
+
+%note to self - work out what these two do differently??
 
 Groupanalysis;
 

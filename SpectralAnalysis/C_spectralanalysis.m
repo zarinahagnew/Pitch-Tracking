@@ -5,7 +5,7 @@ set_params;
 fs_spec=345;
 
 fig1=figure;
-cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data/';
+cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data_final_run/';
 
 npatients = 0;
 npatients = npatients + 1;

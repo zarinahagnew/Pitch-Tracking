@@ -1,7 +1,7 @@
 clear all
 close all
 
-set_params;
+set_params_pitchtracking;
 
 cd(cerebellar_data_rootdir)
 

@@ -37,10 +37,7 @@ sort_conds;
 Calc_WT_STDEV_2;
 % writes out GroupData.mat, DATA.mat and DATA_TO_USE.mat
 
-%note to self - work out what these two do differently??
-
 Groupanalysis;
-
 
 Plot_groupdata;
 % plots group data

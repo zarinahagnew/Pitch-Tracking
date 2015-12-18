@@ -488,7 +488,7 @@ for isubj = 1:npats
                 data_7.pre_distfromtarget(each_block).data(d)=nanmean(data_6.prestep(each_block).data(d,:)) - nanmean(pre_target(each_block).data(d,:));
                 data_7.post_distfromtarget(each_block).data(d)=nanmean(data_6.poststep(each_block).data(d,:))- nanmean(post_target(each_block).data(d,:));
 
-                data_7.WT_distfromtarget(each_block).data(d,:)=data_6.goodpitchdata(each_block).data(d,:)- targets(1,:);
+                data_7.WT_distfromtarget(each_block).data(d,:)=data_6.goodpitchdata(each_block).data(d,:)- WT_target(each_block).data(d,:)
                 data_7.PRE_distfromtarget(each_block).data(d,:)=data_6.prestep(each_block).data(d,:)- pre_target(each_block).data(d,:);
                 data_7.POST_distfromtarget(each_block).data(d,:)=data_6.poststep(each_block).data(d,:)- post_target(each_block).data(d,:);
                 

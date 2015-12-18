@@ -73,20 +73,12 @@ T2secs_pat=(T2_pat)/frame_fs;
 T3secs_pat=(T3_pat)/frame_fs;
 T4secs_pat=(T4_pat)/frame_fs;
 
+T_gap_HC_pre=T3_HC-T2_HC;
+T_gap_pat_pre=T3_pat-T2_pat;
+
 T_gap_HC=T3_HC-T2_HC;
 T_gap_pat=T3_pat-T2_pat;
 
-T1secs_HC=(T1_HC)/frame_fs;
-T2secs_HC=(T2_HC)/frame_fs;
-T3secs_HC=(T3_HC)/frame_fs;
-T4secs_HC=(T4_HC)/frame_fs;
-
-T1secs_pat=(T1_pat)/frame_fs;
-T2secs_pat=(T2_pat)/frame_fs;
-T3secs_pat=(T3_pat)/frame_fs;
-T4secs_pat=(T4_pat)/frame_fs;
-
-T_gap=T3_HC-T2_HC;
 
 step_secs=(stepframe)/frame_fs;
 
@@ -196,20 +188,41 @@ forstdev_PATs=numpats*8;
 % patient_colour=[.49 1 .63];
 % HC_colour=[.4 .4 .4];
 
-patient_colour='r';
-HC_colour='k';
-sig_colour=[.3 .3 .8];
+% patient_colour='r';
+% HC_colour='k';
+% sig_colour=[.3 .3 .8];
 
 
-%% greyscale colours
+% greyscale colours
+% bigdown_gs= 'r';
+% down_gs='y';
+% bigup_gs='b';
+% up_gs='c';
+% flat_gs='k';
+
+z_colours;
+bigup_gs=navy;
+up_gs=skyblue;
+flat_gs=[0 0 0 ];
+down_gs=mustard;
+bigdown_gs= bloodred;
+ 
+pat_colour=navy;
+hc_colour=bloodred;
+
+clear_colour=skyblue;
+masked_colour=navy;
 
 
-bigdown_gs=[0 0 0]+0.2;
-down_gs=[0 0 0]+0.4;
-bigup_gs=[0 0 0]+0.8;
-up_gs=[0 0 0]+0.6;
-flat_gs=[0 0 0]+0.5;
-% 
+
+
+% % greyscale
+% bigdown_gs=[0 0 0]+0.2;
+% down_gs=[0 0 0]+0.4;
+% bigup_gs=[0 0 0]+0.8;
+% up_gs=[0 0 0]+0.6;
+% flat_gs=[0 0 0]+0.5;
+ 
 % plot(ones(1,10)*3,'linewidth',2,'Color',[0 0 0]+bigup)
 % hold
 % axis([0 10 -5 5])

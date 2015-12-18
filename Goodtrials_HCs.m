@@ -46,58 +46,58 @@ nHCs=0;
 nHCs = nHCs + 1;
 patient_info{nHCs}.exprdir = 'HC01/expr2014.05.06.T12.36.43_mainrun/speak/';
 meanpitchtag(nHCs)=1;
-%  
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC02/expr2014.06.17.T12.53.53_mainrun/speak/';
-% meanpitchtag(nHCs)=2;
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC03/expr2014.06.17.T13.50.36_mainrun/speak/';
-% meanpitchtag(nHCs)=3;
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC04/expr2014.06.17.T16.22.20_mainrun/speak/';
-% meanpitchtag(nHCs)=4;
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC05/expr2014.06.18.T15.14.02_mainrun/speak/';
-% meanpitchtag(nHCs)=5;
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC06/expr2014.06.18.T16.18.27_mainrun/speak/';
-% meanpitchtag(nHCs)=6;
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC07/expr2014.07.25.T10.29.55_mainrun/speak/';
-% meanpitchtag(nHCs)=7;
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC08/expr2014.08.14.T15.57.52_mainrun/speak/';
-% meanpitchtag(nHCs)=8;
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC09/expr2014.09.21.T14.17.36_mainrun/speak/';
-% meanpitchtag(nHCs)=9;
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC10/expr2014.09.21.T15.35.54_JL_mainrun/speak/';
-% meanpitchtag(nHCs)=10;
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC11/expr2014.09.23.t15.27.32_sn_mainrun/speak/';
-% meanpitchtag(nHCs)=11;
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC12/expr2015.05.11.T11.18.14_mainrun/speak/';
-% meanpitchtag(nHCs)=12;
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC13/expr2015.05.11.T11.53.19_mainrun/speak/';
-% meanpitchtag(nHCs)=13;
-% 
-% nHCs = nHCs + 1;
-% patient_info{nHCs}.exprdir = 'HC14/expr2015.05.11.T12.28.56_mainrun/speak/';
-% meanpitchtag(nHCs)=14;
+ 
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC02/expr2014.06.17.T12.53.53_mainrun/speak/';
+meanpitchtag(nHCs)=2;
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC03/expr2014.06.17.T13.50.36_mainrun/speak/';
+meanpitchtag(nHCs)=3;
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC04/expr2014.06.17.T16.22.20_mainrun/speak/';
+meanpitchtag(nHCs)=4;
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC05/expr2014.06.18.T15.14.02_mainrun/speak/';
+meanpitchtag(nHCs)=5;
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC06/expr2014.06.18.T16.18.27_mainrun/speak/';
+meanpitchtag(nHCs)=6;
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC07/expr2014.07.25.T10.29.55_mainrun/speak/';
+meanpitchtag(nHCs)=7;
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC08/expr2014.08.14.T15.57.52_mainrun/speak/';
+meanpitchtag(nHCs)=8;
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC09/expr2014.09.21.T14.17.36_mainrun/speak/';
+meanpitchtag(nHCs)=9;
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC10/expr2014.09.21.T15.35.54_JL_mainrun/speak/';
+meanpitchtag(nHCs)=10;
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC11/expr2014.09.23.t15.27.32_sn_mainrun/speak/';
+meanpitchtag(nHCs)=11;
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC12/expr2015.05.11.T11.18.14_mainrun/speak/';
+meanpitchtag(nHCs)=12;
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC13/expr2015.05.11.T11.53.19_mainrun/speak/';
+meanpitchtag(nHCs)=13;
+
+nHCs = nHCs + 1;
+patient_info{nHCs}.exprdir = 'HC14/expr2015.05.11.T12.28.56_mainrun/speak/';
+meanpitchtag(nHCs)=14;
 
 originalFolder = pwd;
 
@@ -479,11 +479,18 @@ for isubj = 1:nHCs
             post_counter(each_block).data=0;
             
             for d=1:trialsperblock
+        %% AM HERE - DO I WANT TO SUBSTRACT F0 FROM TARGET OR OTHER WAY ROUND, OR USE CALC DIFF, OR AN ABOSLUTE VALUE?        
+                
                 data_7.pre_distfromtarget(each_block).data(d)=nanmean(data_6.prestep(each_block).data(d,:)) - nanmean(pre_target(each_block).data(d,:));
                 data_7.post_distfromtarget(each_block).data(d)=nanmean(data_6.poststep(each_block).data(d,:))- nanmean(post_target(each_block).data(d,:));
 
-                data_7.WT_distfromtarget(each_block).data(d,:)=data_6.goodpitchdata(each_block).data(d,:)- targets(1,:);
-                data_7.PRE_distfromtarget(each_block).data(d,:)=data_6.prestep(each_block).data(d,:)- pre_target(each_block).data(d,:);
+                
+%                calc_distance(data_6.goodpitchdata(each_block).data(d,:),WT_target(each_block).data(d,:)
+                
+                % ZED this is wrong, not taking right target
+                data_7.WT_distfromtarget(each_block).data(d,:)=data_6.goodpitchdata(each_block).data(d,:) - WT_target(each_block).data(d,:)
+                %data_7.WT_calc_distfromtarget(each_block).data(d,:)=calc_distance(data_6.goodpitchdata(each_block).data(d,:),WT_target(each_block).data(d,:));
+                data_7.PRE_distfromtarget(each_block).data(d,:)=data_6.prestep(each_block).data(d,:) - pre_target(each_block).data(d,:);
                 data_7.POST_distfromtarget(each_block).data(d,:)=data_6.poststep(each_block).data(d,:)- post_target(each_block).data(d,:);
                 
                 %if they don't hit the prestep target write nans into the whole trial and prestep data

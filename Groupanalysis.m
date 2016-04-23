@@ -29,33 +29,30 @@ load /Users/zagnew/Cereb_data/data_final_run/GroupData/GroupData.mat
 %% (1): Calculate the mean/average within trial stdevs for each condition for
 % patients and HCs
 % GroupData.WT_patC1_pre = the eight trials for eight subjects (raw stdev data)
-calcmeandata_1;
 
-%% (2) plot mean WT stdev by trial separately
-plotWTstdev_1;
+calcmeandata_1; 
 
 %% (3) plot mean WT stdev by trial separately - FINAL FIGURES
+% plotWTstdev_1;
 plot_mean_WTstd_final_1;
 
 anova_mean_WTstdev_final_1; % runs anova on individual subject means
+% gives two plots, one is 
+%p_interaction = anovan(anovandata_WTstdev,{group1 group2 group3},'model','interaction')
+%p_full = anovan(anovandata_WTstdev,{group1 group2 group3}, 'full')
 
 anova_mean_WTstdev_final_2; % runs anova on subject and patient group data
-
 
 %% (4) calc group distance from target and plots that
 calcmeandistfromtarg_1;
 
+load GROUPDATA;
+% output from Plot_groupdata first
+
+anova_distancefrommean;
+
 %% (3): STATS - Comparing within trial stdev for patients and HCs ttest
 run_ttests_1;
-
-
-
-
-
-
-
-
-
 
 %% (8) PLOT: clear vs noise - HCs
 fig5=figure
@@ -102,31 +99,6 @@ bar(2, Stdwithin_allnoisetrials_pats_post_data, 'y');
 axis([0 3 ymin ymax])
 title(sprintf('Patients stdev of pitch (post window)'));
 
-%STATS.stdwithin_allnoise_vs_clear_pats_post
-
 saveas(fig5, 'GROUP_meanstdev_noise_clear_HCs.jpg')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

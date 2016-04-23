@@ -3,6 +3,7 @@
 % dock all figures
 set(0,'DefaultFigureWindowStyle','docked');
 cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data_final_run/';
+stats_dir = '/Users/zagnew/Cereb_data/data_final_run/GroupData/stats/';
 
 %% EXPERIMENTAL INFO
 fs = 11025;     
@@ -73,11 +74,11 @@ T2secs_pat=(T2_pat)/frame_fs;
 T3secs_pat=(T3_pat)/frame_fs;
 T4secs_pat=(T4_pat)/frame_fs;
 
-T_gap_HC_pre=T3_HC-T2_HC;
-T_gap_pat_pre=T3_pat-T2_pat;
-
-T_gap_HC=T3_HC-T2_HC;
-T_gap_pat=T3_pat-T2_pat;
+% T_gap_HC_pre=T3_HC-T2_HC;
+% T_gap_pat_pre=T3_pat-T2_pat;
+% 
+% T_gap_HC=T3_HC-T2_HC;
+% T_gap_pat=T3_pat-T2_pat;
 
 
 step_secs=(stepframe)/frame_fs;
@@ -88,18 +89,16 @@ stop=T(2)/frame_fs;
  
 %% SUBJECTS TO INCLUDE
 %assessed Oct 2015 (WORKS)
-  %subjects_included= [1 4 5 6 8 10 11 14];
-  patients_included=[1 5 8 9 10 12 13 14 15 16];
+   subjects_included= [1 4 5 6 8 10 11 14];
+   patients_included=[1 5 8 9 10 12 13 14 15 16];
   
   % HCS
   % bad [2 3 7 9 13]
   % 12 is ok but makes it look a bit worse..
-  subjects_included= [1 4 5 6 8 10 11 14];
-  patients_included=[1 5 8 9 10 12 13 14 15 16];
-  %patients_included= [1:16];
 
-%  subjects_included= [1 4 5 6 8 10 11 14];
-%  patients_included=[1:16];
+% patients_included= [1:16];
+
+%subjects_included= [1:14];
 
 % original
 %  subjects_included= [1 6 10 11];
@@ -133,21 +132,38 @@ reactiontime_frames=200;
 % stdev_cutoff_post_amp_HCs= 500000000;
 % stdev_cutoff_wholetrial_amp_HCs= 500000000;
 
-stdev_cutoff_pre_pats= 63.1873;
-stdev_cutoff_post_pats= 59.3270;
-stdev_cutoff_wholetrial_pats= 226.7540;
 
-stdev_cutoff_pre_HCs= 28.9399;
-stdev_cutoff_post_HCs= 23.4410;
-stdev_cutoff_wholetrial_HCs= 139.7333;
+stdev_cutoff_pre_pats= 58.8452;
+stdev_cutoff_post_pats= 56.3249;
+stdev_cutoff_wholetrial_pats= 222.4990;
 
-stdev_cutoff_pre_amp_pats= 1.1910e+08;
-stdev_cutoff_post_amp_pats=  9.0705e+07;
-stdev_cutoff_wholetrial_amp_pats= 226.7540;
- 
-stdev_cutoff_pre_amp_HCs= 1.3881e+08;
-stdev_cutoff_post_amp_HCs= 1.0684e+08;
-stdev_cutoff_wholetrial_amp_HCs= 4.2688e+08;
+stdev_cutoff_pre_HCs= 38.5696;
+stdev_cutoff_post_HCs= 29.5519;
+stdev_cutoff_wholetrial_HCs= 151.8048;
+
+stdev_cutoff_pre_amp_pats= 8.1437e+07;
+stdev_cutoff_post_amp_pats= 5.9068e+07;
+stdev_cutoff_wholetrial_amp_pats= 222.4990;
+    
+stdev_cutoff_pre_amp_HCs=1.0354e+08;
+stdev_cutoff_post_amp_HCs= 6.2216e+07;
+stdev_cutoff_wholetrial_amp_HCs= NaN;
+
+% stdev_cutoff_pre_pats= 63.1873;
+% stdev_cutoff_post_pats= 59.3270;
+% stdev_cutoff_wholetrial_pats= 226.7540;
+% 
+% stdev_cutoff_pre_HCs= 28.9399;
+% stdev_cutoff_post_HCs= 23.4410;
+% stdev_cutoff_wholetrial_HCs= 139.7333;
+% 
+% stdev_cutoff_pre_amp_pats= 1.1910e+08;
+% stdev_cutoff_post_amp_pats=  9.0705e+07;
+% stdev_cutoff_wholetrial_amp_pats= 226.7540;
+%  
+% stdev_cutoff_pre_amp_HCs= 1.3881e+08;
+% stdev_cutoff_post_amp_HCs= 1.0684e+08;
+% stdev_cutoff_wholetrial_amp_HCs= 4.2688e+08;
 
 
 perf_thresh_pos=100;
@@ -201,20 +217,6 @@ forstdev_PATs=numpats*8;
 % flat_gs='k';
 
 z_colours;
-bigup_gs=navy;
-up_gs=skyblue;
-flat_gs=[0 0 0 ];
-down_gs=mustard;
-bigdown_gs= bloodred;
- 
-pat_colour=navy;
-hc_colour=bloodred;
-
-clear_colour=skyblue;
-masked_colour=navy;
-
-
-
 
 % % greyscale
 % bigdown_gs=[0 0 0]+0.2;
@@ -231,14 +233,10 @@ masked_colour=navy;
 % plot(ones(1,10)*-1,'linewidth',2,'Color',[0 0 0]+bigdown)
 % plot(ones(1,10)*-2,'linewidth',2,'Color',[0 0 0]+down)
 
-
-
 %% Useful notes
-
 % frame to seconds
-% frame_num=413;
-% frame_num=50;
-% framestosecs=(frame_num)/frame_fs;
+ frame_num=413;
+ framestosecs=(frame_num)/frame_fs;
 
 %% Experimental info for reference:
 % http://members.efn.org/~qehn/global/building/cents.htm

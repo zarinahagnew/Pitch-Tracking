@@ -46,58 +46,58 @@ nHCs=0;
 nHCs = nHCs + 1;
 patient_info{nHCs}.exprdir = 'HC01/expr2014.05.06.T12.36.43_mainrun/speak/';
 meanpitchtag(nHCs)=1;
- 
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC02/expr2014.06.17.T12.53.53_mainrun/speak/';
-meanpitchtag(nHCs)=2;
-
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC03/expr2014.06.17.T13.50.36_mainrun/speak/';
-meanpitchtag(nHCs)=3;
-
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC04/expr2014.06.17.T16.22.20_mainrun/speak/';
-meanpitchtag(nHCs)=4;
-
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC05/expr2014.06.18.T15.14.02_mainrun/speak/';
-meanpitchtag(nHCs)=5;
-
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC06/expr2014.06.18.T16.18.27_mainrun/speak/';
-meanpitchtag(nHCs)=6;
-
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC07/expr2014.07.25.T10.29.55_mainrun/speak/';
-meanpitchtag(nHCs)=7;
-
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC08/expr2014.08.14.T15.57.52_mainrun/speak/';
-meanpitchtag(nHCs)=8;
-
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC09/expr2014.09.21.T14.17.36_mainrun/speak/';
-meanpitchtag(nHCs)=9;
-
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC10/expr2014.09.21.T15.35.54_JL_mainrun/speak/';
-meanpitchtag(nHCs)=10;
-
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC11/expr2014.09.23.t15.27.32_sn_mainrun/speak/';
-meanpitchtag(nHCs)=11;
-
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC12/expr2015.05.11.T11.18.14_mainrun/speak/';
-meanpitchtag(nHCs)=12;
-
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC13/expr2015.05.11.T11.53.19_mainrun/speak/';
-meanpitchtag(nHCs)=13;
-
-nHCs = nHCs + 1;
-patient_info{nHCs}.exprdir = 'HC14/expr2015.05.11.T12.28.56_mainrun/speak/';
-meanpitchtag(nHCs)=14;
+%  
+% nHCs = nHCs + 1;
+% patient_info{nHCs}.exprdir = 'HC02/expr2014.06.17.T12.53.53_mainrun/speak/';
+% meanpitchtag(nHCs)=2;
+% 
+% nHCs = nHCs + 1;
+% patient_info{nHCs}.exprdir = 'HC03/expr2014.06.17.T13.50.36_mainrun/speak/';
+% meanpitchtag(nHCs)=3;
+% 
+% nHCs = nHCs + 1;
+% patient_info{nHCs}.exprdir = 'HC04/expr2014.06.17.T16.22.20_mainrun/speak/';
+% meanpitchtag(nHCs)=4;
+% 
+% nHCs = nHCs + 1;
+% patient_info{nHCs}.exprdir = 'HC05/expr2014.06.18.T15.14.02_mainrun/speak/';
+% meanpitchtag(nHCs)=5;
+% 
+% nHCs = nHCs + 1;
+% patient_info{nHCs}.exprdir = 'HC06/expr2014.06.18.T16.18.27_mainrun/speak/';
+% meanpitchtag(nHCs)=6;
+% 
+% nHCs = nHCs + 1;
+% patient_info{nHCs}.exprdir = 'HC07/expr2014.07.25.T10.29.55_mainrun/speak/';
+% meanpitchtag(nHCs)=7;
+% 
+% nHCs = nHCs + 1;
+% patient_info{nHCs}.exprdir = 'HC08/expr2014.08.14.T15.57.52_mainrun/speak/';
+% meanpitchtag(nHCs)=8;
+% 
+% nHCs = nHCs + 1;
+% patient_info{nHCs}.exprdir = 'HC09/expr2014.09.21.T14.17.36_mainrun/speak/';
+% meanpitchtag(nHCs)=9;
+% 
+% nHCs = nHCs + 1;
+% patient_info{nHCs}.exprdir = 'HC10/expr2014.09.21.T15.35.54_JL_mainrun/speak/';
+% meanpitchtag(nHCs)=10;
+% 
+% nHCs = nHCs + 1;
+% patient_info{nHCs}.exprdir = 'HC11/expr2014.09.23.t15.27.32_sn_mainrun/speak/';
+% meanpitchtag(nHCs)=11;
+% 
+% nHCs = nHCs + 1;
+% patient_info{nHCs}.exprdir = 'HC12/expr2015.05.11.T11.18.14_mainrun/speak/';
+% meanpitchtag(nHCs)=12;
+% 
+% nHCs = nHCs + 1;
+% patient_info{nHCs}.exprdir = 'HC13/expr2015.05.11.T11.53.19_mainrun/speak/';
+% meanpitchtag(nHCs)=13;
+% 
+% nHCs = nHCs + 1;
+% patient_info{nHCs}.exprdir = 'HC14/expr2015.05.11.T12.28.56_mainrun/speak/';
+% meanpitchtag(nHCs)=14;
 
 originalFolder = pwd;
 
@@ -337,11 +337,10 @@ for isubj = 1:nHCs
                         data_5.goodpitchdata(each_block).data(d,iframe)=NaN;
                         data_5.goodpitchdata_normbytrial(each_block).data(d,iframe)=NaN;
                     else
-% cents is calculated using the mean pitch in the production experiement
-                        
+% cents is calculated using the mean pitch in the production experiment    
                         data_5.goodpitchdata(each_block).data(d,iframe)=1200*log2(data_4.goodpitchdata(each_block).data(d,iframe)/subj_MP_allsubs_HC(meanpitchtag(isubj)).meanpitch);
-                        
-% cents is calculated by trial
+
+% cents is calculated by trial mean
                         data_5.goodpitchdata_normbytrial(each_block).data(d,iframe)=1200*log2(data_4.goodpitchdata(each_block).data(d,iframe)/nanmean(data_4.goodpitchdata(each_block).data(d,T1_HC:T2_HC)));
                     end
                 end
@@ -428,7 +427,7 @@ for isubj = 1:nHCs
                     pre_target_cents(each_block).data(d,:)= 0;
                     post_target_cents(each_block).data(d,:)=100;
                     
-                elseif blockcondname(each_block,d)==2 | blockcondname(each_block,d)==7
+                elseif blockcondname(each_block,d)==2 || blockcondname(each_block,d)==7
 %                     pre_target(each_block).data(d)= shiftinhertz_allsubs(isubj).nostep;
 %                     post_target(each_block).data(d)=shiftinhertz_allsubs(isubj).bigstepup;
 %                     pre_target_cents(each_block).data(d)= 0;
@@ -438,7 +437,7 @@ for isubj = 1:nHCs
                     post_target(each_block).data(d,:)= pre_target(each_block).data(d,:)*300;
                     WT_target(each_block).data(d,:)=bigup;
 
-                elseif blockcondname(each_block,d)==3 | blockcondname(each_block,d)==8
+                elseif blockcondname(each_block,d)==3 || blockcondname(each_block,d)==8
 %                     pre_target(each_block).data(d)= shiftinhertz_allsubs(isubj).nostep;
 %                     post_target(each_block).data(d)=shiftinhertz_allsubs(isubj).nostep;
 %                     pre_target_cents(each_block).data(d)= 0;
@@ -448,7 +447,7 @@ for isubj = 1:nHCs
                     post_target(each_block).data(d,:)= pre_target(each_block).data(d,:);
                     WT_target(each_block).data(d,:)=nostep;                    
                     
-                elseif blockcondname(each_block,d)==4 | blockcondname(each_block,d)==9
+                elseif blockcondname(each_block,d)==4 || blockcondname(each_block,d)==9
 %                     pre_target(each_block).data(d)= shiftinhertz_allsubs(isubj).nostep;
 %                     post_target(each_block).data(d)=shiftinhertz_allsubs(isubj).smallstepdown;
 %                     pre_target_cents(each_block).data(d)= 0;
@@ -456,16 +455,16 @@ for isubj = 1:nHCs
  
                     pre_target(each_block).data(d,:)= zeros(1,201);
                     post_target(each_block).data(d,:)= pre_target(each_block).data(d,:)*-100;
-                    WT_target(each_block).data(d,:)=smallup;                    
+                    WT_target(each_block).data(d,:)=smalldown;                    
                     
-                elseif blockcondname(each_block,d)==5 | blockcondname(each_block,d)==10
+                elseif blockcondname(each_block,d)==5 || blockcondname(each_block,d)==10
 %                     pre_target(each_block).data(d)= shiftinhertz_allsubs(isubj).nostep;
 %                     post_target(each_block).data(d)=shiftinhertz_allsubs(isubj).bigstepdown;
 %                     pre_target_cents(each_block).data(d)= 0;
 %                     post_target_cents(each_block).data(d)=-300;
                     pre_target(each_block).data(d,:)= zeros(1,201);
                     post_target(each_block).data(d,:)= pre_target(each_block).data(d,:)*-300;
-                    WT_target(each_block).data(d,:)=bigup;                                        
+                    WT_target(each_block).data(d,:)=bigdown;                                        
                 else
                     error('something wrong with condition orders..')
                 end
@@ -473,25 +472,17 @@ for isubj = 1:nHCs
         end
 
         %% calculate distance from the target in cents
+        % normalised to zero by dividing by         
         data_7=data_6; % data_7 pitch in cents with motor performance removed
         for each_block=1:num_blocks;
             pre_counter(each_block).data=0;
-            post_counter(each_block).data=0;
-            
+            post_counter(each_block).data=0;            
             for d=1:trialsperblock
-        %% AM HERE - DO I WANT TO SUBSTRACT F0 FROM TARGET OR OTHER WAY ROUND, OR USE CALC DIFF, OR AN ABOSLUTE VALUE?        
-                
                 data_7.pre_distfromtarget(each_block).data(d)=nanmean(data_6.prestep(each_block).data(d,:)) - nanmean(pre_target(each_block).data(d,:));
                 data_7.post_distfromtarget(each_block).data(d)=nanmean(data_6.poststep(each_block).data(d,:))- nanmean(post_target(each_block).data(d,:));
-
-                
-%                calc_distance(data_6.goodpitchdata(each_block).data(d,:),WT_target(each_block).data(d,:)
-                
-                % ZED this is wrong, not taking right target
-                data_7.WT_distfromtarget(each_block).data(d,:)=data_6.goodpitchdata(each_block).data(d,:) - WT_target(each_block).data(d,:)
-                %data_7.WT_calc_distfromtarget(each_block).data(d,:)=calc_distance(data_6.goodpitchdata(each_block).data(d,:),WT_target(each_block).data(d,:));
-                data_7.PRE_distfromtarget(each_block).data(d,:)=data_6.prestep(each_block).data(d,:) - pre_target(each_block).data(d,:);
-                data_7.POST_distfromtarget(each_block).data(d,:)=data_6.poststep(each_block).data(d,:)- post_target(each_block).data(d,:);
+                data_7.WT_distfromtarget(each_block).data(d,:)=calc_distance(data_6.goodpitchdata(each_block).data(d,:), WT_target(each_block).data(d,:));
+                data_7.PRE_distfromtarget(each_block).data(d,:)=calc_distance(data_6.prestep(each_block).data(d,:), pre_target(each_block).data(d,:));
+                data_7.POST_distfromtarget(each_block).data(d,:)=calc_distance(data_6.poststep(each_block).data(d,:), post_target(each_block).data(d,:));
                 
                 %if they don't hit the prestep target write nans into the whole trial and prestep data
                 if data_7.pre_distfromtarget(each_block).data(d)> perf_thresh_pos_cents || data_7.pre_distfromtarget(each_block).data(d)<perf_thresh_neg_cents
@@ -519,19 +510,18 @@ for isubj = 1:nHCs
             end
         end
         
-        
         %% calculate WT devs for each subject
         for each_block=1:num_blocks;
             for d=1:trialsperblock
                 data_7.WTstd(each_block).wholetrial(d)=nanstd(data_7.goodpitchdata_normbytrial(each_block).data(d,:));          % within trial stdev
-                data_7.WTstd(each_block).prestep(d)=nanstd(data_7(1).prestep_normbytrial(each_block).data(d,:));          % within trial stdev
+                data_7.WTstd(each_block).prestep(d)=nanstd(data_7.prestep_normbytrial(each_block).data(d,:));          % within trial stdev
                 data_7.WTstd(each_block).poststep(d)=nanstd(data_7.poststep_normbytrial(each_block).data(d,:));          % within trial stdev
                 data_7.wholetrial_WTstd_amp(each_block).wholetrial(d)=nanstd(data_7.goodampdata(each_block).wholetrial_amp(d,:));          % within trial stdev
                 data_7.prestep_WTstd_amp(each_block).wholetrial(d)=nanstd(data_7.goodampdata(each_block).prestep_amp(d,:));          % within trial stdev
                 data_7.proststep_WTstd_amp(each_block).wholetrial(d)=nanstd(data_7.goodampdata(each_block).poststep_amp(d,:));          % within trial stdev
                 data_7.WTstd_cents(each_block).wholetrial(d)=nanstd(data_7.goodpitchdata(each_block).data(d,:));          % within trial stdev
-                data_7.WTstd_cents(each_block).prestep(d)=nanstd(data_7(1).goodpitchdata(each_block).prestep_data(d,:));          % within trial stdev
-                data_7.WTstd_cents(each_block).poststep(d)=nanstd(data_7(1).goodpitchdata(each_block).poststep_data(d,:));          % within trial stdev
+                data_7.WTstd_cents(each_block).prestep(d)=nanstd(data_7.goodpitchdata(each_block).prestep_data(d,:));          % within trial stdev
+                data_7.WTstd_cents(each_block).poststep(d)=nanstd(data_7.goodpitchdata(each_block).poststep_data(d,:));          % within trial stdev
                 
             end
         end
@@ -564,7 +554,7 @@ for isubj = 1:nHCs
                     gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:)=nan(1, numframes_data);
                 else
                     lowpassdata(1).goodpitchdata(each_block).data(itrial,:)=lowpass(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata), 0.01, 3);
-                    gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:)=calc_distance(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata), lowpassdata(1).goodpitchdata(each_block).data(itrial,:))
+                    gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:)=calc_distance(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata), lowpassdata(1).goodpitchdata(each_block).data(itrial,:));
                     gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:)=abs(gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:));
                 end
             end
@@ -630,7 +620,33 @@ cd ..
 %
 
 
+%% debugging calc dist
 
+iblock=2
+clf
+for itrial=1:10
+subplot(311)
+plot(data_6.goodpitchdata(iblock).data(itrial,:))
+hold
+plot( WT_target(iblock).data(itrial,:),'m')
+axis([0 1360 -300 400])
+goodplot
+subplot(312)
+plot(calc_distance(data_6.goodpitchdata(iblock).data(itrial,:), WT_target(iblock).data(itrial,:)));
+hold
+plot(data_7.WT_distfromtarget(iblock).data(itrial,:), 'm')
+axis([0 1360 -300 400])
+goodplot
+subplot(313)
+plot(calc_distance(gooddata.goodpitchdata(iblock).data(itrial,:), WT_target(iblock).data(itrial,:)));
+hold
+plot(gooddata.WT_distfromtarget(iblock).data(itrial,:), 'm')
+axis([0 1360 -300 400])
+goodplot
+pause
+clf
+
+end
 
 
 

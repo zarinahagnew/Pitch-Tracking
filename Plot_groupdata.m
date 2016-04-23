@@ -210,12 +210,14 @@ print(gcf, '-dpdf', '-r150', '/Users/zagnew/Cereb_data/data_final_run/figures/Gr
 
 figure
 for trial=1:10
-plot(frame_taxis(1:1111),pats_WT(trial,250:end), 'Color',[down_gs],'LineWidth',1.3);
+%plot(frame_taxis(1:1111),pats_WT(trial,250:end), 'Color',[bigup_gs],'LineWidth',1.3);
+plot(frame_taxis(1:1111),pats_WT(trial,250:end),'Color',[0.3 0.3 0.3],'LineWidth',1.3);
 hold on
 lowpass_pats_WT(trial,:)=lowpass(pats_WT(trial,250:end), 0.01, 3);
-plot(frame_taxis(1:1111),lowpass(pats_WT(trial,250:end), 0.01, 3),'m','LineWidth',1);
+plot(frame_taxis(1:1111),lowpass(pats_WT(trial,250:end), 0.01, 3), 'Color',[bigdown_gs],'LineWidth',1);
 goodplot
 end
+
 print(gcf, '-dpdf', '-r150', '/Users/zagnew/Cereb_data/data_final_run/figures/Group Means with low pass filter.pdf');
 
 %% Distance from low pass filter example
@@ -251,30 +253,55 @@ print(gcf, '-dpdf', '-r150', '/Users/zagnew/Cereb_data/data_final_run/figures/di
 
 
 %% plot distance from target
-
 figure
-for trial=1:10
+for trial=1:5
     subplot(2,5,trial)
     distfromtarg_pats_WT(trial,:)=calc_distance(targets(trial,250:end),pats_WT(trial,250:end));
     distfromtarg_HCs_WT(trial,:)=calc_distance(targets(trial,250:end),HCs_WT(trial,250:end));
     
-    %plot(frame_taxis(1:1111),distfromtarg_pats_WT(trial,:),'Color',[bigdown_gs],'LineWidth',1.3);
     h=area(frame_taxis(1:1111),distfromtarg_pats_WT(trial,:),'LineStyle',':');
     set(h,'FaceColor',[pat_colour], 'LineStyle','-','EdgeColor',[pat_colour]);
-    
+    % set(h,'FaceColor','c', 'LineStyle','-','EdgeColor','c');
+
     hold 
-    %plot(frame_taxis(1:1111),distfromtarg_HCs_WT(trial,:),'Color',[bigup_gs],'LineWidth',1.3);
-    h=area(frame_taxis(1:1111),distfromtarg_HCs_WT(trial,:),'LineStyle',':');
+    h=area(frame_taxis(1:1111),distfromtarg_HCs_WT(trial,:),'LineStyle','-');
     set(h,'FaceColor',[hc_colour], 'LineStyle','-','EdgeColor',[hc_colour]);
+    % set(h,'FaceColor','k', 'LineStyle','-','EdgeColor','k');
+    
     goodplot_wide
     axis([0 3.5 0 400])
 end
-print(gcf, '-dpdf', '-r150', '/Users/zagnew/Cereb_data/data_final_run/figures/distance from targets.pdf');
+
+for trial=6:10
+    subplot(2,5,trial)
+    distfromtarg_pats_WT(trial,:)=calc_distance(targets(trial,250:end),pats_WT(trial,250:end));
+    distfromtarg_HCs_WT(trial,:)=calc_distance(targets(trial,250:end),HCs_WT(trial,250:end));
+    
+    h=area(frame_taxis(1:1111),distfromtarg_pats_WT(trial,:),'LineStyle',':');
+    %set(h,'FaceColor',[pat_colour], 'LineStyle','-','EdgeColor',[pat_colour]);
+    set(h,'FaceColor',[1 1 1], 'LineWidth',1.5,'LineStyle','-','EdgeColor',[pat_colour]);
+
+    hold 
+    h=area(frame_taxis(1:1111),distfromtarg_HCs_WT(trial,:),'LineStyle','-');
+    %set(h,'FaceColor',[hc_colour], 'LineStyle','-','EdgeColor',[hc_colour]);
+    set(h,'FaceColor',[1 1 1],'LineWidth',1.5, 'LineStyle','-','EdgeColor',[hc_colour]);
+    goodplot_wide
+    axis([0 3.5 0 400])
+end
+
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Cereb_data/data_final_run/figures/distance_from_targets.pdf');
 
 
-% bar graph
+%% anova on distance data
 
 
+% ttest for each plot
+% 
+% for i=1:length*distfromtarg_pats_WT(trial,:))
+%     ttest2(distfromtarg_pats_WT(1,i),(distfromtarg_HCs_WT(1,i)) 
+
+
+%% plot bar graph
 hc_clear=nanmean([distfromtarg_HCs_WT(1,:) distfromtarg_HCs_WT(2,:) ...
           distfromtarg_HCs_WT(3,:) distfromtarg_HCs_WT(4,:) distfromtarg_HCs_WT(5,:)]);
 hc_noise=nanmean([distfromtarg_HCs_WT(6,:) distfromtarg_HCs_WT(7,:) ...
@@ -293,7 +320,7 @@ pat_clear_std= nanstd([distfromtarg_pats_WT(1,:)  distfromtarg_pats_WT(2,:) ...
 pat_noise_std=nanstd([distfromtarg_pats_WT(6,:) distfromtarg_pats_WT(7,:) ...
           distfromtarg_pats_WT(8,:) distfromtarg_pats_WT(9,:) distfromtarg_pats_WT(10,:)]);
 
-
+%% distance from target
 figure
 whitebg('white')
 meandist= [hc_clear hc_noise; pat_clear pat_noise]
@@ -305,7 +332,6 @@ set(h(1),'FaceColor',hc_colour,'EdgeColor', hc_colour ,'LineWidth',1.2);
 set(h(2),'FaceColor',pat_colour,'EdgeColor', pat_colour ,'LineWidth',1.2);
 
 print(gcf, '-dpdf', '-r150', '/Users/zagnew/Cereb_data/data_final_run/figures/MeanDistfromtarg.pdf');
-
 
 % and the bar graph
 figure
@@ -348,33 +374,36 @@ print(gcf, '-dpdf', '-r150', '/Users/zagnew/Cereb_data/data_final_run/figures/Gr
 %% pre and post windows
 figure
 subplot(221)
-plot(nanmean(HCs_pre(1:5,:)), 'k','LineWidth',1.2);
+plot(nanmean(HCs_pre(1:5,:)),'Color',[bigdown_gs],'LineWidth',1.2);
 hold
-plot(nanmean(HCs_pre(6:10,:)), 'm','LineWidth',1.2);
+plot(nanmean(HCs_pre(6:10,:)),'Color',[bigup_gs],'LineWidth',1.2);
 goodplot
 axis([0 400 -160 -70])
 
 subplot(222)
-plot(nanmean(HCs_post(1:5,:)), 'k','LineWidth',1.2);
+plot(nanmean(HCs_post(1:5,:)),'Color',[bigdown_gs],'LineWidth',1.2);
 hold
-plot(nanmean(HCs_post(6:10,:)), 'm','LineWidth',1.2);
+plot(nanmean(HCs_post(6:10,:)),'Color',[bigup_gs],'LineWidth',1.2);
 goodplot
 axis([0 400 -160 -70])
 
 subplot(223)
-plot(nanmean(pats_pre(1:5,:)), 'k','LineWidth',1.2);
+plot(nanmean(pats_pre(1:5,:)),'Color',[bigdown_gs],'LineWidth',1.2);
 hold
-plot(nanmean(pats_pre(6:10,:)), 'm','LineWidth',1.2);
+plot(nanmean(pats_pre(6:10,:)),'Color',[bigup_gs],'LineWidth',1.2);
 goodplot
-axis([0 400 -160 -70])
+axis([0 400 60 90])
 
 
 subplot(224)
-plot(nanmean(pats_post(1:5,:)), 'k','LineWidth',1.2);
+plot(nanmean(pats_post(1:5,:)),'Color',[bigdown_gs],'LineWidth',1.2);
 hold
-plot(nanmean(pats_post(6:10,:)), 'm','LineWidth',1.2);
+plot(nanmean(pats_post(6:10,:)),'Color',[bigup_gs],'LineWidth',1.2);
 goodplot
-axis([0 400 -160 -70])
+axis([0 400 80 130])
+
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Cereb_data/data_final_run/figures/WTSTdev_preandpsot_bar_final.pdf');
+
 
 %% plot patients and controls pitch variability on same graph
 figure
@@ -390,38 +419,9 @@ end
 cd(cerebellar_data_rootdir)
 save('GROUPDATA')
 
+%Run stats on distancefrommean data
+anova_distancefrommean;
 
 
-
-
-% 
-% 
-% %% (3) Normalise all trials to the mean pitch from previous experiment: subj_MP_allsubs
-% for i=1:nframes_to_use
-%      zscorenorm_GroupMean_HCs_cond1(:,i) = (HCs_WT(1,:) - nanmean(HCs_WT(1,T1_HC:T2_HC)))/nanstd(HCs_WT(1,T1_HC:T2_HC));
-%      % 175Hz 
-%      zscorenorm_GroupMean_HCs_cond2(:,i) = (HCs_WT(2,:) - nanmean(HCs_WT(2,T1_HC:T2_HC)))/nanstd(HCs_WT(2,T1_HC:T2_HC));
-%      zscorenorm_GroupMean_HCs_cond3(:,i) = (HCs_WT(3,:) - nanmean(HCs_WT(3,T1_HC:T2_HC)))/nanstd(HCs_WT(3,T1_HC:T2_HC));
-%      zscorenorm_GroupMean_HCs_cond4(:,i) = (HCs_WT(4,:) - nanmean(HCs_WT(4,T1_HC:T2_HC)))/nanstd(HCs_WT(4,T1_HC:T2_HC));
-%      zscorenorm_GroupMean_HCs_cond5(:,i) = (HCs_WT(5,:) - nanmean(HCs_WT(5,T1_HC:T2_HC)))/nanstd(HCs_WT(5,T1_HC:T2_HC));
-%      zscorenorm_GroupMean_HCs_cond6(:,i) = (HCs_WT(6,:) - nanmean(HCs_WT(6,T1_HC:T2_HC)))/nanstd(HCs_WT(6,T1_HC:T2_HC));
-%      zscorenorm_GroupMean_HCs_cond7(:,i) = (HCs_WT(7,:) - nanmean(HCs_WT(7,T1_HC:T2_HC)))/nanstd(HCs_WT(7,T1_HC:T2_HC));
-%      zscorenorm_GroupMean_HCs_cond8(:,i) = (HCs_WT(8,:) - nanmean(HCs_WT(8,T1_HC:T2_HC)))/nanstd(HCs_WT(8,T1_HC:T2_HC));
-%      zscorenorm_GroupMean_HCs_cond9(:,i) = (HCs_WT(9,:) - nanmean(HCs_WT(9,T1_HC:T2_HC)))/nanstd(HCs_WT(9,T1_HC:T2_HC));
-%      zscorenorm_GroupMean_HCs_cond10(:,i) = (HCs_WT(10,:) - nanmean(HCs_WT(10,T1_HC:T2_HC)))/nanstd(HCs_WT(10,T1_HC:T2_HC));
-% 
-% 
-%      zscorenorm_GroupMean_pats_cond1(:,i) = (pats_WT(1,:) - nanmean(pats_WT(1,T1_pat:T2_pat)))/nanstd(pats_WT(1,T1_pat:T2_pat));
-%      zscorenorm_GroupMean_pats_cond2(:,i) = (pats_WT(2,:) - nanmean(pats_WT(2,T1_pat:T2_pat)))/nanstd(pats_WT(2,T1_pat:T2_pat));
-%      zscorenorm_GroupMean_pats_cond3(:,i) = (pats_WT(3,:) - nanmean(pats_WT(3,T1_pat:T2_pat)))/nanstd(pats_WT(3,T1_pat:T2_pat));
-%      zscorenorm_GroupMean_pats_cond4(:,i) = (pats_WT(4,:) - nanmean(pats_WT(4,T1_pat:T2_pat)))/nanstd(pats_WT(4,T1_pat:T2_pat));
-%      zscorenorm_GroupMean_pats_cond5(:,i) = (pats_WT(5,:) - nanmean(pats_WT(5,T1_pat:T2_pat)))/nanstd(pats_WT(5,T1_pat:T2_pat));
-%      zscorenorm_GroupMean_pats_cond6(:,i) = (pats_WT(6,:) - nanmean(pats_WT(6,T1_pat:T2_pat)))/nanstd(pats_WT(6,T1_pat:T2_pat));
-%      zscorenorm_GroupMean_pats_cond7(:,i) = (pats_WT(7,:) - nanmean(pats_WT(7,T1_pat:T2_pat)))/nanstd(pats_WT(7,T1_pat:T2_pat));
-%      zscorenorm_GroupMean_pats_cond8(:,i) = (pats_WT(8,:) - nanmean(pats_WT(8,T1_pat:T2_pat)))/nanstd(pats_WT(8,T1_pat:T2_pat));
-%      zscorenorm_GroupMean_pats_cond9(:,i) = (pats_WT(9,:) - nanmean(pats_WT(9,T1_pat:T2_pat)))/nanstd(pats_WT(9,T1_pat:T2_pat));
-%      zscorenorm_GroupMean_pats_cond10(:,i) = (pats_WT(10,:) - nanmean(pats_WT(10,T1_pat:T2_pat)))/nanstd(pats_WT(10,T1_pat:T2_pat));
-%          
-% end
 
 

@@ -1,8 +1,11 @@
 %% (1) writes each persons data into a single matrix for each condition --------
+
 for ipat=1:numpats
     group_cond1_pats(ipat,:)=DATA(ipat).mean_cond1_wholetrial(1,:);
     group_cond1_pats_pre(ipat,:)=DATA(ipat).mean_cond1_pre(1,:); 
     group_cond1_pats_post(ipat,:)=DATA(ipat).mean_cond1_post(1,:); 
+    % 
+    group_cond1_distfromtarg(ipat,:)=DATA(ipat).cond(1).distfromtarg_WT(1,:);
     
     group_cond2_pats(ipat,:)=DATA(ipat).mean_cond2_wholetrial(1,:);
     group_cond2_pats_pre(ipat,:)=DATA(ipat).mean_cond2_pre(1,:);
@@ -151,18 +154,6 @@ end
     HCs_post(8,:)=nanmean(group_cond8_HCs_post);
     HCs_post(9,:)=nanmean(group_cond9_HCs_post);
     HCs_post(10,:)=nanmean(group_cond10_HCs_post);
-
-    
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 % stds 
     pats_WT_std(1,:)=nanstd(group_cond1_pats);
@@ -231,9 +222,6 @@ end
     HCs_post_std(8,:)=nanstd(group_cond8_HCs_post);
     HCs_post_std(9,:)=nanstd(group_cond9_HCs_post);
     HCs_post_std(10,:)=nanstd(group_cond10_HCs_post);
-
-
-    
     
 %% put into one matrix
     pats_WT_sem(1,:)=nanstd(group_cond1_pats)/sqrt(numpats);
@@ -247,8 +235,6 @@ end
     pats_WT_sem(9,:)=nanstd(group_cond9_pats)/sqrt(numpats);
     pats_WT_sem(10,:)=nanstd(group_cond10_pats)/sqrt(numpats);
    
-
-    
     pats_WT_sem(1,:)=nanstd(group_cond1_pats)/sqrt(numpats);
     pats_WT_sem(2,:)=nanstd(group_cond2_pats)/sqrt(numpats);
     pats_WT_sem(3,:)=nanstd(group_cond3_pats)/sqrt(numpats);
@@ -260,14 +246,6 @@ end
     pats_WT_sem(9,:)=nanstd(group_cond9_pats)/sqrt(numpats);
     pats_WT_sem(10,:)=nanstd(group_cond10_pats)/sqrt(numpats);
    
-    
-    
-    
-    
-    
-    
-    
-    
     pats_pre(1,:)=nanstd(group_cond1_pats_pre)/sqrt(numpats);
     pats_pre(2,:)=nanstd(group_cond2_pats_pre)/sqrt(numpats);
     pats_pre(3,:)=nanstd(group_cond3_pats_pre)/sqrt(numpats);
@@ -323,11 +301,7 @@ end
     HCs_post_sem(9,:)=nanstd(group_cond9_HCs_post)/sqrt(numHCs);
     HCs_post_sem(10,:)=nanstd(group_cond10_HCs_post)/sqrt(numHCs);
     
-    
-    
     %% sems
-   
-    
     for isub=1:10
     pats_WT_posSEM(isub,:)=pats_WT(isub,:)+pats_WT_std(isub,:)/sqrt(numpats);
     pats_WT_negSEM(isub,:)=pats_WT(isub,:)-pats_WT_std(isub,:)/sqrt(numpats);
@@ -337,7 +311,6 @@ end
     HCs_WT_posSEM(isub,:)=HCs_WT(isub,:)+HCs_WT_std(isub,:)/sqrt(numHCs);
     HCs_WT_negSEM(isub,:)=HCs_WT(isub,:)-HCs_WT_std(isub,:)/sqrt(numHCs);
     end
-    
     
 %% FINAL FIGURES 
 HC.cond(1,:)=HCs_WT(1,250:end);
@@ -370,7 +343,7 @@ for moo=1:10
     PAT.variability_cond(moo,:)=calc_distance(PAT.cond(moo,:), PAT.lowpass_cond(moo,:));
 end
 
-%% plot bar graph of pitch variability
+%% plot bar graph of pitch variability - distance between low pass and mean pitch track
 HC_clear=nanmean([HC.variability_cond(1,:) HC.variability_cond(2,:) HC.variability_cond(3,:) ...
 HC.variability_cond(4,:) HC.variability_cond(5,:)]);
 
@@ -395,6 +368,27 @@ PAT.variability_cond(4,:) PAT.variability_cond(5,:)]);
 PAT_noise_SEM=nanstd([PAT.variability_cond(6,:) PAT.variability_cond(7,:) PAT.variability_cond(8,:) ...
 PAT.variability_cond(9,:) PAT.variability_cond(10,:)]);
 
+%% ZED
+% For #results table 1
+for cond=1:10
+    meanWT_HC_cond(cond)=nanmean(HC.variability_cond(cond,:))
+    meanWT_PAT_cond(cond)=nanmean(PAT.variability_cond(cond,:))
+    stdWT_HC_cond(cond)=nanstd(HC.variability_cond(cond,:))
+    stdWT_PAT_cond(cond)=nanstd(PAT.variability_cond(cond,:))
+end
+
+results.meanWT_HC_clear=nanmean(meanWT_HC_cond(1:5))
+results.meanWT_HC_noise=nanmean(meanWT_HC_cond(6:10))
+results.meanWT_PAT_clear=nanmean(meanWT_PAT_cond(1:5))
+results.meanWT_PAT_noise=nanmean(meanWT_PAT_cond(6:10))
+
+results.stdWT_HC_clear=nanstd(meanWT_HC_cond(1:5))
+results.stdWT_HC_noise=nanstd(meanWT_HC_cond(6:10))
+results.stdWT_PAT_clear=nanstd(meanWT_PAT_cond(1:5))
+results.stdWT_PAT_noise=nanstd(meanWT_PAT_cond(6:10))
+
+save GroupData/stats/highfreqvar_results_table1 results
+
 %% STATS
 % ttest
 pat_clear_raw=[PAT.variability_cond(1,:) PAT.variability_cond(2,:) PAT.variability_cond(3,:) ...
@@ -404,9 +398,10 @@ pat_noise_raw=[PAT.variability_cond(6,:) PAT.variability_cond(7,:) PAT.variabili
 PAT.variability_cond(9,:) PAT.variability_cond(10,:)];
 
 ttest(pat_clear_raw, pat_noise_raw)
+% ttest(HC_clear_raw, HC_noise_raw)
 
-% anova
-anovadata_groupvar= [...
+% anova for high freq variability by condition
+anovadata_high_freq_var= [...
     HC.cond(1,:) HC.cond(2,:) HC.cond(3,:) HC.cond(4,:) HC.cond(5,:) ...
     HC.cond(6,:) HC.cond(7,:) HC.cond(8,:) HC.cond(9,:) HC.cond(10,:) ...
     PAT.cond(1,:) PAT.cond(2,:) PAT.cond(3,:) PAT.cond(4,:) PAT.cond(5,:) ...
@@ -427,11 +422,20 @@ end
 condition=[condition condition];
 condition=condition';
 
-group1=[subjectgroup];
-group2=[condition];
-p = anovan(anovadata_groupvar,{group1 group2 },'model','interaction');
+highfreqvar_anova.group1=[subjectgroup];
+highfreqvar_anova.group2=[condition];
+[highfreqvar_anova.p_interaction,highfreqvar_anova.table,highfreqvar_anova.stats,highfreqvar_anova.terms]= ...
+    anovan(anovadata_high_freq_var,{highfreqvar_anova.group1 highfreqvar_anova.group2},'model','interaction')
+
+[highfreqvar_anova.p_interaction,highfreqvar_anova.table,highfreqvar_anova.stats,highfreqvar_anova.terms]= ...
+    anovan(anovadata_high_freq_var,{highfreqvar_anova.group1 highfreqvar_anova.group2},'full')
+
+
+display 'first anova is the interaction for high freq variab'
+save /Users/zagnew/Cereb_data/data_final_run/GroupData/stats/highfreqvar_anova highfreqvar_anova
 
 
 
 %% distance from target
 
+DATA

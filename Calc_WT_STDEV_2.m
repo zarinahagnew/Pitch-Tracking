@@ -19,6 +19,7 @@
 close all
 clear all
 set_params_pitchtracking;
+window_frames=201;
 
 %for plotting only :)
 minpitch=100;
@@ -125,8 +126,6 @@ for isubj = 1:npatients
         DATA(isubj).StdWithinCond1_within_wholetrial_stdev(trial)=nanstd(sorted_data(condnn).wholetrial_norm_to_targ(trial,:));
         DATA(isubj).StdWithinCond1_within_wholetrial_var(trial)=(DATA(isubj).StdWithinCond1_within_wholetrial_stdev(trial))*(DATA(isubj).StdWithinCond1_within_pre_stdev(trial));
        
-        % distance from mean
-        DATA(isubj).distfromtarg(trial)=nanstd(sorted_data(condnn).prestep_norm_to_targ(trial,:));
         % amplitude
         DATA(isubj).StdWithinCond1_within_pre_stdev_AMP(trial)=nanstd(sorted_data(condnn).AMP_prestep(trial,:));
         DATA(isubj).StdWithinCond1_within_post_stdev_AMP(trial)=nanstd(sorted_data(condnn).AMP_poststep(trial,:));
@@ -136,6 +135,7 @@ for isubj = 1:npatients
         DATA(isubj).WTtrialmeanpitch_cond1_pre(trial)=nanmean(sorted_data(condnn).prestep(trial,:));
         DATA(isubj).WTtrialmeanpitch_cond1_post(trial)=nanmean(sorted_data(condnn).poststep(trial,:));
         
+        % distance from target
         DATA(isubj).cond(condnn).distfromtarg_WT=nanmean(sorted_data(condnn).distfromtarg_WT);
         DATA(isubj).cond(condnn).distfromtarg_pre=nanmean(sorted_data(condnn).distfromtarg_PRE);
         DATA(isubj).cond(condnn).distfromtarg_post=nanmean(sorted_data(condnn).distfromtarg_POST);    
@@ -145,6 +145,10 @@ for isubj = 1:npatients
     DATA(isubj).StdWithinCond1_within_post_meanstdev=nanmean(DATA(isubj).StdWithinCond1_within_post_stdev);
     DATA(isubj).StdWithinCond1_within_wholetrial_meanstdev=nanmean(DATA(isubj).StdWithinCond1_within_wholetrial_stdev);
     
+    DATA(isubj).StdWithinCond1_within_pre_stdevstdev=nanstd(DATA(isubj).StdWithinCond1_within_pre_stdev);
+    DATA(isubj).StdWithinCond1_within_post_stdevstdev=nanstd(DATA(isubj).StdWithinCond1_within_post_stdev);
+    DATA(isubj).StdWithinCond1_within_wholetrial_stdevstdev=nanstd(DATA(isubj).StdWithinCond1_within_wholetrial_stdev);
+
     condnn=2;
     for trial=1:8
         DATA(isubj).StdWithinCond2_within_pre_stdev(trial)=nanstd(sorted_data(condnn).prestep_norm_to_targ(trial,:));
@@ -163,9 +167,10 @@ for isubj = 1:npatients
         DATA(isubj).cond(condnn).distfromtarg_post=nanmean(sorted_data(condnn).distfromtarg_POST);    
         
     end
-%     DATA(isubj).distfromtarg_WT=nanmean(sorted_data(condnn).distfromtarg_WT);
-%     DATA(isubj).distfromtarg_pre=nanmean(sorted_data(condnn).distfromtarg_PRE);
-%     DATA(isubj).distfromtarg_post=nanmean(sorted_data(condnn).distfromtarg_POST);    
+    
+    DATA(isubj).StdWithinCond2_within_pre_stdevstdev=nanstd(DATA(isubj).StdWithinCond2_within_pre_stdev);
+    DATA(isubj).StdWithinCond2_within_post_stdevstdev=nanstd(DATA(isubj).StdWithinCond2_within_post_stdev);
+    DATA(isubj).StdWithinCond2_within_wholetrial_stdevstdev=nanstd(DATA(isubj).StdWithinCond2_within_wholetrial_stdev);
     
     DATA(isubj).StdWithinCond2_within_pre_meanstdev=nanmean(DATA(isubj).StdWithinCond2_within_pre_stdev);
     DATA(isubj).StdWithinCond2_within_post_meanstdev=nanmean(DATA(isubj).StdWithinCond2_within_post_stdev);
@@ -193,6 +198,10 @@ for isubj = 1:npatients
     DATA(isubj).StdWithinCond3_within_pre_meanstdev=nanmean(DATA(isubj).StdWithinCond3_within_pre_stdev);
     DATA(isubj).StdWithinCond3_within_post_meanstdev=nanmean(DATA(isubj).StdWithinCond3_within_post_stdev);
     DATA(isubj).StdWithinCond3_within_wholetrial_meanstdev=nanmean(DATA(isubj).StdWithinCond3_within_wholetrial_stdev);
+    
+    DATA(isubj).StdWithinCond3_within_pre_stdevstdev=nanstd(DATA(isubj).StdWithinCond3_within_pre_stdev);
+    DATA(isubj).StdWithinCond3_within_post_stdevstdev=nanstd(DATA(isubj).StdWithinCond3_within_post_stdev);
+    DATA(isubj).StdWithinCond3_within_wholetrial_stdevstdev=nanstd(DATA(isubj).StdWithinCond3_within_wholetrial_stdev);
      
     condnn=4;
     for trial=1:8
@@ -216,6 +225,10 @@ for isubj = 1:npatients
     DATA(isubj).StdWithinCond4_within_post_meanstdev=nanmean(DATA(isubj).StdWithinCond4_within_post_stdev);
     DATA(isubj).StdWithinCond4_within_wholetrial_meanstdev=nanmean(DATA(isubj).StdWithinCond4_within_wholetrial_stdev);
     
+    DATA(isubj).StdWithinCond4_within_pre_stdevstdev=nanstd(DATA(isubj).StdWithinCond4_within_pre_stdev);
+    DATA(isubj).StdWithinCond4_within_post_stdevstdev=nanstd(DATA(isubj).StdWithinCond4_within_post_stdev);
+    DATA(isubj).StdWithinCond4_within_wholetrial_stdevstdev=nanstd(DATA(isubj).StdWithinCond4_within_wholetrial_stdev);
+
     condnn=5;
     for trial=1:8
         DATA(isubj).StdWithinCond5_within_pre_stdev(trial)=nanstd(sorted_data(condnn).prestep_norm_to_targ(trial,:));
@@ -241,6 +254,10 @@ for isubj = 1:npatients
     DATA(isubj).StdWithinCond5_within_pre_meanstdev=nanmean(DATA(isubj).StdWithinCond5_within_pre_stdev);
     DATA(isubj).StdWithinCond5_within_post_meanstdev=nanmean(DATA(isubj).StdWithinCond5_within_post_stdev);
     DATA(isubj).StdWithinCond5_within_wholetrial_meanstdev=nanmean(DATA(isubj).StdWithinCond5_within_wholetrial_stdev);
+
+    DATA(isubj).StdWithinCond5_within_pre_stdevstdev=nanstd(DATA(isubj).StdWithinCond5_within_pre_stdev);
+    DATA(isubj).StdWithinCond5_within_post_stdevstdev=nanstd(DATA(isubj).StdWithinCond5_within_post_stdev);
+    DATA(isubj).StdWithinCond5_within_wholetrial_stdevstdev=nanstd(DATA(isubj).StdWithinCond5_within_wholetrial_stdev);
     
     condnn=6;
     for trial=1:8
@@ -266,6 +283,11 @@ for isubj = 1:npatients
     DATA(isubj).StdWithinCond6_within_pre_meanstdev=nanmean(DATA(isubj).StdWithinCond6_within_pre_stdev);
     DATA(isubj).StdWithinCond6_within_post_meanstdev=nanmean(DATA(isubj).StdWithinCond6_within_post_stdev);
     DATA(isubj).StdWithinCond6_within_wholetrial_meanstdev=nanmean(DATA(isubj).StdWithinCond6_within_wholetrial_stdev);
+    
+    DATA(isubj).StdWithinCond6_within_pre_stdevstdev=nanstd(DATA(isubj).StdWithinCond6_within_pre_stdev);
+    DATA(isubj).StdWithinCond6_within_post_stdevstdev=nanstd(DATA(isubj).StdWithinCond6_within_post_stdev);
+    DATA(isubj).StdWithinCond6_within_wholetrial_stdevstdev=nanstd(DATA(isubj).StdWithinCond6_within_wholetrial_stdev);
+    
     
     condnn=7;
     for trial=1:8
@@ -293,6 +315,10 @@ for isubj = 1:npatients
     DATA(isubj).StdWithinCond7_within_post_meanstdev=nanmean(DATA(isubj).StdWithinCond7_within_post_stdev);
     DATA(isubj).StdWithinCond7_within_wholetrial_meanstdev=nanmean(DATA(isubj).StdWithinCond7_within_wholetrial_stdev);
     
+    DATA(isubj).StdWithinCond7_within_pre_stdevstdev=nanstd(DATA(isubj).StdWithinCond7_within_pre_stdev);
+    DATA(isubj).StdWithinCond7_within_post_stdevstdev=nanstd(DATA(isubj).StdWithinCond7_within_post_stdev);
+    DATA(isubj).StdWithinCond7_within_wholetrial_stdevstdev=nanstd(DATA(isubj).StdWithinCond7_within_wholetrial_stdev);
+    
     condnn=8;
     for trial=1:8
         DATA(isubj).StdWithinCond8_within_pre_stdev(trial)=nanstd(sorted_data(condnn).prestep_norm_to_targ(trial,:));
@@ -318,6 +344,10 @@ for isubj = 1:npatients
     DATA(isubj).StdWithinCond8_within_post_meanstdev=nanmean(DATA(isubj).StdWithinCond8_within_post_stdev);
     DATA(isubj).StdWithinCond8_within_wholetrial_meanstdev=nanmean(DATA(isubj).StdWithinCond8_within_wholetrial_stdev);
 
+    DATA(isubj).StdWithinCond8_within_pre_stdevstdev=nanstd(DATA(isubj).StdWithinCond8_within_pre_stdev);
+    DATA(isubj).StdWithinCond8_within_post_stdevstdev=nanstd(DATA(isubj).StdWithinCond8_within_post_stdev);
+    DATA(isubj).StdWithinCond8_within_wholetrial_stdevstdev=nanstd(DATA(isubj).StdWithinCond8_within_wholetrial_stdev);
+
     condnn=9;
     for trial=1:8
         DATA(isubj).StdWithinCond9_within_pre_stdev(trial)=nanstd(sorted_data(condnn).prestep_norm_to_targ(trial,:));
@@ -342,6 +372,10 @@ for isubj = 1:npatients
     DATA(isubj).StdWithinCond9_within_pre_meanstdev=nanmean(DATA(isubj).StdWithinCond9_within_pre_stdev);
     DATA(isubj).StdWithinCond9_within_post_meanstdev=nanmean(DATA(isubj).StdWithinCond9_within_post_stdev);
     DATA(isubj).StdWithinCond9_within_wholetrial_meanstdev=nanmean(DATA(isubj).StdWithinCond9_within_wholetrial_stdev);
+
+    DATA(isubj).StdWithinCond9_within_pre_stdevstdev=nanstd(DATA(isubj).StdWithinCond9_within_pre_stdev);
+    DATA(isubj).StdWithinCond9_within_post_stdevstdev=nanstd(DATA(isubj).StdWithinCond9_within_post_stdev);
+    DATA(isubj).StdWithinCond9_within_wholetrial_stdevstdev=nanstd(DATA(isubj).StdWithinCond9_within_wholetrial_stdev);
     
     condnn=10;
     for trial=1:8
@@ -367,6 +401,10 @@ for isubj = 1:npatients
     DATA(isubj).StdWithinCond10_within_pre_meanstdev=nanmean(DATA(isubj).StdWithinCond10_within_pre_stdev);
     DATA(isubj).StdWithinCond10_within_post_meanstdev=nanmean(DATA(isubj).StdWithinCond10_within_post_stdev);
     DATA(isubj).StdWithinCond10_within_wholetrial_meanstdev=nanmean(DATA(isubj).StdWithinCond10_within_wholetrial_stdev);
+
+    DATA(isubj).StdWithinCond10_within_pre_stdevstdev=nanstd(DATA(isubj).StdWithinCond10_within_pre_stdev);
+    DATA(isubj).StdWithinCond10_within_post_stdevstdev=nanstd(DATA(isubj).StdWithinCond10_within_post_stdev);
+    DATA(isubj).StdWithinCond10_within_wholetrial_stdevstdev=nanstd(DATA(isubj).StdWithinCond10_within_wholetrial_stdev);
     
     % individual subject stats
     DATA(isubj).STATS_comp1_pre_stdevwithin=ttest(DATA(isubj).StdWithinCond1_within_pre_stdev, DATA(isubj).StdWithinCond6_within_pre_stdev);
@@ -389,9 +427,11 @@ for isubj = 1:npatients
     
     
 %% 2. Calculate mean and stdev *across* trial pitch for each subject
+% could fix this..not sure what i  was thinking looping it like this?! 
+
     
     condition=1;
-    for b=1:201 % frame loop
+    for b=1:window_frames % frame loop
         mean_cond1_pre(b)=nanmean(sorted_data(condition).prestep(:,b));
         std_cond1_pre(b)=nanstd(sorted_data(condition).poststep(:,b));
         mean_cond1_post(b)=nanmean(sorted_data(condition).poststep(:,b));
@@ -399,7 +439,7 @@ for isubj = 1:npatients
     end
     
     condition=2;
-    for b=1:201 % frame loop
+    for b=1:window_frames % frame loop
         mean_cond2_pre(b)=nanmean(sorted_data(condition).prestep(:,b));
         std_cond2_pre(b)=nanstd(sorted_data(condition).poststep(:,b));
         mean_cond2_post(b)=nanmean(sorted_data(condition).poststep(:,b));
@@ -407,7 +447,7 @@ for isubj = 1:npatients
     end
     
     condition=3;
-    for b=1:201 % frame loop
+    for b=1:window_frames % frame loop
         mean_cond3_pre(b)=nanmean(sorted_data(condition).prestep(:,b));
         std_cond3_pre(b)=nanstd(sorted_data(condition).poststep(:,b));
         mean_cond3_post(b)=nanmean(sorted_data(condition).poststep(:,b));
@@ -415,7 +455,7 @@ for isubj = 1:npatients
     end
     
     condition=4;
-    for b=1:201 % frame loop
+    for b=1:window_frames % frame loop
         mean_cond4_pre(b)=nanmean(sorted_data(condition).prestep(:,b));
         std_cond4_pre(b)=nanstd(sorted_data(condition).poststep(:,b));
         mean_cond4_post(b)=nanmean(sorted_data(condition).poststep(:,b));
@@ -423,7 +463,7 @@ for isubj = 1:npatients
     end
     
     condition=5;
-    for b=1:201 % frame loop
+    for b=1:window_frames % frame loop
         mean_cond5_pre(b)=nanmean(sorted_data(condition).prestep(:,b));
         std_cond5_pre(b)=nanstd(sorted_data(condition).poststep(:,b));
         mean_cond5_post(b)=nanmean(sorted_data(condition).poststep(:,b));
@@ -431,7 +471,7 @@ for isubj = 1:npatients
     end
     
     condition=6;
-    for b=1:201 % frame loop
+    for b=1:window_frames % frame loop
         mean_cond6_pre(b)=nanmean(sorted_data(condition).prestep(:,b));
         std_cond6_pre(b)=nanstd(sorted_data(condition).poststep(:,b));
         mean_cond6_post(b)=nanmean(sorted_data(condition).poststep(:,b));
@@ -439,7 +479,7 @@ for isubj = 1:npatients
     end
     
     condition=7;
-    for b=1:201 % frame loop
+    for b=1:window_frames % frame loop
         mean_cond7_pre(b)=nanmean(sorted_data(condition).prestep(:,b));
         std_cond7_pre(b)=nanstd(sorted_data(condition).poststep(:,b));
         mean_cond7_post(b)=nanmean(sorted_data(condition).poststep(:,b));
@@ -447,7 +487,7 @@ for isubj = 1:npatients
     end
     
     condition=8;
-    for b=1:201 % frame loop
+    for b=1:window_frames % frame loop
         mean_cond8_pre(b)=nanmean(sorted_data(condition).prestep(:,b));
         std_cond8_pre(b)=nanstd(sorted_data(condition).poststep(:,b));
         mean_cond8_post(b)=nanmean(sorted_data(condition).poststep(:,b));
@@ -455,15 +495,17 @@ for isubj = 1:npatients
     end
     
     condition=9;
-    for b=1:201  
-        mean_cond9_pre(b)=nanmean(sorted_data(condition).prestep(:,b));
-        std_cond9_pre(b)=nanstd(sorted_data(condition).poststep(:,b));
-        mean_cond9_post(b)=nanmean(sorted_data(condition).poststep(:,b));
-        std_cond9_post(b)=nanstd(sorted_data(condition).poststep(:,b));
+    for b=1:window_frames
+        pre = sorted_data(condition).prestep(:,b);
+        post = sorted_data(condition).poststep(:,b)
+        mean_cond9_pre(b)=nanmean(pre);
+        std_cond9_pre(b)=nanstd(post);
+        mean_cond9_post(b)=nanmean(post);
+        std_cond9_post(b)=nanstd(post);
     end
     
     condition=10;
-    for b=1:201  
+    for b=1:window_frames  
         mean_cond10_pre(b)=nanmean(sorted_data(condition).prestep(:,b));
         std_cond10_pre(b)=nanstd(sorted_data(condition).poststep(:,b));
         mean_cond10_post(b)=nanmean(sorted_data(condition).poststep(:,b));
@@ -572,36 +614,12 @@ end
 cd(cerebellar_data_rootdir)
 
 %% (3) Write out only the subjects to use and save to DATA_TO_USE
-
-% 
-% % problem
-% isubj=1
-% itrial=1
-% conditionn=3
-% 
-% DATA(isubj).WTtrialmeanpitch_cond3_pre(itrial)          % this is the STDEV
-% DATA_TO_USE(isubj).WTtrialmeanpitch_cond3_pre(itrial)   % this is the STDEV
-% %is diff to 
-% nanmean(sorted_data(conditionn).prestep(itrial,:))  %this is the MEAN
-
-
 DATA_TO_USE=DATA(allincluded);
-% 
-% DATA(1).mean_cond1_pre(1,:)
-% DATA_TO_USE(1).mean_cond1_pre(1,:)
-% 
-% DATA(2).mean_cond1_pre(1,:)
-% DATA_TO_USE(2).mean_cond1_pre(1,:)
-% 
-% plot(DATA(4).mean_cond1_pre(1,:))
-% plot(DATA_TO_USE(3).mean_cond1_pre(1,:), 'm')
-% 
-% plot(DATA(27).mean_cond1_pre(1,:))
-% plot(DATA_TO_USE(18).mean_cond1_pre(1,:), 'm')
     
 %% ------------------------------------------------------------------------    
 % distance from target
-% 
+% DATA(17).cond(2).distfromtarg_WT
+
 for condnn=1:10;
     GroupData(1).cond(condnn).distfromtarg_WT=[DATA(1).cond(condnn).distfromtarg_WT;DATA(2).cond(condnn).distfromtarg_WT;DATA(3).cond(condnn).distfromtarg_WT;...
         DATA(4).cond(condnn).distfromtarg_WT;DATA(5).cond(condnn).distfromtarg_WT;DATA(6).cond(condnn).distfromtarg_WT;...
@@ -625,7 +643,6 @@ for condnn=1:10;
         DATA(25).cond(condnn).distfromtarg_pre;DATA(26).cond(condnn).distfromtarg_pre;DATA(27).cond(condnn).distfromtarg_pre;...
         DATA(28).cond(condnn).distfromtarg_pre;DATA(29).cond(condnn).distfromtarg_pre;DATA(30).cond(condnn).distfromtarg_pre];
     
-    
     GroupData(1).cond(condnn).distfromtarg_post=[DATA(1).cond(condnn).distfromtarg_post;DATA(2).cond(condnn).distfromtarg_post;DATA(3).cond(condnn).distfromtarg_post;...
         DATA(4).cond(condnn).distfromtarg_post;DATA(5).cond(condnn).distfromtarg_post;DATA(6).cond(condnn).distfromtarg_post;...
         DATA(7).cond(condnn).distfromtarg_post;DATA(8).cond(condnn).distfromtarg_post;DATA(9).cond(condnn).distfromtarg_post;...
@@ -635,9 +652,10 @@ for condnn=1:10;
         DATA(19).cond(condnn).distfromtarg_post;DATA(20).cond(condnn).distfromtarg_post;DATA(21).cond(condnn).distfromtarg_post;...
         DATA(22).cond(condnn).distfromtarg_post;DATA(23).cond(condnn).distfromtarg_post;DATA(24).cond(condnn).distfromtarg_post;...
         DATA(25).cond(condnn).distfromtarg_post;DATA(26).cond(condnn).distfromtarg_post;DATA(27).cond(condnn).distfromtarg_post;...
-        DATA(28).cond(condnn).distfromtarg_post;DATA(29).cond(condnn).distfromtarg_post;DATA(30).cond(condnn).distfromtarg_post];
-    
+        DATA(28).cond(condnn).distfromtarg_post;DATA(29).cond(condnn).distfromtarg_post;DATA(30).cond(condnn).distfromtarg_post]; 
 end
+
+
 
 
 % only include the subjects included
@@ -759,10 +777,6 @@ for i = 2:length(patients_included)
     GroupData.WT_patC9_post = [GroupData.WT_patC9_post dataToAppend_cond9];
     GroupData.WT_patC10_post = [GroupData.WT_patC10_post dataToAppend_cond10];
 end
-
-
-
-
 
 
 % check
@@ -937,7 +951,7 @@ DATA_TO_USE(numpats+1).StdWithinCond1_within_post_stdev % subject 1
 GroupData.WT_HCC1_post(1, 1:8)
 
 DATA_TO_USE(numpats+1).StdWithinCond1_within_post_stdev % subject 2
-% should be same as:
+% should be same as:s
 GroupData.WT_HCC1_post(1, 9:16)
 
 
@@ -1110,13 +1124,7 @@ end
 % GroupData.WT_patC1_post_AMP(1, 9:16)
 
 
-% whole trial
-
-
 %% wholetrial window
-
-
-
 origdata_cond1_wholetrial_AMP = DATA_TO_USE(1).StdWithinCond1_within_wholetrial_stdev_AMP;
 GroupData.WT_patC1_wholetrial_AMP = origdata_cond1_wholetrial;
 origdata_cond2_wholetrial_AMP = DATA_TO_USE(1).StdWithinCond2_within_wholetrial_stdev_AMP;
@@ -1222,9 +1230,9 @@ for i = numpats+1:numsubs
     GroupData.WT_HCC10_pre_AMP = [GroupData.WT_HCC10_pre_AMP dataToAppend_cond10];
 end
 
-DATA_TO_USE(numpats+1).StdWithinCond1_within_pre_stdev_AMP % subject 1
+DATA_TO_USE(numpats+1).StdWithinCond1_within_pre_stdev_AMP ;% subject 1
 % should be same as:
-GroupData.WT_HCC1_pre_AMP(1, 1:8)
+GroupData.WT_HCC1_pre_AMP(1, 1:8);
 
 DATA_TO_USE(numpats+1).StdWithinCond1_within_pre_stdev % subject 2
 % should be same as:
@@ -1342,574 +1350,14 @@ DATA_TO_USE(numpats+1).StdWithinCond1_within_wholetrial_stdev_AMP % subject 2
 GroupData.WT_HCC1_wholetrial_AMP(1, 9:16)
 
 
+
+
+%% calculate early and late distance from target
+
+calc_early_late_distfromtarg;
+
 save GroupData/GroupData.mat GroupData
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 %% plotting
 
- 
-%% ----------------------------------------------
-    % plot the window data : ALL TRIALS PRESTEP DATA
-%     fig7=figure;
-%     yaxe_a(1)=subplot(2,5,1);
-%     annotation('textbox', [0 0.9 1 0.1], ...
-%         'String', 'Mean response per condition (red)', ...
-%         'EdgeColor', 'none', ...
-%         'HorizontalAlignment', 'center')
-%     
-%     for mee=1:8
-%         plot(sorted_data(condnn).prestep(mee,:),'b')
-%         DATA(isubj).std_withintrial_cond1_wholetrial(mee)=nanstd(sorted_data(condnn).wholetrial_norm_to_targ(mee,:));
-%         DATA(isubj).std_withintrial_cond1_pre(mee)=nanstd(sorted_data(condnn).prestep_norm_to_targ(mee,:));
-%         DATA(isubj).std_withintrial_cond1_post(mee)=nanstd(sorted_data(condnn).poststep_norm_to_targ(mee,:));
-%         hold all
-%     end
-%     
-%     yaxe_a(2)=subplot(2,5,2); %condition 2
-%     for moo2=1:8
-%         plot(sorted_data(condnn).prestep(moo2,:),'b')
-%         DATA(isubj).std_withintrial_cond2_wholetrial(moo2)=nanstd(sorted_data(condnn).wholetrial_norm_to_targ(moo2,:));
-%         DATA(isubj).std_withintrial_cond2_pre(moo2)=nanstd(sorted_data(condnn).prestep_norm_to_targ(moo2,:));
-%         DATA(isubj).std_withintrial_cond2_post(moo2)=nanstd(sorted_data(condnn).poststep_norm_to_targ(moo2,:));
-%         hold all
-%     end
-%     
-%     yaxe_a(3)=subplot(2,5,3);
-%     for moo3=1:8
-%         plot(sorted_data(3).prestep(moo3,:),'b')
-%         DATA(isubj).std_withintrial_cond3_wholetrial(moo3)=nanstd(sorted_data(3).wholetrial(moo3,:));
-%         DATA(isubj).std_withintrial_cond3_pre(moo3)=nanstd(sorted_data(3).prestep(moo3,:));
-%         DATA(isubj).std_withintrial_cond3_post(moo3)=nanstd(sorted_data(3).poststep(moo3,:));
-%         hold all
-%     end
-%     
-%     yaxe_a(4)=subplot(2,5,4); %condition 4
-%     for moo4=1:8
-%         plot(sorted_data(4).prestep(moo4,:),'b')
-%         DATA(isubj).std_withintrial_cond4_wholetrial(moo4)=nanstd(sorted_data(4).wholetrial(moo4,:));
-%         DATA(isubj).std_withintrial_cond4_pre(moo4)=nanstd(sorted_data(4).prestep(moo4,:));
-%         DATA(isubj).std_withintrial_cond4_post(moo4)=nanstd(sorted_data(4).poststep(moo4,:));
-%         hold all
-%     end
-%     
-%     yaxe_a(5)=subplot(2,5,5); %condition 5
-%     for moo5=1:8
-%         plot(sorted_data(5).prestep(moo5,:),'b')
-%         DATA(isubj).std_withintrial_cond5_wholetrial(moo5)=nanstd(sorted_data(5).wholetrial(moo5,:));
-%         DATA(isubj).std_withintrial_cond5_pre(moo5)=nanstd(sorted_data(5).prestep(moo5,:));
-%         DATA(isubj).std_withintrial_cond5_post(moo5)=nanstd(sorted_data(5).poststep(moo5,:));
-%         hold all
-%     end
-%     
-%     yaxe_a(6)=subplot(2,5,6); %condition 6
-%     for moo6=1:8
-%         plot(sorted_data(6).prestep(moo6,:),'b')
-%         DATA(isubj).std_withintrial_cond6_wholetrial(moo6)=nanstd(sorted_data(3).wholetrial(moo3,:));
-%         DATA(isubj).std_withintrial_cond6_pre(moo6)=nanstd(sorted_data(3).prestep(moo3,:));
-%         DATA(isubj).std_withintrial_cond6_post(moo6)=nanstd(sorted_data(3).poststep(moo3,:));
-%         hold all
-%     end
-%     
-%     yaxe_a(7)=subplot(2,5,7); %condition 7
-%     for moo7=1:8
-%         plot(sorted_data(7).prestep(moo7,:),'b')
-%         DATA(isubj).std_withintrial_cond7_wholetrial(moo7)=nanstd(sorted_data(7).wholetrial(moo7,:));
-%         DATA(isubj).std_withintrial_cond7_pre(moo7)=nanstd(sorted_data(7).prestep(moo7,:));
-%         DATA(isubj).std_withintrial_cond7_post(moo7)=nanstd(sorted_data(7).poststep(moo7,:));
-%         hold all
-%     end
-%     
-%     yaxe_a(8)=subplot(2,5,8); %condition 8
-%     for moo8=1:8
-%         plot(sorted_data(8).prestep(moo8,:),'b')
-%         DATA(isubj).std_withintrial_cond8_wholetrial(moo8)=nanstd(sorted_data(8).wholetrial(moo8,:));
-%         DATA(isubj).std_withintrial_cond8_pre(moo8)=nanstd(sorted_data(8).prestep(moo8,:));
-%         DATA(isubj).std_withintrial_cond8_post(moo8)=nanstd(sorted_data(8).poststep(moo8,:));
-%         hold all
-%     end
-%     
-%     yaxe_a(9)=subplot(2,5,9); %condition 9
-%     for moo9=1:8
-%         plot(sorted_data(9).prestep(moo9,:),'b')
-%         DATA(isubj).std_withintrial_cond9_wholetrial(moo9)=nanstd(sorted_data(9).wholetrial(moo9,:));
-%         DATA(isubj).std_withintrial_cond9_pre(moo9)=nanstd(sorted_data(9).prestep(moo9,:));
-%         DATA(isubj).std_withintrial_cond9_post(moo9)=nanstd(sorted_data(9).poststep(moo9,:));
-%         hold all
-%     end
-%     
-%     yaxe_a(10)=subplot(2,5,10); %condition 10
-%     for moo10=1:8
-%         noo=plot(sorted_data(10).prestep(moo10,:),'b');
-%         DATA(isubj).std_withintrial_cond10_wholetrial(moo10)=nanstd(sorted_data(10).wholetrial(moo10,:));
-%         DATA(isubj).std_withintrial_cond10_pre(moo10)=nanstd(sorted_data(10).prestep(moo10,:));
-%         DATA(isubj).std_withintrial_cond10_post(moo10)=nanstd(sorted_data(10).poststep(moo10,:));
-%         hold all
-%     end
-%     linkaxes(yaxe_a,'y')
-%     
-%     
-%     % plot all trials - ALL TRIALS POST STEP
-%     fig8=figure;
-%     yaxe_a(1)=subplot(2,5,1);
-%     annotation('textbox', [0 0.9 1 0.1], ...
-%         'String', 'Mean response per condition (red)', ...
-%         'EdgeColor', 'none', ...
-%         'HorizontalAlignment', 'center')
-%     
-%     for mee=1:8
-%         plot(sorted_data(condnn).poststep(mee,:),'b')
-%         hold all
-%     end
-%     yaxe_a(2)=subplot(2,5,2); %condition 2
-%     for moo2=1:8
-%         plot(sorted_data(condnn).poststep(moo2,:),'b')
-%         hold all
-%     end
-%     yaxe_a(3)=subplot(2,5,3);
-%     for moo3=1:8
-%         plot(sorted_data(3).poststep(moo3,:),'b')
-%         hold all
-%     end
-%     yaxe_a(4)=subplot(2,5,4); %condition 4
-%     for moo4=1:8
-%         plot(sorted_data(4).poststep(moo4,:),'b')
-%         hold all
-%     end
-%     yaxe_a(5)=subplot(2,5,5); %condition 5
-%     for moo5=1:8
-%         plot(sorted_data(5).poststep(moo5,:),'b')
-%         hold all
-%     end
-%     yaxe_a(6)=subplot(2,5,6); %condition 6
-%     for moo6=1:8
-%         plot(sorted_data(6).poststep(moo6,:),'b')
-%         hold all
-%     end
-%     yaxe_a(7)=subplot(2,5,7); %condition 7
-%     for moo7=1:8
-%         plot(sorted_data(7).poststep(moo7,:),'b')
-%         hold all
-%     end
-%     yaxe_a(8)=subplot(2,5,8); %condition 8
-%     for moo8=1:8
-%         plot(sorted_data(8).poststep(moo8,:),'b')
-%         hold all
-%     end
-%     yaxe_a(9)=subplot(2,5,9); %condition 9
-%     for moo9=1:8
-%         plot(sorted_data(9).poststep(moo9,:),'b')
-%         hold all
-%     end
-%     yaxe_a(10)=subplot(2,5,10); %condition 10
-%     for moo10=1:8
-%         noo=plot(sorted_data(10).poststep(moo10,:),'b');
-%         hold all
-%     end
-%     linkaxes(yaxe_a,'y')
-% 
-%     %ZED
-%     % plot the window data : ALL TRIALS wholetrial DATA
-%     fig9=figure;
-%     yaxe_a(1)=subplot(5,2,1);
-%     annotation('textbox', [0 0.9 1 0.1], ...
-%         'String', 'Mean response per condition (red)', ...
-%         'EdgeColor', 'none', ...
-%         'HorizontalAlignment', 'center')
-%     
-%     for mee=1:8
-%         plot(sorted_data(1).wholetrial(mee,:),'b')
-%         hold all
-%         plot(sorted_data(1).pertresp{mee}, 'm')
-%         title(sprintf('Cond1'));
-%     end
-%     yaxe_a(2)=subplot(5,2,5);
-%     for moo3=1:8
-%         plot(sorted_data(3).wholetrial(moo3,:),'b')
-%         hold all
-%         plot(sorted_data(3).pertresp{moo3}, 'm')
-%         title(sprintf('Cond3')); 
-%     end
-%     yaxe_a(3)=subplot(5,2,9); %condition 5
-%     for moo5=1:8
-%         plot(sorted_data(5).wholetrial(moo5,:),'b')
-%         hold all
-%         plot(sorted_data(5).pertresp{moo5}, 'm')
-%         title(sprintf('Cond5'));
-%         
-%     end
-%     
-%     
-%     yaxe_a(4)=subplot(5,2,4); %condition 7
-%     for moo7=1:8
-%         plot(sorted_data(7).wholetrial(moo7,:),'b')
-%         hold all
-%         plot(sorted_data(7).pertresp{moo7}, 'm')
-%         title(sprintf('Cond7'));
-%     end
-%     yaxe_a(5)=subplot(5,2,8); %condition 2
-%     for moo9=1:8
-%         plot(sorted_data(9).wholetrial(moo9,:),'b')
-%         hold all
-%         plot(sorted_data(9).pertresp{moo9}, 'm')
-%         title(sprintf('Cond9')); 
-%     end
-%     yaxe_a(6)=subplot(5,2,3); %condition 2
-%     for moo2=1:8
-%         plot(sorted_data(2).wholetrial(moo2,:),'b')
-%         hold all
-%         plot(sorted_data(2).pertresp{moo2}, 'm')
-%         title(sprintf('Cond2')); 
-%     end
-%     yaxe_a(7)=subplot(5,2,7); %condition 4
-%     for moo4=1:8
-%         plot(sorted_data(4).wholetrial(moo4,:),'b')
-%         hold all
-%         plot(sorted_data(4).pertresp{moo4}, 'm')
-%         title(sprintf('Cond4'));
-%     end
-%     
-%     yaxe_a(8)=subplot(5,2,2); %condition 6
-%     for moo6=1:8
-%         plot(sorted_data(6).wholetrial(moo6,:),'b')
-%         hold all
-%         plot(sorted_data(6).pertresp{moo6}, 'm')
-%         title(sprintf('Cond6'));
-%     end
-%     yaxe_a(9)=subplot(5,2,6); %condition 2
-%     for moo8=1:8
-%         plot(sorted_data(8).wholetrial(moo8,:),'b')
-%         hold all
-%         plot(sorted_data(8).pertresp{moo8}, 'm')
-%         title(sprintf('Cond8'));
-%     end
-%     yaxe_a(10)=subplot(5,2,10); %condition 2
-%     for moo10=1:8
-%         noo=plot(sorted_data(10).wholetrial(moo10,:),'b');
-%         hold all
-%         plot(sorted_data(10).pertresp{moo10}, 'm')
-%         title(sprintf('Cond10'));
-%     end
-%     
-%     % ----------------------------------------------
-%     % MEAN TRIAL BY CONDITION - COMMENTED OUT FOR SPEED
-%     
-%     % plot mean trials by condition: PRESTEP
-%     fig10=figure;
-%     yaxe_a(1)=subplot(2,5,1);
-%     annotation('textbox', [0 0.9 1 0.1], ...
-%         'String', 'Mean response per condition (pre)', ...
-%         'EdgeColor', 'none', ...
-%         'HorizontalAlignment', 'center')
-%     
-%     plot(mean_cond1_pre,'b')
-%     yaxe_a(2)=subplot(2,5,2);
-%     plot(mean_cond2_pre,'b')
-%     
-%     yaxe_a(3)=subplot(2,5,3);
-%     plot(mean_cond3_pre,'b')
-%     
-%     yaxe_a(4)=subplot(2,5,4);
-%     plot(mean_cond4_pre,'b')
-%     
-%     yaxe_a(5)=subplot(2,5,5);
-%     plot(mean_cond5_pre,'b')
-%     
-%     yaxe_a(6)=subplot(2,5,6);
-%     plot(mean_cond6_pre,'r')
-%     
-%     yaxe_a(7)=subplot(2,5,7);
-%     plot(mean_cond7_pre,'r')
-%     
-%     yaxe_a(8)=subplot(2,5,8);
-%     plot(mean_cond8_pre,'r')
-%     
-%     yaxe_a(9)=subplot(2,5,9);
-%     plot(mean_cond9_pre,'r')
-%     
-%     yaxe_a(10)=subplot(2,5,10);
-%     plot(mean_cond10_pre,'r')
-% 
-%     set(yaxe_a,'YLim',[minpitch maxpitch])
-%     
-%     % plot mean trials by condition: POSTSTEP
-%     fig11=figure;
-%     yaxe_a(1)=subplot(2,5,1);
-%     annotation('textbox', [0 0.9 1 0.1], ...
-%         'String', 'Mean response per condition (post)', ...
-%         'EdgeColor', 'none', ...
-%         'HorizontalAlignment', 'center')
-%     
-%     plot(mean_cond1_post,'b')
-%     yaxe_a(2)=subplot(2,5,2);
-%     plot(mean_cond2_post,'b')
-%     
-%     yaxe_a(3)=subplot(2,5,3);
-%     plot(mean_cond3_post,'b')
-%     
-%     yaxe_a(4)=subplot(2,5,4);
-%     plot(mean_cond4_post,'b')
-%     
-%     yaxe_a(5)=subplot(2,5,5);
-%     plot(mean_cond5_post,'b')
-%     
-%     yaxe_a(6)=subplot(2,5,6);
-%     plot(mean_cond6_post,'r')
-%     
-%     yaxe_a(7)=subplot(2,5,7);
-%     plot(mean_cond7_post,'r')
-%     
-%     yaxe_a(8)=subplot(2,5,8);
-%     plot(mean_cond8_post,'r')
-%     
-%     yaxe_a(9)=subplot(2,5,9);
-%     plot(mean_cond9_post,'r')
-%     
-%     yaxe_a(10)=subplot(2,5,10);
-%     plot(mean_cond10_post,'r')
-%     set(yaxe_a,'YLim',[minpitch maxpitch])
-%     
-    % plot mean trials by condition: wholetrial
-%     fig12=figure;
-%     yaxe_a(1)=subplot(2,5,1);
-%     annotation('textbox', [0 0.9 1 0.1], ...
-%         'String', 'Mean response per condition (wholetrial)', ...
-%         'EdgeColor', 'none', ...
-%         'HorizontalAlignment', 'center')
-%     
-%     plot(mean_cond1_wholetrial,'b')
-%  
-%     yaxe_a(2)=subplot(2,5,2);
-%     plot(mean_cond2_wholetrial,'b')
-%     
-%     yaxe_a(3)=subplot(2,5,3);
-%     plot(mean_cond3_wholetrial,'b')
-%     
-%     yaxe_a(4)=subplot(2,5,4);
-%     plot(mean_cond4_wholetrial,'b')
-%     
-%     yaxe_a(5)=subplot(2,5,5);
-%     plot(mean_cond5_wholetrial,'b')
-%     
-%     yaxe_a(6)=subplot(2,5,6);
-%     plot(mean_cond6_wholetrial,'r')
-%     
-%     yaxe_a(7)=subplot(2,5,7);
-%     plot(mean_cond7_wholetrial,'r')
-%     
-%     yaxe_a(8)=subplot(2,5,8);
-%     plot(mean_cond8_wholetrial,'r')
-%     
-%     yaxe_a(9)=subplot(2,5,9);
-%     plot(mean_cond9_wholetrial,'r')
-%     
-%     yaxe_a(10)=subplot(2,5,10);
-%     plot(mean_cond10_wholetrial,'r')
-%     set(yaxe_a,'YLim',[minpitch maxpitch])
-%     
-    
-%     saveas(fig7,'SingleSub_alltrialsbycondition_pre.jpg')
-%     saveas(fig8,'SingleSub_alltrialsbycondition_post.jpg')
-%     saveas(fig9,'SingleSub_alltrialsbycondition_wholetrial.jpg')
-%     
-%     saveas(fig10,'SingleSub_meanrtrialbycondition_pre.jpg')
-%     saveas(fig11,'SingleSub_meantrialsbycondition_post.jpg')
-%     saveas(fig12,'SingleSub_meantrialsbycondition_wholetrial.jpg')
-%   
-
-
-    
-    %% ------ COMMENTED OUT FOR SPEED  ---------
-%     
-%     
-%     %% PLOT std within and variance
-%     fig4=figure
-%     yaxe(1)=subplot(1, 5, 1);
-%     annotation('textbox', [0 0.9 1 0.1], ...
-%         'String', 'Within trial StDev_pre', ...
-%         'EdgeColor', 'none', ...
-%         'HorizontalAlignment', 'center')
-%     
-%     bar(1, DATA(isubj).StdWithinCond1_within_pre_meanstdev, 'b')
-%     hold on
-%     bar(2, DATA(isubj).StdWithinCond6_within_pre_meanstdev, 'g')
-%     
-%     yaxe(2)=subplot(1, 5, 2);
-%     
-%     bar(1, DATA(isubj).StdWithinCond2_within_pre_meanstdev, 'b')
-%     hold on
-%     bar(2, DATA(isubj).StdWithinCond7_within_pre_meanstdev, 'g')
-%     
-%     yaxe(3)=subplot(1, 5, 3);
-%     
-%     bar(1, DATA(isubj).StdWithinCond3_within_pre_meanstdev, 'b')
-%     hold on
-%     bar(2, DATA(isubj).StdWithinCond8_within_pre_meanstdev, 'g')
-%     
-%     yaxe(4)=subplot(1, 5, 4);
-%     
-%     bar(1, DATA(isubj).StdWithinCond4_within_pre_meanstdev, 'b')
-%     hold on
-%     bar(2, DATA(isubj).StdWithinCond9_within_pre_meanstdev, 'g')
-%     
-%     
-%     yaxe(5)=subplot(1, 5, 5);
-%     
-%     bar(1, DATA(isubj).StdWithinCond5_within_pre_meanstdev, 'b')
-%     hold on
-%     bar(2, DATA(isubj).StdWithinCond10_within_pre_meanstdev, 'g')
-%     
-%     %linkaxes(yaxe,'y')
-% %    linkaxes([yaxe(1) yaxe(2) yaxe(3) yaxe(4) yaxe(5)],'y')
-%        set(yaxe,'YLim',[0 10])
-%     
-%     saveas(fig4,'DATA(isubj).StdWithintrial_pre.jpg')
-%     
-%     
-%     %post
-%     fig5=figure
-%     yaxe(1)=subplot(1, 5, 1);
-%     annotation('textbox', [0 0.9 1 0.1], ...
-%         'String', 'Within trial StDev_post', ...
-%         'EdgeColor', 'none', ...
-%         'HorizontalAlignment', 'center')
-%     
-%     bar(1, DATA(isubj).StdWithinCond1_within_post_meanstdev, 'b')
-%     hold on
-%     bar(2, DATA(isubj).StdWithinCond6_within_post_meanstdev, 'g')
-%     
-%     yaxe(2)=subplot(1, 5, 2);
-%     
-%     bar(1, DATA(isubj).StdWithinCond2_within_post_meanstdev, 'b')
-%     hold on
-%     bar(2, DATA(isubj).StdWithinCond7_within_post_meanstdev, 'g')
-%     
-%     yaxe(3)=subplot(1, 5, 3);
-%     
-%     bar(1, DATA(isubj).StdWithinCond3_within_post_meanstdev, 'b')
-%     hold on
-%     bar(2, DATA(isubj).StdWithinCond8_within_post_meanstdev, 'g')
-%     
-%     yaxe(4)=subplot(1, 5, 4);
-%     
-%     bar(1, DATA(isubj).StdWithinCond4_within_post_meanstdev, 'b')
-%     hold on
-%     bar(2, DATA(isubj).StdWithinCond9_within_post_meanstdev, 'g')
-%     
-%     
-%     yaxe(5)=subplot(1, 5, 5);
-%     
-%     bar(1, DATA(isubj).StdWithinCond5_within_post_meanstdev, 'b')
-%     hold on
-%     bar(2, DATA(isubj).StdWithinCond10_within_post_meanstdev, 'g')
-%     
-% %    linkaxes(yaxe,'y')
-%        set(yaxe,'YLim',[0 10])
-% 
-%     
-%     saveas(fig5,'DATA(isubj).StdWithintrial_post.jpg')
-%     
-%     
-%     
-%     
-%     %wholetrial
-%     fig6=figure
-%     yaxe(1)=subplot(1, 5, 1);
-%     annotation('textbox', [0 0.9 1 0.1], ...
-%         'String', 'Within trial StDev_wholetrial', ...
-%         'EdgeColor', 'none', ...
-%         'HorizontalAlignment', 'center')
-%     
-%     bar(1, DATA(isubj).StdWithinCond1_within_wholetrial_meanstdev, 'b')
-%     hold on
-%     bar(2, DATA(isubj).StdWithinCond6_within_wholetrial_meanstdev, 'g')
-%     
-%     yaxe(2)=subplot(1, 5, 2);
-%     
-%     bar(1, DATA(isubj).StdWithinCond2_within_wholetrial_meanstdev, 'b')
-%     hold on
-%     bar(2, DATA(isubj).StdWithinCond7_within_wholetrial_meanstdev, 'g')
-%     
-%     yaxe(3)=subplot(1, 5, 3);
-%     
-%     bar(1, DATA(isubj).StdWithinCond3_within_wholetrial_meanstdev, 'b')
-%     hold on
-%     bar(2, DATA(isubj).StdWithinCond8_within_wholetrial_meanstdev, 'g')
-%     
-%     yaxe(4)=subplot(1, 5, 4);
-%     
-%     bar(1, DATA(isubj).StdWithinCond4_within_wholetrial_meanstdev, 'b')
-%     hold on
-%     bar(2, DATA(isubj).StdWithinCond9_within_wholetrial_meanstdev, 'g')
-%     
-%     
-%     yaxe(5)=subplot(1, 5, 5);
-%     
-%     bar(1, DATA(isubj).StdWithinCond5_within_wholetrial_meanstdev, 'b')
-%     hold on
-%     bar(2, DATA(isubj).StdWithinCond10_within_wholetrial_meanstdev, 'g')
-%     
-%     %linkaxes(yaxe,'y')
-%     set(yaxe,'YLim',[0 10])
-%     
-%     saveas(fig6,'DATA(isubj).StdWithintrial_wholetrial.jpg')
-%% 1. RAW DATA: plot all pre and post windows by conditions
-    % nb should not show bad trials or site with no amp signal
-    %
-    %     for conditions=1:10
-    %         cond=sprintf('cond%d', conditions);
-    %         fig1=figure(1);
-    %         c=subplot(2,5,conditions);
-    %         annotation('textbox', [0 0.9 1 0.1], ...
-    %             'String', 'RAW DATA: All trials, all conditions', ...
-    %             'EdgeColor', 'none', ...
-    %             'HorizontalAlignment', 'center')
-    %         title(c,'All trials')
-    %         text(-10,10.2,'Clear     Noise');
-    %         %cond_trials=size(sorted_data(conditions).wholetrial(:,1)); %% ZKA CHECK
-    %         cond_trials=8;
-    %         numtrials=cond_trials(1); %number of trials in each block
-    %         for a = 1:numtrials
-    %             moo(1)=plot(sorted_data(1,conditions).prestep(a,:)', '-b');
-    %             moo(2)=plot(sorted_data(1,conditions).poststep(a,:)', '-g');
-    %             hold all;
-    %             linkaxes(c,'y')
-    %         end
-    %     end
-    
-    %% 2. sanity check - plots all pert responses by condition
-    %     figure
-    %     for conditions=1:10;
-    %         cond=sprintf('cond%d', conditions);
-    %         fig2=figure(2);
-    %         c=subplot(2,5,conditions);
-    %         annotation('textbox', [0 0.9 1 0.1], ...
-    %             'String', 'Amp thresholded: All trials, all conditions', ...
-    %             'EdgeColor', 'none', ...
-    %             'HorizontalAlignment', 'center')
-    %         title(c,'All trials')
-    %         text(-10,10.2,'Clear     Noise')
-    %         cond_trials=size(sorted_data(condnn).wholetrial(:,1));
-    %         numtrials=cond_trials(1); %number of trials in each block
-    %         for a = 1:(length(sorted_data(conditions).pertresp))
-    %             %         plot(sorted_data(conditions).finalpitch_ampthresh{a}', '-b');
-    %             %         hold all;
-    %             plot(sorted_data(conditions).pertresp{a,:}', '-g');
-    %         end
-    %     end
-    %
-    
-    
     

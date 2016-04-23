@@ -38,12 +38,19 @@ for i=21:40
 end
 condition=condition';
 
-group1=[subjectgroup];
-group2=[pre_post];
-group3=[condition];
-p = anovan(anovandata,{group1 group2 group3},'model','interaction')
+mean_WTstdev_anova.group1=[subjectgroup];
+mean_WTstdev_anova.group2=[pre_post];
+mean_WTstdev_anova.group3=[condition];
+% p = anovan(anovandata,{mean_WTstdev_anova.group1 mean_WTstdev_anova.group2 mean_WTstdev_anova.group3},'model','interaction')
 % p = anovan(test,{group1 group2 group3},'model','interaction')
 % p = anovan(anovandata,{group1 group2 group3}, 1)
-% p = anovan(anovandata,{group1 group2 group3}, 'full')
+[mean_WTstdev_anova.p_interaction,mean_WTstdev_anova.table,mean_WTstdev_anova.stats,mean_WTstdev_anova.terms]= anovan(anovandata,{mean_WTstdev_anova.group1 mean_WTstdev_anova.group2 mean_WTstdev_anova.group3}, 'full')
+
+%[mean_WTstdev_anova.p_interaction,mean_WTstdev_anova.table,mean_WTstdev_anova.stats,mean_WTstdev_anova.terms]= anovan(anovandata,{mean_WTstdev_anova.group1 mean_WTstdev_anova.group2 mean_WTstdev_anova.group3},'model','interaction');
+
+
+clc
+display 'first anova is the interaction for mean_WTstdev_anova done on each subject mean'
+save /Users/zagnew/Cereb_data/data_final_run/GroupData/stats/mean_WTstdev_anova mean_WTstdev_anova
 
 save STATS STATS

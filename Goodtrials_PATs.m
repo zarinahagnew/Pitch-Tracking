@@ -9,7 +9,7 @@
 % there is a option to play each trial which is commented out for now
 % 1. loads ALLDATA.m which is created when you run C_WriteDataout
 % 2. aligns all trials to voice onset (by deleting the frames before voice onset)
-% 3. removes trials where patients answered the percetual test incorrectly
+% 3. removes trials wher ve patients answered the percetual test incorrectly
 % 4. removes the first 200 frames and replace with NaNs (rough reaction
 % time)
 % 5. removes all data where the amp signal is below amp_thresh and replaces
@@ -36,7 +36,6 @@ close all
 
 set_params_pitchtracking;
 
-% load /Users/zagnew/Dropbox/cerebellum_expr_devel/Zed/meanpitches/subj_MP_allsubs
 load /Users/zagnew/Cereb_data/data_final_run/subj_MPs_allsubs
 load /Users/zagnew/Cereb_data/data_final_run/SubjectShiftsAllSubs
 
@@ -84,7 +83,7 @@ meanpitchtag(npats)=10;
 npats = npats + 1;
 patient_info{npats}.exprdir = 'SUB11/expr2014.03.22.T18.46.44_mainrun/speak/';
 meanpitchtag(npats)=11;
-
+% 
 npats = npats + 1;
 patient_info{npats}.exprdir = 'SUB12/expr2014.03.23.T11.03.52_mainrun/speak/';
 meanpitchtag(npats)=12;
@@ -104,8 +103,6 @@ meanpitchtag(npats)=15;
 npats = npats + 1;
 patient_info{npats}.exprdir = 'SUB16/expr2014.03.23.T18.16.58_mainrun/speak/';
 meanpitchtag(npats)=16;
-% 
-% 
 
 % Subject Loop
 for isubj = 1:npats
@@ -309,6 +306,7 @@ for isubj = 1:npats
         for each_block=1:num_blocks;
             for d=1:trialsperblock
                 padding=nframes_to_use-length(marker.data(each_block).data(d,:));
+                
                 marker2.data(each_block).data(d,:) = padarray(marker.data(each_block).data(d,:),[0 padding],'post');
             end
         end
@@ -444,7 +442,7 @@ for isubj = 1:npats
                     post_target(each_block).data(d,:)= pre_target(each_block).data(d,:)*300;
                     WT_target(each_block).data(d,:)=bigup;
 
-                elseif blockcondname(each_block,d)==3 | blockcondname(each_block,d)==8
+                elseif blockcondname(each_block,d)==3 || blockcondname(each_block,d)==8
 %                     pre_target(each_block).data(d)= shiftinhertz_allsubs(isubj).nostep;
 %                     post_target(each_block).data(d)=shiftinhertz_allsubs(isubj).nostep;
 %                     pre_target_cents(each_block).data(d)= 0;
@@ -454,7 +452,7 @@ for isubj = 1:npats
                     post_target(each_block).data(d,:)= pre_target(each_block).data(d,:);
                     WT_target(each_block).data(d,:)=nostep;                    
                     
-                elseif blockcondname(each_block,d)==4 | blockcondname(each_block,d)==9
+                elseif blockcondname(each_block,d)==4 || blockcondname(each_block,d)==9
 %                     pre_target(each_block).data(d)= shiftinhertz_allsubs(isubj).nostep;
 %                     post_target(each_block).data(d)=shiftinhertz_allsubs(isubj).smallstepdown;
 %                     pre_target_cents(each_block).data(d)= 0;
@@ -462,7 +460,7 @@ for isubj = 1:npats
  
                     pre_target(each_block).data(d,:)= zeros(1,201);
                     post_target(each_block).data(d,:)= pre_target(each_block).data(d,:)*-100;
-                    WT_target(each_block).data(d,:)=smallup;                    
+                    WT_target(each_block).data(d,:)=smalldown;                    
                     
                 elseif blockcondname(each_block,d)==5 | blockcondname(each_block,d)==10
 %                     pre_target(each_block).data(d)= shiftinhertz_allsubs(isubj).nostep;
@@ -471,7 +469,7 @@ for isubj = 1:npats
 %                     post_target_cents(each_block).data(d)=-300;
                     pre_target(each_block).data(d,:)= zeros(1,201);
                     post_target(each_block).data(d,:)= pre_target(each_block).data(d,:)*-300;
-                    WT_target(each_block).data(d,:)=bigup;                                        
+                    WT_target(each_block).data(d,:)=bigdown;                                        
                 else
                     error('something wrong with condition orders..')
                 end
@@ -488,9 +486,9 @@ for isubj = 1:npats
                 data_7.pre_distfromtarget(each_block).data(d)=nanmean(data_6.prestep(each_block).data(d,:)) - nanmean(pre_target(each_block).data(d,:));
                 data_7.post_distfromtarget(each_block).data(d)=nanmean(data_6.poststep(each_block).data(d,:))- nanmean(post_target(each_block).data(d,:));
 
-                data_7.WT_distfromtarget(each_block).data(d,:)=data_6.goodpitchdata(each_block).data(d,:)- WT_target(each_block).data(d,:)
-                data_7.PRE_distfromtarget(each_block).data(d,:)=data_6.prestep(each_block).data(d,:)- pre_target(each_block).data(d,:);
-                data_7.POST_distfromtarget(each_block).data(d,:)=data_6.poststep(each_block).data(d,:)- post_target(each_block).data(d,:);
+                data_7.WT_distfromtarget(each_block).data(d,:)=abs(data_6.goodpitchdata(each_block).data(d,:)- WT_target(each_block).data(d,:));
+                data_7.PRE_distfromtarget(each_block).data(d,:)=abs(data_6.prestep(each_block).data(d,:)- pre_target(each_block).data(d,:));
+                data_7.POST_distfromtarget(each_block).data(d,:)=abs(data_6.poststep(each_block).data(d,:)- post_target(each_block).data(d,:));
                 
                 %if they don't hit the prestep target write nans into the whole trial and prestep data
                 if data_7.pre_distfromtarget(each_block).data(d)> perf_thresh_pos_cents || data_7.pre_distfromtarget(each_block).data(d)<perf_thresh_neg_cents;
@@ -563,7 +561,7 @@ for isubj = 1:npats
                     gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:)=nan(1, numframes_data);
                 else
                     lowpassdata(1).goodpitchdata(each_block).data(itrial,:)=lowpass(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata), 0.01, 3);
-                    gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:)=calc_distance(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata), lowpassdata(1).goodpitchdata(each_block).data(itrial,:))
+                    gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:)=calc_distance(gooddata(1).goodpitchdata(each_block).data(itrial,trialdata), lowpassdata(1).goodpitchdata(each_block).data(itrial,:));
                     gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:)=abs(gooddata(1).goodpitch_difflowpassfilt(each_block).data(itrial,:));
                 end
             end

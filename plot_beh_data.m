@@ -1,7 +1,9 @@
 clear all
 close all
-set_params;
+set_params_pitchtracking;
 cd (cerebellar_data_rootdir)
+
+load gaps
 
 patientaxis=ones(1, 16);
 HCaxis=ones(1,11);
@@ -11,8 +13,8 @@ markersize=ones(1,28);
 markersize=markersize*30
 
 % gaps in voicing
-gaps_in_voicing_patients=xlsread('behdataformatlab','B1:B17')
-gaps_in_voicing_HCs=xlsread('behdataformatlab','B18:B28')
+gaps_in_voicing_patients=xlsread('behdataformatlab','D1:D17')
+gaps_in_voicing_HCs=xlsread('behdataformatlab','D18:D28')
 
 fig1=figure
 scatter(patientaxis,gaps_in_voicing_patients, markersize(1:16), 'b','filled')
@@ -20,11 +22,11 @@ hold all
 scatter(1, mean(gaps_in_voicing_patients), markersize(1), 'm','filled')
 scatter(HCaxis,gaps_in_voicing_HCs,markersize(1:11), 'c','filled')
 scatter(2, mean(gaps_in_voicing_HCs),markersize(1), 'm','filled')
-axis([0 3 -3 10 ])
+axis([0 3 -3 65 ])
 title('gaps in voicing')
 ylabel('number of gaps')
 xlabel('                                           patients                                                      HCs')
-
+goodplot
 
 % good trials 
 goodtrials_WT_patients=xlsread('behdataformatlab','C1:C17');

@@ -486,3 +486,7 @@ GroupSEM.HC_ALLCONDS.pre_AMP_noiseWTstdev=GroupStdev.HC_ALLCONDS.pre_AMP_noiseWT
 GroupSEM.HC_ALLCONDS.post_AMP_noiseWTstdev=GroupStdev.HC_ALLCONDS.post_AMP_noiseWTstdev/sqrt(length(GroupStdev.HC_ALLCONDS.post_AMP_noiseWTstdev)) % standard error of the mean
 GroupSEM.pat_ALLCONDS.pre_AMP_noiseWTstdev=GroupStdev.pat_ALLCONDS.pre_AMP_noiseWTstdev/sqrt(length(GroupStdev.pat_ALLCONDS.pre_AMP_noiseWTstdev)) % standard error of the mean
 GroupSEM.pat_ALLCONDS.post_AMP_noiseWTstdev=GroupStdev.pat_ALLCONDS.post_AMP_noiseWTstdev/sqrt(length(GroupStdev.pat_ALLCONDS.post_AMP_noiseWTstdev)) % standard error of the mean
+
+
+save /Users/zagnew/Cereb_data/data_final_run/GroupData/stats/WTstdev_groupmeans GroupMeans 
+save /Users/zagnew/Cereb_data/data_final_run/GroupData/stats/WTstdev_groupstdev GroupStdev 

@@ -1,12 +1,13 @@
 %% Check stdev of grp for elimination of bad trials:------------------------
 % ZKA August 2014
+% only looks at the subjects included. this is created in the previous
+% script. (i.e. GroupData.WT_patC1_pre is only the good subs) 
 
 clear all
 cd /Users/zagnew/Cereb_data/data_final_run/GroupData
 load /Users/zagnew/Cereb_data/data_final_run/GroupData/GroupData.mat
 
-% only looks at the subjects included. this is created in the previous
-% script. (i.e. GroupData.WT_patC1_pre is only the good subs) 
+
 Gp_stwithin.allsubs_allconds_pre_pats= [nanmean(GroupData.WT_patC1_pre) nanmean(GroupData.WT_patC2_pre) ...
     nanmean(GroupData.WT_patC3_pre) nanmean(GroupData.WT_patC4_pre) ...
     nanmean(GroupData.WT_patC4_pre) nanmean(GroupData.WT_patC6_pre) ...

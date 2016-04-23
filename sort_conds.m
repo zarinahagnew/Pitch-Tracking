@@ -154,7 +154,7 @@ for each_subject = 1:npatients
             sorted_data(blockx(trial)).prestep(line_counter(blockx(trial)),:)=gooddata(1).prestep(each_block).data(trial,:);
             sorted_data(blockx(trial)).poststep(line_counter(blockx(trial)),:)=gooddata(1).poststep(each_block).data(trial,:);
             
-            
+      
             sorted_data(blockx(trial)).AMP_wholetrial(line_counter(blockx(trial)),:)=gooddata(1).goodampdata(1).wholetrial_amp(trial,:);
             sorted_data(blockx(trial)).AMP_prestep(line_counter(blockx(trial)),:)=gooddata(1).goodampdata(1).prestep_amp(trial,:);
             sorted_data(blockx(trial)).AMP_poststep(line_counter(blockx(trial)),:)=gooddata(1).goodampdata(1).poststep_amp(trial,:);

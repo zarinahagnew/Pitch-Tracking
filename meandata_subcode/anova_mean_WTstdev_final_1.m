@@ -30,11 +30,7 @@ for i=length(pre_post)+1:length(pre_post)+prelength2
     pre_post{i} = 'post';
 end
 
-pre_post=pre_post''
-
-% 
-% pre_post2=[pre_post pre_post]
-% =pre_post2';
+pre_post=pre_post';
 
 %create condition group
 clear condition
@@ -59,11 +55,22 @@ condition2=[condition2 condition2]
 conditions = [condition condition2]
 conditions=conditions';
 
-group1=[subjectgroup];
-group2=[pre_post];
-group3=[conditions];
-p_interaction = anovan(anovandata_WTstdev,{group1 group2 group3},'model','interaction')
-% p = anovan(anovandata,{group1 group2 group3}, 1)
-p_full = anovan(anovandata_WTstdev,{group1 group2 group3}, 'full')
+WTstdev_anova.group1=[subjectgroup];
+WTstdev_anova.group2=[pre_post];
+WTstdev_anova.group3=[conditions];
 
+[WTstdev_anova.p_interaction,WTstdev_anova.table,WTstdev_anova.stats,WTstdev_anova.terms]= anovan(anovandata_WTstdev,{WTstdev_anova.group1 WTstdev_anova.group2 WTstdev_anova.group3},'model','interaction')
 
+clc
+display 'first anova is the interaction'
+
+save /Users/zagnew/Cereb_data/data_final_run/GroupData/stats/WTstdev_anova WTstdev_anova
+
+[WTstdev_anova_full.p_full,WTstdev_anova.table,WTstdev_anova_full.stats,WTstdev_anova_full.terms] = anovan(anovandata_WTstdev,{WTstdev_anova.group1 WTstdev_anova.group2 WTstdev_anova.group3}, 'full')
+
+display 'second anova is the full model'
+
+save /Users/zagnew/Cereb_data/data_final_run/GroupData/stats/WTstdev_anova WTstdev_anova
+save /Users/zagnew/Cereb_data/data_final_run/GroupData/stats/WTstdev_anova_full WTstdev_anova_full
+
+WTstdev_anova_full.posthoc=multcompare(WTstdev_anova_full.stats)

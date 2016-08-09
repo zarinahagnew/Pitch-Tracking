@@ -59,7 +59,6 @@ for isubj=1:length(TRIALS)
             if sum(isnan(TRIALS(isubj).gooddata.poststep(iblock).data(itrial,:)))==201;
                 counter_post=counter_post+1;
             end
-            
         end
         block_counter(iblock)=counter;
         block_counter_pre(iblock)=counter_pre;
@@ -147,7 +146,7 @@ cd GroupData/
 
 xlswrite('gapsbysubject',SUMGAPS)
 
-%% mean pitces
+%% mean pitch
 clear all
 cd /Users/zagnew/Cereb_data/data_final_run
 [meanpitches]=xlsread('meanpitches.xls');
@@ -185,7 +184,6 @@ load DATA_TO_USE.mat
     patients_stdevWTstdev_pre_2(isub)=DATA_TO_USE(isub).StdWithinCond2_within_wholetrial_stdevstdev;
     patients_stdevWTstdev_post_2(isub)=DATA_TO_USE(isub).StdWithinCond2_within_wholetrial_stdevstdev;
     end
-    
     
     for isub=1:length(patients_included)
     patients_meanWTstdev_wholetrial_3(isub)=DATA_TO_USE(isub).StdWithinCond3_within_wholetrial_meanstdev;
@@ -287,7 +285,6 @@ load DATA_TO_USE.mat
     hcs_stdevWTstdev_pre_2(isub)=DATA_TO_USE(isub+length(subjects_included)).StdWithinCond2_within_wholetrial_stdevstdev;
     hcs_stdevWTstdev_post_2(isub)=DATA_TO_USE(isub+length(subjects_included)).StdWithinCond2_within_wholetrial_stdevstdev;
     end
-    
     
     for isub=1:length(subjects_included)
     hcs_meanWTstdev_wholetrial_3(isub)=DATA_TO_USE(isub+length(subjects_included)).StdWithinCond3_within_wholetrial_meanstdev;

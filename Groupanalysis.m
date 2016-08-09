@@ -49,6 +49,8 @@ calcmeandistfromtarg_1;
 load GROUPDATA;
 % output from Plot_groupdata first
 
+Plot_groupdata
+
 anova_distancefrommean;
 
 %% (3): STATS - Comparing within trial stdev for patients and HCs ttest

@@ -3,7 +3,7 @@ close all
 set_params_pitchtracking;
 cd (cerebellar_data_rootdir)
 
-load gaps
+%load gaps
 
 patientaxis=ones(1, 16);
 HCaxis=ones(1,11);
@@ -102,4 +102,4 @@ scatter(2, mean(goodtrials_pitch_patients),markersize(1), 'm','filled')
 axis([0 3 80 260])
 title('Mean Pitches')
 xlabel('                          patients                                 HCs')
-
+goodplot

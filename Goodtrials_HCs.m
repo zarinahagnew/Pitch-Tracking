@@ -151,7 +151,7 @@ for isubj = 1:nHCs
         %% align all trials to voice onset (by deleting the frames before voice onset)
         for d=1:trialsperblock
             for iframe=1:nframes_to_use
-                if iframe<=voiceonsetdata{d,each_block}                    
+                if iframe<={d,each_block}                    
                     shiftedpitch_data{1,each_block}(d, iframe)=NaN;
                 end
             end

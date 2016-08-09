@@ -42,13 +42,8 @@ sort_conds;
 Calc_WT_STDEV_2;
 % writes out GroupData.mat, DATA.mat and DATA_TO_USE.mat
 % also calculates mean high freq var and WT setdev #results
-
-
-% group means are calculated from 
-% 
-% DATA(1). mean_cond1_wholetrial
-% why are these 0 normed in a way that the distance values aren't
-% 
+% group means are calculated from DATA(1). mean_cond1_wholetrial
+% why are these 0 normed in a way that the distance values aren't?
 % becuase sorted_data(condnn).wholetrial_norm_to_targ
 % which comes from gooddata(1).goodpitchdata(each_block).data(trial,:);
 

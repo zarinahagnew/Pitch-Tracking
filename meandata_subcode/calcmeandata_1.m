@@ -441,18 +441,18 @@ GroupSEM.pat_ALLCONDS.wholetrial_AMP_clearWTstdev=GroupStdev.pat_ALLCONDS.wholet
 GroupSEM.pat_ALLCONDS.wholetrial_AMP_clearWTstdev=GroupStdev.pat_ALLCONDS.wholetrial_AMP_clearWTstdev/sqrt(length(GroupStdev.pat_ALLCONDS.wholetrial_AMP_clearWTstdev)); % standard error of the mean
 
 
-GroupMeans.pat_ALLCONDS.wholetrial_AMP_WTstdev_noise =nanmean(group_pat_wholetrial_AMP_noise)
-GroupMeans.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev=nanmean(group_HC_wholetrial_AMP_noise)
-GroupMeans.pat_ALLCONDS.wholetrial_AMP_noiseWTstdev=nanmean(group_pat_wholetrial_AMP_noise)
-GroupMeans.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev=nanmean(group_HC_wholetrial_AMP_noise)
-GroupStdev.pat_ALLCONDS.wholetrial_AMP_noiseWTstdev=nanstd(group_pat_wholetrial_AMP_noise)
-GroupStdev.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev=nanstd(group_HC_wholetrial_AMP_noise)
-GroupStdev.pat_ALLCONDS.wholetrial_AMP_noiseWTstdev=nanstd(group_pat_wholetrial_AMP_noise)
-GroupStdev.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev=nanstd(group_HC_wholetrial_AMP_noise)
-GroupSEM.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev=GroupStdev.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev/sqrt(length(GroupStdev.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev)) % standard error of the mean
-GroupSEM.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev=GroupStdev.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev/sqrt(length(GroupStdev.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev)) % standard error of the mean
-GroupSEM.pat_ALLCONDS.wholetrial_AMP_noiseWTstdev=GroupStdev.pat_ALLCONDS.wholetrial_AMP_noiseWTstdev/sqrt(length(GroupStdev.pat_ALLCONDS.wholetrial_AMP_noiseWTstdev)) % standard error of the mean
-GroupSEM.pat_ALLCONDS.wholetrial_AMP_noiseWTstdev=GroupStdev.pat_ALLCONDS.wholetrial_AMP_noiseWTstdev/sqrt(length(GroupStdev.pat_ALLCONDS.wholetrial_AMP_noiseWTstdev)) % standard error of the mean
+GroupMeans.pat_ALLCONDS.wholetrial_AMP_WTstdev_noise =nanmean(group_pat_wholetrial_AMP_noise);
+GroupMeans.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev=nanmean(group_HC_wholetrial_AMP_noise);
+GroupMeans.pat_ALLCONDS.wholetrial_AMP_noiseWTstdev=nanmean(group_pat_wholetrial_AMP_noise);
+GroupMeans.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev=nanmean(group_HC_wholetrial_AMP_noise);
+GroupStdev.pat_ALLCONDS.wholetrial_AMP_noiseWTstdev=nanstd(group_pat_wholetrial_AMP_noise);
+GroupStdev.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev=nanstd(group_HC_wholetrial_AMP_noise);
+GroupStdev.pat_ALLCONDS.wholetrial_AMP_noiseWTstdev=nanstd(group_pat_wholetrial_AMP_noise);
+GroupStdev.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev=nanstd(group_HC_wholetrial_AMP_noise);
+GroupSEM.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev=GroupStdev.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev/sqrt(length(GroupStdev.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev)); % standard error of the mean;
+GroupSEM.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev=GroupStdev.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev/sqrt(length(GroupStdev.HC_ALLCONDS.wholetrial_AMP_noiseWTstdev)) ; % standard error of the mean;
+GroupSEM.pat_ALLCONDS.wholetrial_AMP_noiseWTstdev=GroupStdev.pat_ALLCONDS.wholetrial_AMP_noiseWTstdev/sqrt(length(GroupStdev.pat_ALLCONDS.wholetrial_AMP_noiseWTstdev));  % standard error of the mean;
+GroupSEM.pat_ALLCONDS.wholetrial_AMP_noiseWTstdev=GroupStdev.pat_ALLCONDS.wholetrial_AMP_noiseWTstdev/sqrt(length(GroupStdev.pat_ALLCONDS.wholetrial_AMP_noiseWTstdev)) ; % standard error of the mean;
 
 
 %% noise trials
@@ -464,29 +464,53 @@ GroupStdev.pat_ALLCONDS.pre_AMP_noiseWTstdev=nanstd(group_pat_pre_AMP_noise);
 GroupStdev.HC_ALLCONDS.pre_AMP_noiseWTstdev=nanstd(group_HC_pre_AMP_noise);
 GroupStdev.pat_ALLCONDS.post_AMP_noiseWTstdev=nanstd(group_pat_post_AMP_noise);
 GroupStdev.HC_ALLCONDS.post_AMP_noiseWTstdev=nanstd(group_HC_post_AMP_noise);
-GroupSEM.HC_ALLCONDS.pre_AMP_noiseWTstdev=GroupStdev.HC_ALLCONDS.pre_AMP_noiseWTstdev/sqrt(length(GroupStdev.HC_ALLCONDS.pre_AMP_noiseWTstdev)) % standard error of the mean
-GroupSEM.HC_ALLCONDS.post_AMP_noiseWTstdev=GroupStdev.HC_ALLCONDS.post_AMP_noiseWTstdev/sqrt(length(GroupStdev.HC_ALLCONDS.post_AMP_noiseWTstdev)) % standard error of the mean
-GroupSEM.pat_ALLCONDS.pre_AMP_noiseWTstdev=GroupStdev.pat_ALLCONDS.pre_AMP_noiseWTstdev/sqrt(length(GroupStdev.pat_ALLCONDS.pre_AMP_noiseWTstdev)) % standard error of the mean
-GroupSEM.pat_ALLCONDS.post_AMP_noiseWTstdev=GroupStdev.pat_ALLCONDS.post_AMP_noiseWTstdev/sqrt(length(GroupStdev.pat_ALLCONDS.post_AMP_noiseWTstdev)) % standard error of the mean
+GroupSEM.HC_ALLCONDS.pre_AMP_noiseWTstdev=GroupStdev.HC_ALLCONDS.pre_AMP_noiseWTstdev/sqrt(length(GroupStdev.HC_ALLCONDS.pre_AMP_noiseWTstdev)); % standard error of the mean
+GroupSEM.HC_ALLCONDS.post_AMP_noiseWTstdev=GroupStdev.HC_ALLCONDS.post_AMP_noiseWTstdev/sqrt(length(GroupStdev.HC_ALLCONDS.post_AMP_noiseWTstdev)); % standard error of the mean
+GroupSEM.pat_ALLCONDS.pre_AMP_noiseWTstdev=GroupStdev.pat_ALLCONDS.pre_AMP_noiseWTstdev/sqrt(length(GroupStdev.pat_ALLCONDS.pre_AMP_noiseWTstdev)) ;% standard error of the mean
+GroupSEM.pat_ALLCONDS.post_AMP_noiseWTstdev=GroupStdev.pat_ALLCONDS.post_AMP_noiseWTstdev/sqrt(length(GroupStdev.pat_ALLCONDS.post_AMP_noiseWTstdev)) ;% standard error of the mean
 
-group_pat_pre_AMP_noise=[GroupData.WT_patC6_pre_AMP GroupData.WT_patC7_pre_AMP GroupData.WT_patC8_pre_AMP GroupData.WT_patC9_pre_AMP GroupData.WT_patC10_pre_AMP]
-group_HC_pre_AMP_noise=[GroupData.WT_HCC6_pre_AMP GroupData.WT_HCC7_pre_AMP GroupData.WT_HCC8_pre_AMP GroupData.WT_HCC9_pre_AMP GroupData.WT_HCC10_pre_AMP]
-group_pat_post_AMP_noise=[GroupData.WT_patC6_post_AMP GroupData.WT_patC7_post_AMP GroupData.WT_patC8_post_AMP GroupData.WT_patC9_post_AMP GroupData.WT_patC10_post_AMP]
-group_HC_post_AMP_noise=[GroupData.WT_HCC6_post_AMP GroupData.WT_HCC7_post_AMP GroupData.WT_HCC8_post_AMP GroupData.WT_HCC9_post_AMP GroupData.WT_HCC10_post_AMP]
+group_pat_pre_AMP_noise=[GroupData.WT_patC6_pre_AMP GroupData.WT_patC7_pre_AMP GroupData.WT_patC8_pre_AMP GroupData.WT_patC9_pre_AMP GroupData.WT_patC10_pre_AMP];
+group_HC_pre_AMP_noise=[GroupData.WT_HCC6_pre_AMP GroupData.WT_HCC7_pre_AMP GroupData.WT_HCC8_pre_AMP GroupData.WT_HCC9_pre_AMP GroupData.WT_HCC10_pre_AMP];
+group_pat_post_AMP_noise=[GroupData.WT_patC6_post_AMP GroupData.WT_patC7_post_AMP GroupData.WT_patC8_post_AMP GroupData.WT_patC9_post_AMP GroupData.WT_patC10_post_AMP];
+group_HC_post_AMP_noise=[GroupData.WT_HCC6_post_AMP GroupData.WT_HCC7_post_AMP GroupData.WT_HCC8_post_AMP GroupData.WT_HCC9_post_AMP GroupData.WT_HCC10_post_AMP];
 
-GroupMeans.pat_ALLCONDS.pre_AMP_WTstdev_noise =nanmean(group_pat_pre_AMP_noise)
-GroupMeans.HC_ALLCONDS.pre_AMP_noiseWTstdev=nanmean(group_HC_pre_AMP_noise)
-GroupMeans.pat_ALLCONDS.post_AMP_noiseWTstdev=nanmean(group_pat_post_AMP_noise)
-GroupMeans.HC_ALLCONDS.post_AMP_noiseWTstdev=nanmean(group_HC_post_AMP_noise)
-GroupStdev.pat_ALLCONDS.pre_AMP_noiseWTstdev=nanstd(group_pat_pre_AMP_noise)
-GroupStdev.HC_ALLCONDS.pre_AMP_noiseWTstdev=nanstd(group_HC_pre_AMP_noise)
-GroupStdev.pat_ALLCONDS.post_AMP_noiseWTstdev=nanstd(group_pat_post_AMP_noise)
-GroupStdev.HC_ALLCONDS.post_AMP_noiseWTstdev=nanstd(group_HC_post_AMP_noise)
-GroupSEM.HC_ALLCONDS.pre_AMP_noiseWTstdev=GroupStdev.HC_ALLCONDS.pre_AMP_noiseWTstdev/sqrt(length(GroupStdev.HC_ALLCONDS.pre_AMP_noiseWTstdev)) % standard error of the mean
-GroupSEM.HC_ALLCONDS.post_AMP_noiseWTstdev=GroupStdev.HC_ALLCONDS.post_AMP_noiseWTstdev/sqrt(length(GroupStdev.HC_ALLCONDS.post_AMP_noiseWTstdev)) % standard error of the mean
-GroupSEM.pat_ALLCONDS.pre_AMP_noiseWTstdev=GroupStdev.pat_ALLCONDS.pre_AMP_noiseWTstdev/sqrt(length(GroupStdev.pat_ALLCONDS.pre_AMP_noiseWTstdev)) % standard error of the mean
-GroupSEM.pat_ALLCONDS.post_AMP_noiseWTstdev=GroupStdev.pat_ALLCONDS.post_AMP_noiseWTstdev/sqrt(length(GroupStdev.pat_ALLCONDS.post_AMP_noiseWTstdev)) % standard error of the mean
+GroupMeans.pat_ALLCONDS.pre_AMP_WTstdev_noise =nanmean(group_pat_pre_AMP_noise);
+GroupMeans.HC_ALLCONDS.pre_AMP_noiseWTstdev=nanmean(group_HC_pre_AMP_noise);
+GroupMeans.pat_ALLCONDS.post_AMP_noiseWTstdev=nanmean(group_pat_post_AMP_noise);
+GroupMeans.HC_ALLCONDS.post_AMP_noiseWTstdev=nanmean(group_HC_post_AMP_noise);
+GroupStdev.pat_ALLCONDS.pre_AMP_noiseWTstdev=nanstd(group_pat_pre_AMP_noise);
+GroupStdev.HC_ALLCONDS.pre_AMP_noiseWTstdev=nanstd(group_HC_pre_AMP_noise);
+GroupStdev.pat_ALLCONDS.post_AMP_noiseWTstdev=nanstd(group_pat_post_AMP_noise);
+GroupStdev.HC_ALLCONDS.post_AMP_noiseWTstdev=nanstd(group_HC_post_AMP_noise);
+GroupSEM.HC_ALLCONDS.pre_AMP_noiseWTstdev=GroupStdev.HC_ALLCONDS.pre_AMP_noiseWTstdev/sqrt(length(GroupStdev.HC_ALLCONDS.pre_AMP_noiseWTstdev)); % standard error of the mean
+GroupSEM.HC_ALLCONDS.post_AMP_noiseWTstdev=GroupStdev.HC_ALLCONDS.post_AMP_noiseWTstdev/sqrt(length(GroupStdev.HC_ALLCONDS.post_AMP_noiseWTstdev)); % standard error of the mean
+GroupSEM.pat_ALLCONDS.pre_AMP_noiseWTstdev=GroupStdev.pat_ALLCONDS.pre_AMP_noiseWTstdev/sqrt(length(GroupStdev.pat_ALLCONDS.pre_AMP_noiseWTstdev)) ;% standard error of the mean
+GroupSEM.pat_ALLCONDS.post_AMP_noiseWTstdev=GroupStdev.pat_ALLCONDS.post_AMP_noiseWTstdev/sqrt(length(GroupStdev.pat_ALLCONDS.post_AMP_noiseWTstdev)) ;% standard error of the mean
 
+% plot WT data
+figure
+whitebg('white')
+annotation('textbox', [0 0.9 1 0.1], ...
+    'String', 'WT Pitch variability across groups', ...
+    'EdgeColor', 'none', ...
+    'HorizontalAlignment', 'center')
+y_pitch2=[GroupMeans.HC_ALLCONDS.pre_pitchWTstdev_clear GroupMeans.HC_ALLCONDS.pre_pitchWTstdev_noise; ...
+    GroupMeans.pat_ALLCONDS.pre_pitchWTstdev_clear GroupMeans.pat_ALLCONDS.pre_pitchWTstdev_noise];
+
+errY2 = [GroupStdev.HC_ALLCONDS.pre_pitchWTstdev_clear GroupStdev.HC_ALLCONDS.pre_pitchWTstdev_noise; ...
+    GroupStdev.pat_ALLCONDS.pre_pitchWTstdev_clear GroupStdev.pat_ALLCONDS.pre_pitchWTstdev_noise];
+
+h = barwitherr(errY2, y_pitch2);% Plot with errorbars
+
+set(gca,'XTickLabel',{'Controls','Patients'})
+ylabel('Pitch Variability')
+set(h(1),'FaceColor',clear_colour,'EdgeColor', clear_colour ,'LineWidth',1.5);
+set(h(2),'FaceColor',masked_colour,'EdgeColor', masked_colour ,'LineWidth',1.5);
+goodplot
+
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Cereb_data/data_final_run/figures/Group WT Stdev_bar.pdf');
+
+GroupMeans.pat_ALLCONDS.pre_pitchWTstdev_clear
 
 save /Users/zagnew/Cereb_data/data_final_run/GroupData/stats/WTstdev_groupmeans GroupMeans 
 save /Users/zagnew/Cereb_data/data_final_run/GroupData/stats/WTstdev_groupstdev GroupStdev 

@@ -2,6 +2,8 @@
 
 % dock all figures
 set(0,'DefaultFigureWindowStyle','docked');
+% cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data_2016/';
+
 cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data_final_run/';
 stats_dir = '/Users/zagnew/Cereb_data/data_final_run/GroupData/stats/';
 
@@ -32,6 +34,8 @@ seconds_per_trial_req = 4.0;
 nframes_per_trial = round(seconds_per_trial_req*frame_rate);
 seconds_per_trial = nframes_per_trial/frame_rate;
 step_time=stepframe/frame_fs;
+
+% seconds_per_trial_pitchpert = length(controls_mean)/frame_rate;
 
 
 %% create targets
@@ -237,7 +241,9 @@ z_colours;
 % frame to seconds
  frame_num=413;
  framestosecs=(frame_num)/frame_fs;
-
+ 
+ 
+ 
 %% Experimental info for reference:
 % http://members.efn.org/~qehn/global/building/cents.htm
 %     1 - Clear small up

@@ -42,7 +42,6 @@ meandist_anova.posthoctests=multcompare(meandist_anova.stats)
 save /Users/zagnew/Cereb_data/data_final_run/GroupData/stats/meandist_anova_clearvnoise meandist_anova
 
 
-
 %% anova with all condition  modeled separately
 conditionlength=1111;
 grouplength=1111*10;
@@ -73,7 +72,43 @@ meandist_anova.group3=[cond];
 
 save /Users/zagnew/Cereb_data/data_final_run/GroupData/stats/meandist_anova_allconds meandist_anova
 
-%% early and late windows
+%% early and late windows anova
 
-distfromtarg_HCs_WT
+% distfromtarg_HCs_clear_EW=nanmean(distfromtarg_HCs_WT(1:5,170:471));
+% distfromtarg_HCs_clear_LW=nanmean(distfromtarg_HCs_WT(1:5,472:942));
+% distfromtarg_HCs_masked_EW=nanmean(distfromtarg_HCs_WT(6:10,170:471));
+% distfromtarg_HCs_masked_LW=nanmean(distfromtarg_HCs_WT(6:10,472:942));
+% 
+% distfromtarg_pats_clear_EW=nanmean(distfromtarg_pats_WT(1:5,170:471));
+% distfromtarg_pats_clear_LW=nanmean(distfromtarg_pats_WT(1:5,472:942));
+% distfromtarg_pats_masked_EW=nanmean(distfromtarg_pats_WT(6:10,170:471));
+% distfromtarg_pats_masked_LW=nanmean(distfromtarg_pats_WT(6:10,472:942));
+
+anovandata_distfrommean_EWLW=[...
+    distfromtarg_HCs_clear_EW distfromtarg_HCs_clear_LW distfromtarg_HCs_masked_EW distfromtarg_HCs_masked_LW ...
+    distfromtarg_pats_clear_EW distfromtarg_pats_clear_LW distfromtarg_pats_masked_EW distfromtarg_pats_masked_LW];
+
+group1=ones(1, 1544);
+group2=group1*2;
+group=[group1 group2];
+
+clear cond
+cond1=ones(1,772)
+cond2=cond1*2
+cond=[cond1 cond2 cond1 cond2];
+
+wind1=ones(1,length(distfromtarg_HCs_clear_EW))
+wind2=wind1*2
+window=[wind1 wind2 wind1 wind2 wind1 wind2 wind1 wind2];
+
+meandist_EWLW_anova.group1=[group];
+meandist_EWLW_anova.group2=[cond];
+meandist_EWLW_anova.group3=[window];
+
+[meandist_EWLW_anova.p_full,meandist_EWLW_anova.table,meandist_EWLW_anova.stats,meandist_EWLW_anova.terms] = ...
+    anovan(anovandata_distfrommean_EWLW,{meandist_EWLW_anova.group1 meandist_EWLW_anova.group2 meandist_EWLW_anova.group3}, 'interaction')
+
+save /Users/zagnew/Cereb_data/data_final_run/GroupData/stats/meandist_EWLW_anova
+
+
 

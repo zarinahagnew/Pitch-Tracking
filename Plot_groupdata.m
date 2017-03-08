@@ -180,81 +180,6 @@ goodplot
 
 print(gcf, '-dpdf', '-r150', '/Users/zagnew/Cereb_data/data_final_run/figures/Fig2_with sems.pdf');
 
-%% calulate distfromtarg early and late windows ---------------------------
-distfromtarg_HCs_clear_EW=nanmean(distfromtarg_HCs_WT(1:5,170:555));
-distfromtarg_HCs_clear_LW=nanmean(distfromtarg_HCs_WT(1:5,557:942));
-distfromtarg_HCs_masked_EW=nanmean(distfromtarg_HCs_WT(6:10,170:555));
-distfromtarg_HCs_masked_LW=nanmean(distfromtarg_HCs_WT(6:10,557:942));
-
-distfromtarg_pats_clear_EW=nanmean(distfromtarg_pats_WT(1:5,170:555));
-distfromtarg_pats_clear_LW=nanmean(distfromtarg_pats_WT(1:5,557:942));
-distfromtarg_pats_masked_EW=nanmean(distfromtarg_pats_WT(6:10,170:555));
-distfromtarg_pats_masked_LW=nanmean(distfromtarg_pats_WT(6:10,557:942));
-
-%calc means
-distfromtarg_HCs_EW_clear_mean=nanmean(distfromtarg_HCs_clear_EW);
-distfromtarg_HCs_LW_clear_mean=nanmean(distfromtarg_HCs_clear_LW);
-distfromtarg_HCs_EW_masked_mean=nanmean(distfromtarg_HCs_masked_EW);
-distfromtarg_HCs_LW_masked_mean=nanmean(distfromtarg_HCs_masked_LW);
-
-distfromtarg_pats_EW_clear_mean=nanmean(distfromtarg_pats_clear_EW);
-distfromtarg_pats_LW_clear_mean=nanmean(distfromtarg_pats_clear_LW);
-distfromtarg_pats_EW_masked_mean=nanmean(distfromtarg_pats_masked_EW);
-distfromtarg_pats_LW_masked_mean=nanmean(distfromtarg_pats_masked_LW);
-
-% calc sems
-distfromtarg_HCs_EW_clear_sem=nanstd(distfromtarg_HCs_clear_EW)/sqrt(length(distfromtarg_HCs_clear_EW));
-distfromtarg_HCs_LW_clear_sem=nanstd(distfromtarg_HCs_clear_LW)/sqrt(length(distfromtarg_HCs_clear_LW));
-distfromtarg_HCs_EW_masked_sem=nanstd(distfromtarg_HCs_masked_EW)/sqrt(length(distfromtarg_HCs_masked_EW));
-distfromtarg_HCs_LW_masked_sem=nanstd(distfromtarg_HCs_masked_LW)/sqrt(length(distfromtarg_HCs_masked_LW));
-
-distfromtarg_pats_EW_clear_sem=nanstd(distfromtarg_pats_clear_EW)/sqrt(length(distfromtarg_pats_clear_EW));
-distfromtarg_pats_LW_clear_sem=nanstd(distfromtarg_pats_clear_LW)/sqrt(length(distfromtarg_pats_clear_LW));
-distfromtarg_pats_EW_masked_sem=nanstd(distfromtarg_pats_masked_EW)/sqrt(length(distfromtarg_pats_masked_EW));
-distfromtarg_pats_LW_masked_sem=nanstd(distfromtarg_pats_masked_LW)/sqrt(length(distfromtarg_pats_masked_LW));
-
-% plot bar 
-figure
-subplot(141)
-whitebg('white')
-annotation('textbox', [0 0.9 1 0.1], ...
-    'String', 'Distance from target EW LW', ...
-    'EdgeColor', 'none', ...
-    'HorizontalAlignment', 'center')
-y_pitch_distfromtarg1=[distfromtarg_HCs_EW_clear_mean ;distfromtarg_HCs_EW_masked_mean];% ; distfromtarg_pats_EW_clear_mean distfromtarg_pats_EW_masked_mean];
-errY1 = [distfromtarg_HCs_EW_clear_sem; distfromtarg_HCs_EW_masked_sem]% ; distfromtarg_pats_EW_clear_sem distfromtarg_pats_EW_masked_sem];
-
-h = barwitherr(errY1, y_pitch_distfromtarg1);% Plot with errorbars
-set(h(1),'FaceColor', bigdown_gs,'EdgeColor', bigdown_gs ,'LineWidth',1.5);
-goodplot
-axis([0 3 0 180])
-
-subplot(142)
-whitebg('white')
-y_pitch_distfromtarg2=[distfromtarg_pats_EW_clear_mean distfromtarg_pats_EW_masked_mean];
-errY2 = [distfromtarg_pats_EW_clear_sem distfromtarg_pats_EW_masked_sem];
-h = barwitherr(errY2, y_pitch_distfromtarg2);% Plot with errorbars
-set(h(1),'FaceColor', bigup_gs,'EdgeColor', bigup_gs ,'LineWidth',1.5);
-goodplot
-axis([0 3 0 180])
-
-subplot(143)
-y_pitch_distfromtarg3=[distfromtarg_HCs_LW_clear_mean distfromtarg_HCs_LW_masked_mean];% ; distfromtarg_pats_LW_clear_mean distfromtarg_pats_LW_masked_mean];
-errY3 = [distfromtarg_HCs_LW_clear_sem distfromtarg_HCs_LW_masked_sem]; % ; distfromtarg_pats_LW_clear_sem distfromtarg_pats_LW_masked_sem];
-h = barwitherr(errY3, y_pitch_distfromtarg3);% Plot with errorbars
-set(h(1),'FaceColor',bigdown_gs,'EdgeColor', bigdown_gs ,'LineWidth',1.5);
-goodplot
-axis([0 3 0 180])
-
-subplot(144)
-y_pitch_distfromtarg4=[distfromtarg_pats_LW_clear_mean distfromtarg_pats_LW_masked_mean];
-errY4 = [distfromtarg_pats_LW_clear_sem distfromtarg_pats_LW_masked_sem];
-h = barwitherr(errY4, y_pitch_distfromtarg4);% Plot with errorbars
-set(h(1),'FaceColor',bigup_gs,'EdgeColor', bigup_gs ,'LineWidth',1.5);
-goodplot
-axis([0 3 0 180])
-
-print(gcf, '-dpdf', '-r150', '/Users/zagnew/Cereb_data/data_final_run/figures/DistfromTarg_EWLW.pdf');
 
 %% Fig 2 Mean complex variablity
 % -------------------------------------------------------------------------
@@ -367,15 +292,87 @@ end
 
 print(gcf, '-dpdf', '-r150', '/Users/zagnew/Cereb_data/data_final_run/figures/distance_from_targets.pdf');
 
+%% calulate distfromtarg early and late windows ---------------------------
+distfromtarg_HCs_clear_EW=nanmean(distfromtarg_HCs_WT(1:5,170:555));
+distfromtarg_HCs_clear_LW=nanmean(distfromtarg_HCs_WT(1:5,557:942));
+distfromtarg_HCs_masked_EW=nanmean(distfromtarg_HCs_WT(6:10,170:555));
+distfromtarg_HCs_masked_LW=nanmean(distfromtarg_HCs_WT(6:10,557:942));
+
+distfromtarg_pats_clear_EW=nanmean(distfromtarg_pats_WT(1:5,170:555));
+distfromtarg_pats_clear_LW=nanmean(distfromtarg_pats_WT(1:5,557:942));
+distfromtarg_pats_masked_EW=nanmean(distfromtarg_pats_WT(6:10,170:555));
+distfromtarg_pats_masked_LW=nanmean(distfromtarg_pats_WT(6:10,557:942));
+
+%calc means
+distfromtarg_HCs_EW_clear_mean=nanmean(distfromtarg_HCs_clear_EW);
+distfromtarg_HCs_LW_clear_mean=nanmean(distfromtarg_HCs_clear_LW);
+distfromtarg_HCs_EW_masked_mean=nanmean(distfromtarg_HCs_masked_EW);
+distfromtarg_HCs_LW_masked_mean=nanmean(distfromtarg_HCs_masked_LW);
+
+distfromtarg_pats_EW_clear_mean=nanmean(distfromtarg_pats_clear_EW);
+distfromtarg_pats_LW_clear_mean=nanmean(distfromtarg_pats_clear_LW);
+distfromtarg_pats_EW_masked_mean=nanmean(distfromtarg_pats_masked_EW);
+distfromtarg_pats_LW_masked_mean=nanmean(distfromtarg_pats_masked_LW);
+
+% calc sems
+distfromtarg_HCs_EW_clear_sem=nanstd(distfromtarg_HCs_clear_EW)/sqrt(length(distfromtarg_HCs_clear_EW));
+distfromtarg_HCs_LW_clear_sem=nanstd(distfromtarg_HCs_clear_LW)/sqrt(length(distfromtarg_HCs_clear_LW));
+distfromtarg_HCs_EW_masked_sem=nanstd(distfromtarg_HCs_masked_EW)/sqrt(length(distfromtarg_HCs_masked_EW));
+distfromtarg_HCs_LW_masked_sem=nanstd(distfromtarg_HCs_masked_LW)/sqrt(length(distfromtarg_HCs_masked_LW));
+
+distfromtarg_pats_EW_clear_sem=nanstd(distfromtarg_pats_clear_EW)/sqrt(length(distfromtarg_pats_clear_EW));
+distfromtarg_pats_LW_clear_sem=nanstd(distfromtarg_pats_clear_LW)/sqrt(length(distfromtarg_pats_clear_LW));
+distfromtarg_pats_EW_masked_sem=nanstd(distfromtarg_pats_masked_EW)/sqrt(length(distfromtarg_pats_masked_EW));
+distfromtarg_pats_LW_masked_sem=nanstd(distfromtarg_pats_masked_LW)/sqrt(length(distfromtarg_pats_masked_LW));
+
+
+
+
+
+% plot bar 
+figure
+subplot(141)
+whitebg('white')
+annotation('textbox', [0 0.9 1 0.1], ...
+    'String', 'Distance from target EW LW', ...
+    'EdgeColor', 'none', ...
+    'HorizontalAlignment', 'center')
+y_pitch_distfromtarg1=[distfromtarg_HCs_EW_clear_mean ;distfromtarg_HCs_EW_masked_mean];% ; distfromtarg_pats_EW_clear_mean distfromtarg_pats_EW_masked_mean];
+errY1 = [distfromtarg_HCs_EW_clear_sem; distfromtarg_HCs_EW_masked_sem]% ; distfromtarg_pats_EW_clear_sem distfromtarg_pats_EW_masked_sem];
+
+h = barwitherr(errY1, y_pitch_distfromtarg1);% Plot with errorbars
+set(h(1),'FaceColor', bigdown_gs,'EdgeColor', bigdown_gs ,'LineWidth',1.5);
+goodplot
+axis([0 3 0 180])
+
+subplot(142)
+whitebg('white')
+y_pitch_distfromtarg2=[distfromtarg_pats_EW_clear_mean distfromtarg_pats_EW_masked_mean];
+errY2 = [distfromtarg_pats_EW_clear_sem distfromtarg_pats_EW_masked_sem];
+h = barwitherr(errY2, y_pitch_distfromtarg2);% Plot with errorbars
+set(h(1),'FaceColor', bigup_gs,'EdgeColor', bigup_gs ,'LineWidth',1.5);
+goodplot
+axis([0 3 0 180])
+
+subplot(143)
+y_pitch_distfromtarg3=[distfromtarg_HCs_LW_clear_mean distfromtarg_HCs_LW_masked_mean];% ; distfromtarg_pats_LW_clear_mean distfromtarg_pats_LW_masked_mean];
+errY3 = [distfromtarg_HCs_LW_clear_sem distfromtarg_HCs_LW_masked_sem]; % ; distfromtarg_pats_LW_clear_sem distfromtarg_pats_LW_masked_sem];
+h = barwitherr(errY3, y_pitch_distfromtarg3);% Plot with errorbars
+set(h(1),'FaceColor',bigdown_gs,'EdgeColor', bigdown_gs ,'LineWidth',1.5);
+goodplot
+axis([0 3 0 180])
+
+subplot(144)
+y_pitch_distfromtarg4=[distfromtarg_pats_LW_clear_mean distfromtarg_pats_LW_masked_mean];
+errY4 = [distfromtarg_pats_LW_clear_sem distfromtarg_pats_LW_masked_sem];
+h = barwitherr(errY4, y_pitch_distfromtarg4);% Plot with errorbars
+set(h(1),'FaceColor',bigup_gs,'EdgeColor', bigup_gs ,'LineWidth',1.5);
+goodplot
+axis([0 3 0 180])
+
+print(gcf, '-dpdf', '-r150', '/Users/zagnew/Cereb_data/data_final_run/figures/DistfromTarg_EWLW.pdf');
 
 %% anova on distance data
-
-
-% ttest for each plot
-% 
-% for i=1:length*distfromtarg_pats_WT(trial,:))
-%     ttest2(distfromtarg_pats_WT(1,i),(distfromtarg_HCs_WT(1,i)) 
-
 
 %% plot bar graph
 hc_clear=nanmean([distfromtarg_HCs_WT(1,:) distfromtarg_HCs_WT(2,:) ...
@@ -499,21 +496,21 @@ save('GROUPDATA')
 anova_distancefrommean;
 
 %% save data for R repeated measures anova
-cd data-for-r
-for isubj=1:13
-filename = [ 'cereb_prt_diff_' num2str(isubj) '.txt' ];
-dlmwrite(filename,gp.cereb_diff_eachsub(isubj,:)')
-filename_sham = [ 'sham_prt_diff_' num2str(isubj) '.txt' ];
-dlmwrite(filename_sham,gp.sham_diff_eachsub(isubj,:)')
-end
-
-
-for isubj=1:13
-filename = [ 'cereb_prt_diff_horiz' num2str(isubj) '.txt' ];
-dlmwrite(filename,gp.cereb_diff_eachsub(isubj,:))
-filename_sham = [ 'sham_prt_diff_horiz_' num2str(isubj) '.txt' ];
-dlmwrite(filename_sham,gp.sham_diff_eachsub(isubj,:))
-end
-
-cd ..
+% cd data-for-r
+% for isubj=1:13
+% filename = [ 'cereb_prt_diff_' num2str(isubj) '.txt' ];
+% dlmwrite(filename,gp.cereb_diff_eachsub(isubj,:)')
+% filename_sham = [ 'sham_prt_diff_' num2str(isubj) '.txt' ];
+% dlmwrite(filename_sham,gp.sham_diff_eachsub(isubj,:)')
+% end
+% 
+% 
+% for isubj=1:13
+% filename = [ 'cereb_prt_diff_horiz' num2str(isubj) '.txt' ];
+% dlmwrite(filename,gp.cereb_diff_eachsub(isubj,:))
+% filename_sham = [ 'sham_prt_diff_horiz_' num2str(isubj) '.txt' ];
+% dlmwrite(filename_sham,gp.sham_diff_eachsub(isubj,:))
+% end
+% 
+% cd ..
 

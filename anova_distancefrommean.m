@@ -1,10 +1,9 @@
 
-
-
 %% anova with each subject mean distance clear vs masked trials
+% called by PlotGroupData.m
 
+%anova 1. 
 anovandata_distfrommean=[reshape(distfromtarg_HCs_WT,[1, 11110]), reshape(distfromtarg_pats_WT,[1, 11110])];        
-
 conditionlength=1111*5;
 grouplength=1111*10;
 
@@ -92,6 +91,11 @@ group1=ones(1, 1544);
 group2=group1*2;
 group=[group1 group2];
 
+subjs=ones(1, 386)
+subjs2=subjs*2
+
+subjects = [subjs subjs subjs subjs subjs2 subjs2 subjs2 subjs2];
+
 clear cond
 cond1=ones(1,772)
 cond2=cond1*2
@@ -104,11 +108,32 @@ window=[wind1 wind2 wind1 wind2 wind1 wind2 wind1 wind2];
 meandist_EWLW_anova.group1=[group];
 meandist_EWLW_anova.group2=[cond];
 meandist_EWLW_anova.group3=[window];
+meandist_EWLW_anova.group4=[subjects];
 
+% straight up interactions
 [meandist_EWLW_anova.p_full,meandist_EWLW_anova.table,meandist_EWLW_anova.stats,meandist_EWLW_anova.terms] = ...
-    anovan(anovandata_distfrommean_EWLW,{meandist_EWLW_anova.group1 meandist_EWLW_anova.group2 meandist_EWLW_anova.group3}, 'interaction')
+anovan(anovandata_distfrommean_EWLW,{meandist_EWLW_anova.group1 meandist_EWLW_anova.group2 meandist_EWLW_anova.group3},'model',3,'varnames',{'group','condition','time window'})
+
+% post hoc test
+meandist_EWLW_anova.results = multcompare(meandist_EWLW_anova.stats,'Dimension',[1 2 3])
+multcompare(meandist_EWLW_anova.stats)
+
+[c, m, h, nms]=multcompare(meandist_EWLW_anova.stats, 'alpha', 0.05,'ctype','bonferroni')
+multcompare(meandist_EWLW_anova.stats, 'alpha', 0.05,'ctype','hsd')
+multcompare(meandist_EWLW_anova.stats, 'alpha', 0.05,'ctype','tukey-kramer')
+
+
 
 save /Users/zagnew/Cereb_data/data_final_run/GroupData/stats/meandist_EWLW_anova
 
+
+% % % subject as random factor
+% % anovan(anovandata_distfrommean_EWLW,{meandist_EWLW_anova.group1 meandist_EWLW_anova.group2 meandist_EWLW_anova.group3,meandist_EWLW_anova.group4},'model',2, 'random',4,'varnames',{'group','condition','time window', 'subjects'})
+% % anovan(anovandata_distfrommean_EWLW,{meandist_EWLW_anova.group1 meandist_EWLW_anova.group2 meandist_EWLW_anova.group3},'model',2, 'random',3,'varnames',{'group','condition','time window'})
+% [meandist_EWLW_anova.p_full,meandist_EWLW_anova.table,meandist_EWLW_anova.stats,meandist_EWLW_anova.terms] = ...
+% anovan(anovandata_distfrommean_EWLW,{meandist_EWLW_anova.group1 meandist_EWLW_anova.group2 meandist_EWLW_anova.group3},'model',2,'varnames',{'group','condition','time window'})
+% 
+
+%anovatbl = anova(anovandata_distfrommean_EWLW,'WithinModel',WM)
 
 

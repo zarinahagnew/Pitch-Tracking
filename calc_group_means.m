@@ -433,6 +433,16 @@ highfreqvar_anova.group2=[condition];
 
 display 'first anova is the interaction for high freq variab'
 save /Users/zagnew/Cereb_data/data_final_run/GroupData/stats/highfreqvar_anova highfreqvar_anova
+save /Users/zagnew/Cereb_data/data_final_run/GroupData/highfreqdata
+
+
+
+% export
+
+HC.cond(1,:)
+
+
+
 
 
 

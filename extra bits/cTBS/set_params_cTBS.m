@@ -14,6 +14,13 @@ npatients = npatients + 1;
 patient_info{npatients}.exprdir = 'cereb_TMS_post_data/s05_post_pitchtracking/expr2015.07.02.T16.12.52/speak/';
 
 
+set(0,'DefaultFigureWindowStyle','docked');
+addpath('/Users/zagnew/GitHub/Pitch-Pert/cTBS_pitchpert/')
+z_colours;
+
+numsubs_1=13;
+numsubs_2=10;
+
 
 
 % pitch stuff
@@ -177,8 +184,6 @@ stdev_cutoff_wholetrial_amp_HCs= 500000000;
 % stdev_cutoff_post_amp_HCs= 8.5181e+07;
 % stdev_cutoff_wholetrial_amp_HCs=5.5091e+08;
 
-
-
 perf_thresh_pos=100;
 perf_thresh_neg=-100;
 
@@ -233,11 +238,7 @@ forstdev_HCs=numHCs*8;
 forstdev_PATs=numpats*8;
 
 %% for ploting graphs
-%patient_colour=[.49 1 .63];
 patient_colour='r';
 HC_colour='k';
-% HC_colour=[.4 .4 .4];
 sig_colour=[.3 .3 .8];
 
-
-% 'Color',[HC_colour]

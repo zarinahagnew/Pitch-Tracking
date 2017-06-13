@@ -1,22 +1,9 @@
 set_params_pitchtracking
 cd /Users/zagnew/Cereb_data/data_final_run
 load DATA; 
-load DATA_TO_USE
+load DATA_TO_USE;
+
 DATA=DATA_TO_USE
-% 
-% for isubj=1:18
-%     figure
-%     for icond=1:10
-%         subplot(2,5,icond)
-%         plot(frame_taxis(1:1360),DATA(isubj).cond(icond).distfromtarg_WT)
-%         axis([0 4 -100 1000])
-%         goodplot
-%     end
-% %     pause
-% %     close
-% end
-
-
 
 % create early and late time windows
 start_EW=stepframe;
@@ -28,13 +15,18 @@ framestosecs=(frame_num)/frame_fs;
 
 % plot time windows
 figure
+whitebg('white')
+annotation('textbox', [0 0.9 1 0.1], ...
+    'String', 'Time Windows', ...
+    'EdgeColor', 'none', ...
+    'HorizontalAlignment', 'center')
 line1=zeros(1,1360); 
 line1(start_EW:end_EW)= 1;
 line1(start_LW:end_LW)= 2;
 line1=line1*100;
-plot(frame_taxis(1:1360),line1, 'm')
+plot(frame_taxis(1:1360),line1, 'm','LineWidth',1.5);
 axis([0 4 0 300])
-
+goodplot
 
 % remove infs and replace with nans
 for isubj=1:length(allincluded)
@@ -113,9 +105,7 @@ end
 % % end
 
 
-
-
-%% calc means for E and LW
+%% calc means for early and late windows
 for isubj=1:length(allincluded)
     EW_distfromtarg_clear(isubj)=nanmean(EW_distfromtarg(isubj).cond(1:5));
     EW_distfromtarg_noise(isubj)=nanmean(EW_distfromtarg(isubj).cond(6:10));
@@ -278,51 +268,41 @@ print(gcf, '-dpdf', '-r150', '/Users/zagnew/Cereb_data/data_final_run/figures/Di
 
 
 
-
-
-
-
 %% anova
 anovandata_distfromtarg=[...
     EW_distfromtarg_clear(1:numpats) EW_distfromtarg_noise(1:numpats) LW_distfromtarg_clear(1:numpats) LW_distfromtarg_noise(1:numpats) ...
     EW_distfromtarg_clear(numpats+1:end) EW_distfromtarg_noise(numpats+1:end) LW_distfromtarg_clear(numpats+1:end) LW_distfromtarg_noise(numpats+1:end)];
-
-%create condition group
+%create groups
 condition=[ones(1,10) ones(1,10)*2 ones(1,10) ones(1,10)*2 ones(1,8) ones(1,8)*2 ones(1,8) ones(1,8)*2];
-
-% create timewindow group
 timewindow=[ones(1,10) ones(1,10) ones(1,10)*2 ones(1,10)*2 ones(1,8) ones(1,8) ones(1,8)*2 ones(1,8)*2];
-
-% create group group
 group=[ones(1,40) ones(1,8*4)*2]; 
-
 distfromtarg.factor1_condition=[condition];
 distfromtarg.factor2_timewindows=[timewindow];
 distfromtarg.factor3_group=[group];
 
-[distfromtarg.p_interaction,distfromtarg.table,distfromtarg.stats,distfromtarg.terms]= anovan(anovandata_distfromtarg,{distfromtarg.factor1_condition distfromtarg.factor2_timewindows distfromtarg.factor3_group},'full')
+% [distfromtarg.p_interaction,distfromtarg.table,distfromtarg.stats,distfromtarg.terms]= ...
+%     anovan(anovandata_distfromtarg,{distfromtarg.factor1_condition distfromtarg.factor2_timewindows distfromtarg.factor3_group},'model','interaction', 'varnames', {'condition','timewindow','group'})
+
+[distfromtarg.p_interaction,distfromtarg.table,distfromtarg.stats,distfromtarg.terms]= anovan(anovandata_distfromtarg,{distfromtarg.factor1_condition distfromtarg.factor2_timewindows distfromtarg.factor3_group},'model','interaction', 'varnames', {'condition','timewindow','group'})
 
 save /Users/zagnew/Cereb_data/data_final_run/GroupData/stats/distfromtarg distfromtarg
 
 
-%% withing group anova
+%% within group anova - controls only
 anovandata_distfromtarg_controls=[EW_distfromtarg_clear(numpats+1:end) EW_distfromtarg_noise(numpats+1:end) LW_distfromtarg_clear(numpats+1:end) LW_distfromtarg_noise(numpats+1:end)];
 
-%create condition group
+%create condition
 condition=[ones(1,8) ones(1,8)*2]
 condition=[condition condition]
-
-% create timewindow group
 timewindow=[ones(1,16) ones(1,16)*2];
-
 distfromtarg_controls.factor1_condition=[condition];
 distfromtarg_controls.factor2_timewindows=[timewindow];
 
 [distfromtarg_controls.p_interaction,distfromtarg_controls.table,distfromtarg_controls.stats,distfromtarg.terms]= ...
-    anovan(anovandata_distfromtarg_controls,{distfromtarg_controls.factor1_condition distfromtarg_controls.factor2_timewindows},'full')
+    anovan(anovandata_distfromtarg_controls,{distfromtarg_controls.factor1_condition distfromtarg_controls.factor2_timewindows},'model','full', 'varnames',{'condition','timewindow'})
 
 save /Users/zagnew/Cereb_data/data_final_run/GroupData/stats/distfromtarg_controls distfromtarg_controls
 
 
-ttest2=
+
 

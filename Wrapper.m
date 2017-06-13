@@ -51,6 +51,13 @@ Groupanalysis;
 % does anovas for WTdev both using indivdual subject data, and on means. 
 % runs anovas for high freq var in calc_group_means.m
 % calculates mean distance from targ
+% plotWTstdev_1;
+% plot_mean_WTstd_final_1;
+% anova_mean_WTstdev_final_1; % runs anova on individual subject means
+% anova_mean_WTstdev_final_2; % runs anova on subject and patient group data
+% calc group distance from target and plots that in calcmeandistfromtarg_1;
+% Plot_groupdata which includes HFV anova
+% anova_distancefrommean;
 
 numtrials; 
 % counts number of good trials, and gaps and saves it in GroupData: 

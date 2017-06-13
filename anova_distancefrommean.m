@@ -2,6 +2,16 @@
 %% anova with each subject mean distance clear vs masked trials
 % called by PlotGroupData.m
 
+% ranovatbl = ranova(anovandata_distfrommean)
+% ranovatbl = ranova(anovandata_distfrommean,'WithinModel',WM)
+% [ranovatbl,A,C,D] = ranova(___)
+% 
+% 
+% WM=[ones(1,1111) (ones(1,1111))*2 (ones(1,1111))*3 (ones(1,1111))*4  (ones(1,1111))*5 ...
+%     (ones(1,1111))*6  (ones(1,1111))*7  (ones(1,1111))*8  (ones(1,1111))*9  (ones(1,1111))*10]
+% 
+% WM=[WM WM]
+
 %anova 1. 
 anovandata_distfrommean=[reshape(distfromtarg_HCs_WT,[1, 11110]), reshape(distfromtarg_pats_WT,[1, 11110])];        
 conditionlength=1111*5;
@@ -29,15 +39,11 @@ condition=condition';
 
 meandist_anova.group1=[group];
 meandist_anova.group2=[condition];
-%meandist_anova.group2=cond;
 
 [meandist_anova.p_full,meandist_anova.table,meandist_anova.stats,meandist_anova.terms] = ...
-    anovan(anovandata_distfrommean,{meandist_anova.group1 meandist_anova.group2}, 'interaction')
-
+    anovan(anovandata_distfrommean,{meandist_anova.group1 meandist_anova.group2},'model',3,'varnames',{'group','condition'})
 %results = multcompare(stats,'Dimension',[1 2])
-
 meandist_anova.posthoctests=multcompare(meandist_anova.stats)
-
 save /Users/zagnew/Cereb_data/data_final_run/GroupData/stats/meandist_anova_clearvnoise meandist_anova
 
 
@@ -67,7 +73,7 @@ meandist_anova.group1=[group];
 meandist_anova.group3=[cond];
 
 [meandist_anova_.p_full,meandist_anova.table,meandist_anova.stats,meandist_anova.terms] = ...
-    anovan(anovandata_distfrommean,{meandist_anova.group1 meandist_anova.group3}, 'interaction')
+    anovan(anovandata_distfrommean,{meandist_anova.group1 meandist_anova.group3},'model',3,'varnames',{'group','condition'})
 
 save /Users/zagnew/Cereb_data/data_final_run/GroupData/stats/meandist_anova_allconds meandist_anova
 

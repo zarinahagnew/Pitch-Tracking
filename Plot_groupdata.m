@@ -372,7 +372,6 @@ axis([0 3 0 180])
 
 print(gcf, '-dpdf', '-r150', '/Users/zagnew/Cereb_data/data_final_run/figures/DistfromTarg_EWLW.pdf');
 
-%% anova on distance data
 
 %% plot bar graph
 hc_clear=nanmean([distfromtarg_HCs_WT(1,:) distfromtarg_HCs_WT(2,:) ...

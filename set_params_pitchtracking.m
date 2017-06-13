@@ -1,9 +1,6 @@
 %% Sets parameters for all 
-
 % dock all figures
 set(0,'DefaultFigureWindowStyle','docked');
-% cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data_2016/';
-
 cerebellar_data_rootdir = '/Users/zagnew/Cereb_data/data_final_run/';
 stats_dir = '/Users/zagnew/Cereb_data/data_final_run/GroupData/stats/';
 

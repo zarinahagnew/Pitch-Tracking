@@ -4,7 +4,7 @@ for ipat=1:numpats
     group_cond1_pats(ipat,:)=DATA(ipat).mean_cond1_wholetrial(1,:);
     group_cond1_pats_pre(ipat,:)=DATA(ipat).mean_cond1_pre(1,:); 
     group_cond1_pats_post(ipat,:)=DATA(ipat).mean_cond1_post(1,:); 
-    % 
+    
     group_cond1_distfromtarg(ipat,:)=DATA(ipat).cond(1).distfromtarg_WT(1,:);
     
     group_cond2_pats(ipat,:)=DATA(ipat).mean_cond2_wholetrial(1,:);
@@ -22,23 +22,18 @@ for ipat=1:numpats
     group_cond5_pats(ipat,:)=DATA(ipat).mean_cond5_wholetrial(1,:);
     group_cond5_pats_pre(ipat,:)=DATA(ipat).mean_cond5_pre(1,:);
     group_cond5_pats_post(ipat,:)=DATA(ipat).mean_cond5_post(1,:); 
-    
     group_cond6_pats(ipat,:)=DATA(ipat).mean_cond6_wholetrial(1,:);
     group_cond6_pats_pre(ipat,:)=DATA(ipat).mean_cond6_pre(1,:); 
     group_cond6_pats_post(ipat,:)=DATA(ipat).mean_cond6_post(1,:); 
-    
     group_cond7_pats(ipat,:)=DATA(ipat).mean_cond7_wholetrial(1,:);
     group_cond7_pats_pre(ipat,:)=DATA(ipat).mean_cond7_pre(1,:);
     group_cond7_pats_post(ipat,:)=DATA(ipat).mean_cond7_post(1,:); 
-
     group_cond8_pats(ipat,:)=DATA(ipat).mean_cond8_wholetrial(1,:);
     group_cond8_pats_pre(ipat,:)=DATA(ipat).mean_cond8_pre(1,:);
     group_cond8_pats_post(ipat,:)=DATA(ipat).mean_cond8_post(1,:); 
-    
     group_cond9_pats(ipat,:)=DATA(ipat).mean_cond9_wholetrial(1,:);
     group_cond9_pats_pre(ipat,:)=DATA(ipat).mean_cond9_pre(1,:);
     group_cond9_pats_post(ipat,:)=DATA(ipat).mean_cond9_post(1,:); 
-
     group_cond10_pats(ipat,:)=DATA(ipat).mean_cond10_wholetrial(1,:);
     group_cond10_pats_pre(ipat,:)=DATA(ipat).mean_cond10_pre(1,:);
     group_cond10_pats_post(ipat,:)=DATA(ipat).mean_cond10_post(1,:); 
@@ -424,28 +419,10 @@ condition=condition';
 
 highfreqvar_anova.group1=[subjectgroup];
 highfreqvar_anova.group2=[condition];
-[highfreqvar_anova.p_interaction,highfreqvar_anova.table,highfreqvar_anova.stats,highfreqvar_anova.terms]= ...
-    anovan(anovadata_high_freq_var,{highfreqvar_anova.group1 highfreqvar_anova.group2},'model','interaction')
 
 [highfreqvar_anova.p_interaction,highfreqvar_anova.table,highfreqvar_anova.stats,highfreqvar_anova.terms]= ...
-    anovan(anovadata_high_freq_var,{highfreqvar_anova.group1 highfreqvar_anova.group2},'full')
-
+    anovan(anovadata_high_freq_var,{highfreqvar_anova.group1 highfreqvar_anova.group2},'model',3,'varnames',{'group','condition'})
 
 display 'first anova is the interaction for high freq variab'
 save /Users/zagnew/Cereb_data/data_final_run/GroupData/stats/highfreqvar_anova highfreqvar_anova
 save /Users/zagnew/Cereb_data/data_final_run/GroupData/highfreqdata
-
-
-
-% export
-
-HC.cond(1,:)
-
-
-
-
-
-
-%% distance from target
-
-DATA

@@ -49,7 +49,10 @@ calcmeandistfromtarg_1;
 load GROUPDATA;
 % output from Plot_groupdata first
 
-Plot_groupdata
+Plot_groupdata; % includes HFV anova
+
+% [meandist_anova.p_full,meandist_anova.table,meandist_anova.stats,meandist_anova.terms] = ...
+%     anovan(anovandata_distfrommean,{meandist_anova.group1 meandist_anova.group2},'model',3,'varnames',{'group','condition'})
 
 anova_distancefrommean;
 

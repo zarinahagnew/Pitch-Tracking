@@ -22,15 +22,12 @@ numsubs_1=13;
 numsubs_2=10;
 
 
-
 % pitch stuff
 fs = 11025;
 pitch_lims = [80 300]; % sets pitch finding limits
 pitch_lims2plot = [50 300];
 shift_lims2plot = [-300 300];
         
-
-
 % load sub_total_goodtrial;
 %% EXP INFO
 fs = 11025;     
